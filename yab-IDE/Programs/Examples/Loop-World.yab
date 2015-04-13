@@ -1,0 +1,401 @@
+#!yab
+
+// Main background colors:
+r = 206 : g = 226 : b = 236
+
+// Open main window:
+window open 100, 250 to 600, 650, "MainView", "Loop-World"
+	window set "MainView", "flags","not-zoomable"
+	window set "MainView", "minimumto",500,400
+	window set "MainView", "maximumto",500,400
+	draw set "bgcolor", r, g, b, "MainView"
+	draw set "lowcolor", r-75, g-75, b-75, "MainView"
+	draw line 10, 365 to 490, 365, "MainView"
+	draw set "lowcolor", r+40, g+40, b+40, "MainView"
+	draw line 10, 366 to 490, 366, "MainView"
+	draw set "lowcolor", r, g, b, "MainView"
+	draw set "Swis721 BT, Bold, 14", "MainView"
+	draw text 10, 20, "Loop-World", "MainView"
+	draw text 200, 20, "Sourcecode:", "MainView"
+
+
+
+// make views inside the main window:
+view 0, 30 to 190, 360, "ExplainView", "MainView"
+	draw set "bgcolor", r, g, b, "ExplainView"
+	draw set "Swis721 BT, Roman, 10", "ExplainView"
+
+view 200, 30 to 490, 360, "SourceView", "MainView"
+	draw set "bgcolor", r+39, g+39, b+39, "SourceView"
+	draw set "Swis721 BT, Roman, 10", "SourceView"
+
+//draw text 10, 265, "Choose a kind of loop:", "MainView"
+button 10, 370 to 60, 390, "For_Loop_", "for/next", "MainView"
+button 65, 370 to 115, 390, "While_Loop_", "while", "MainView"
+button 120, 370 to 170, 390, "Do_Loop_", "do/loop", "MainView"
+button 175, 370 to 225, 390, "Sub_Loop_", "sub m(n)", "MainView"
+button 230, 370 to 280, 390, "Other_Loop_", "Other", "MainView"
+//button 285, 370 to 335, 390, "None_", "None", "MainView"
+button 345, 370 to 395, 390, "None_", "Back", "MainView"
+button 405, 370 to 490, 390, "Exec_", "Execute", "MainView"
+
+dim SourceLine$(20)
+ShowSource("none")
+
+// mainloop of the program:
+dim cmd$(1)
+inloop = true
+while (inloop)
+	msg$ = message$
+	if (split(msg$, cmd$(), ":|")  > 2) item$ = cmd$(2)
+
+	if (msg$ <> "") print msg$
+
+	switch msg$
+
+		case "For_Loop_|"
+			if (CurrentSource$ = "For_Loop") break
+			ShowSource("For_Loop")
+			break
+
+		case "While_Loop_|"
+			if (CurrentSource$ = "While_Loop") break
+			ShowSource("While_Loop")
+			break
+
+		case "Do_Loop_|"
+			if (CurrentSource$ = "Do_Loop") break
+			ShowSource("Do_Loop")
+			break
+
+		case "Sub_Loop_|"
+			if (CurrentSource$ = "Sub_Loop") break
+			ShowSource("Sub_Loop")
+			break
+
+		case "Other_Loop_|"
+			if (CurrentSource$ = "Other_Loop") break
+			ShowSource("Other_Loop")
+			break
+
+		case "None_|"
+			if (CurrentSource$ = "none") break
+			ShowSource("none")
+			break
+
+		case "Exec_|"
+			if (DemoWin = true) break
+			if (CurrentSource$ = "none") break
+			ExecSource(CurrentSource$)
+			break
+
+		case "Quit_|"
+		case "MainView:_QuitRequested|"
+			inloop = false
+			break
+		
+	end switch
+	sleep 0.01
+wend
+exit
+
+sub ShowSource(CurrSource$)
+	CurrentSource$ = CurrSource$
+	draw flush "SourceView"
+	draw flush "ExplainView"
+
+	draw text 5, 10, "#!yab", "SourceView"
+	draw text 5, 35, "window open 100, 100 to 200, 200, ''MainView'', ''Loop''", "SourceView"
+	draw text 5, 50, "window set ''MainView'', ''minimumto'',100,100", "SourceView"
+	draw text 5, 65, "window set ''MainView'', ''maximumto'',100,100", "SourceView"
+
+	if (CurrSource$ = "none") then
+		draw text 5, 10, "Welcome to LoopWorld!", "ExplainView"
+		draw text 5, 35, "This program will show you the different", "ExplainView"
+		draw text 5, 50, "kinds of loops in yab.", "ExplainView"
+		draw text 5, 75, "On the left you see the sourcecode", "ExplainView"
+		draw text 5, 90, "that is used in the examples.", "ExplainView"
+		draw text 5, 105, "Please see GUI-World(2), if you want to", "ExplainView"
+		draw text 5, 120, "know more about that code, as I won't", "ExplainView"
+		draw text 5, 135, "explain that here in Loop-World.", "ExplainView"
+		draw text 5, 160, "Each loop will run about 10 seconds", "ExplainView"
+		draw text 5, 175, "and show its loop number and its", "ExplainView"
+		draw text 5, 190, "name in the window.", "ExplainView"
+		draw text 5, 205, "Therefore I will simply execute the", "ExplainView"
+		draw text 5, 220, "whole sourcecode shown right.", "ExplainView"
+		draw text 5, 245, "Select the loop you want to know more", "ExplainView"
+		draw text 5, 260, "about with the buttons down right.", "ExplainView"
+		draw text 5, 285, "Note: While each loop is running", "ExplainView"
+		draw text 5, 300, "this main window will be blocked !", "ExplainView"
+
+		z = 1
+		SourceLine$(1) = "// the loop will appear here."
+	fi
+
+	if (CurrSource$ = "For_Loop") then
+		draw text 5, 10, "The 'for next' loop.", "ExplainView"
+
+		draw text 5, 35, "The 'for next' loop works in a defined", "ExplainView"
+		draw text 5, 50, "range that must be set.", "ExplainView"
+
+		draw text 5, 75, "This loop is counting the range from", "ExplainView"
+		draw text 5, 90, "the first to the last number.", "ExplainView"
+		draw text 5, 105, "For each count it puts the number into", "ExplainView"
+		draw text 5, 120, "the given variable and executes the lines", "ExplainView"
+		draw text 5, 135, "down to 'next'.", "ExplainView"
+
+		draw text 5, 160, "", "ExplainView"
+		draw text 5, 175, "", "ExplainView"
+		draw text 5, 190, "", "ExplainView"
+		draw text 5, 205, "", "ExplainView"
+		draw text 5, 220, "", "ExplainView"
+		draw text 5, 245, "", "ExplainView"
+		draw text 5, 260, "", "ExplainView"
+
+		draw text 5, 285, "", "ExplainView"
+		draw text 5, 300, "", "ExplainView"
+
+		z = 7
+		SourceLine$(0) = ""
+		SourceLine$(1) = "for n = 1 to 10"
+		SourceLine$(2) = "    draw flush ''MainView''"
+		SourceLine$(3) = "    draw text 50, 50, str$(n), ''MainView''"
+		SourceLine$(4) = "    draw text 10, 90, ''For_Loop'', ''MainView''"
+		SourceLine$(5) = "    sleep 1"
+		SourceLine$(6) = "next n"
+		SourceLine$(7) = "exit"
+	fi
+
+	if (CurrSource$ = "While_Loop") then
+		draw text 5, 10, "The 'while wend' loop.", "ExplainView"
+
+		draw text 5, 35, "", "ExplainView"
+		draw text 5, 50, "", "ExplainView"
+
+		draw text 5, 75, "", "ExplainView"
+		draw text 5, 90, "", "ExplainView"
+		draw text 5, 105, "", "ExplainView"
+		draw text 5, 120, "", "ExplainView"
+		draw text 5, 135, "", "ExplainView"
+
+		draw text 5, 160, "", "ExplainView"
+		draw text 5, 175, "", "ExplainView"
+		draw text 5, 190, "", "ExplainView"
+		draw text 5, 205, "", "ExplainView"
+		draw text 5, 220, "", "ExplainView"
+		draw text 5, 245, "", "ExplainView"
+		draw text 5, 260, "", "ExplainView"
+
+		draw text 5, 285, "", "ExplainView"
+		draw text 5, 300, "", "ExplainView"
+
+		z = 9
+		SourceLine$(0) = ""
+		SourceLine$(1) = "n = 1"
+		SourceLine$(2) = "while (n < 11)"
+		SourceLine$(3) = "    draw flush ''MainView''"
+		SourceLine$(4) = "    draw text 50, 50, str$(n), ''MainView''"
+		SourceLine$(5) = "    draw text 10, 90, ''While_Loop'', ''MainView''"
+		SourceLine$(6) = "    n = n+1"
+		SourceLine$(7) = "    sleep 1"
+		SourceLine$(8) = "wend"
+		SourceLine$(9) = "exit"
+	fi
+
+	if (CurrSource$ = "Do_Loop") then
+		draw text 5, 10, "The 'do loop' loop", "ExplainView"
+
+		draw text 5, 35, "", "ExplainView"
+		draw text 5, 50, "", "ExplainView"
+
+		draw text 5, 75, "", "ExplainView"
+		draw text 5, 90, "", "ExplainView"
+		draw text 5, 105, "", "ExplainView"
+		draw text 5, 120, "", "ExplainView"
+		draw text 5, 135, "", "ExplainView"
+
+		draw text 5, 160, "", "ExplainView"
+		draw text 5, 175, "", "ExplainView"
+		draw text 5, 190, "", "ExplainView"
+		draw text 5, 205, "", "ExplainView"
+		draw text 5, 220, "", "ExplainView"
+		draw text 5, 245, "", "ExplainView"
+		draw text 5, 260, "", "ExplainView"
+
+		draw text 5, 285, "", "ExplainView"
+		draw text 5, 300, "", "ExplainView"
+
+		z = 8
+		SourceLine$(0) = ""
+		SourceLine$(1) = "do"
+		SourceLine$(2) = "    n = n+1"
+		SourceLine$(3) = "    draw flush ''MainView''"
+		SourceLine$(4) = "    draw text 50, 50, str$(n), ''MainView''"
+		SourceLine$(5) = "    draw text 10, 90, ''Do_Loop'', ''MainView''"
+		SourceLine$(6) = "    sleep 1"
+		SourceLine$(7) = "loop"
+		SourceLine$(8) = "exit"
+	fi
+
+	if (CurrSource$ = "Sub_Loop") then
+		draw text 5, 10, "The 'sub' loop.", "ExplainView"
+
+		draw text 5, 35, "", "ExplainView"
+		draw text 5, 50, "", "ExplainView"
+
+		draw text 5, 75, "", "ExplainView"
+		draw text 5, 90, "", "ExplainView"
+		draw text 5, 105, "", "ExplainView"
+		draw text 5, 120, "", "ExplainView"
+		draw text 5, 135, "", "ExplainView"
+
+		draw text 5, 160, "", "ExplainView"
+		draw text 5, 175, "", "ExplainView"
+		draw text 5, 190, "", "ExplainView"
+		draw text 5, 205, "", "ExplainView"
+		draw text 5, 220, "", "ExplainView"
+		draw text 5, 245, "", "ExplainView"
+		draw text 5, 260, "", "ExplainView"
+
+		draw text 5, 285, "", "ExplainView"
+		draw text 5, 300, "", "ExplainView"
+
+		z = 13
+		SourceLine$(0) = ""
+		SourceLine$(1) = "Counter(n)"
+		SourceLine$(2) = ""
+		SourceLine$(3) = "sub Counter(n)"
+		SourceLine$(4) = "    if (n < 11) then"
+		SourceLine$(5) = "        draw flush ''MainView''"
+		SourceLine$(6) = "        draw text 50, 50, str$(n), ''MainView''"
+		SourceLine$(7) = "        draw text 10, 90, ''Sub_Loop'', ''MainView''"
+		SourceLine$(8) = "        sleep 1"
+		SourceLine$(9) = "        Counter(n+1)"
+		SourceLine$(10) = "    fi"
+		SourceLine$(11) = "    return"
+		SourceLine$(12) = "end sub"
+		SourceLine$(13) = "exit"
+	fi
+
+	if (CurrSource$ = "Other_Loop") then
+		draw text 5, 10, "Other loops!", "ExplainView"
+
+		draw text 5, 35, "There are no other loops known", "ExplainView"
+		draw text 5, 50, "or known to be described.", "ExplainView"
+
+		draw text 5, 75, "If there is one it could be entered", "ExplainView"
+		draw text 5, 90, "very easily.", "ExplainView"
+		draw text 5, 105, "Just see the source, yabman! ;-)", "ExplainView"
+
+		z = 2
+		SourceLine$(0) = ""
+		SourceLine$(1) = "// there is no other loop, my friend."
+		SourceLine$(2) = "exit"
+	fi
+
+	for s = 0 to z
+		draw text 5, 80+s*15, SourceLine$(s), "SourceView"
+	next s
+
+	return
+end sub
+
+sub ExecSource(ExecLoop$)
+	DemoWin = true
+	window open 100, 100 to 200, 200, "DemoView", "Loop"
+	window set "DemoView", "minimumto", 100, 100
+	window set "DemoView", "maximumto", 100, 100
+
+	if (ExecLoop$ = "For_Loop") then
+		for n = 1 to 10
+			draw flush "DemoView"
+			draw text 50, 50, str$(n), "DemoView"
+			draw text 10, 90, ExecLoop$, "DemoView"
+			sleep 1
+		next n
+		window close "DemoView"
+	fi
+
+	if (ExecLoop$ = "While_Loop") then
+		n = 1
+		while (n < 11)
+			draw flush "DemoView"
+			draw text 50, 50, str$(n), "DemoView"
+			draw text 10, 90, ExecLoop$, "DemoView"
+			sleep 1
+			n = n+1
+		wend
+		window close "DemoView"
+	fi
+
+	if (ExecLoop$ = "Do_Loop") then
+		n = 0
+		do
+			msg$ = message$
+			if (msg$ = "QuitDemo_|") break
+			n = n+1
+			draw flush "DemoView"
+			draw text 50, 50, str$(n), "DemoView"
+			draw text 10, 90, ExecLoop$, "DemoView"
+			
+			if (n = 11) then
+				draw text 5, 100, "You see that this loop won't be ended", "ExplainView"
+				draw text 5, 115, "by itself.", "ExplainView"
+			fi
+
+			if (n = 13) draw text 5, 130, "For this, we need a Quit-button!", "ExplainView"
+				
+			if (n = 15) then
+				draw flush "SourceView"
+				draw text 5, 10, "#!yab", "SourceView"
+				draw text 5, 35, "window open 100, 100 to 200, 200, ''MainView'', ''Loop''", "SourceView"
+				draw text 5, 50, "window set ''MainView'', ''minimumto'',100,100", "SourceView"
+				draw text 5, 65, "window set ''MainView'', ''maximumto'',100,100''", "SourceView"
+				SourceLine$(0) = "button 30, 70 to 90, 90, ''Quit_'', ''Quit'', ''MainView''"
+				SourceLine$(1) = ""
+				SourceLine$(2) = "do"
+				SourceLine$(3) = "   msg$ = message$"
+				SourceLine$(4) = "   if (msg$ = ''Quit_'') break"
+				SourceLine$(5) = "    n = n+1"
+				SourceLine$(6) = "    draw flush ''MainView''"
+				SourceLine$(7) = "    draw text 50, 50, str$(n), ''MainView''"
+				SourceLine$(8) = "    draw text 10, 90, ''Do_Loop'', ''MainView''"
+				SourceLine$(9) = "    sleep 1"
+				SourceLine$(10) = "loop"
+				SourceLine$(11) = "exit"
+				for s = 0 to 11
+					draw text 5, 80+s*15, SourceLine$(s), "SourceView"
+				next s
+				button 10, 10 to 90, 30, "QuitDemo_", "Quit", "DemoView"
+				draw text 5, 145, "Press the Quit button to exit that loop.", "ExplainView"
+			fi
+			sleep 1
+		loop
+		window close "DemoView"
+	fi
+
+	if (ExecLoop$ = "Sub_Loop") then
+		Counter(1)
+		window close "DemoView"
+	fi
+
+	if (ExecLoop$ = "Other_Loop") then
+		sleep 0.1
+		window close "DemoView"
+	fi
+
+	msg$ = ""
+	DemoWin = false
+	return
+end sub
+
+sub Counter(n)
+	if (n < 11) then
+		draw flush "DemoView"
+		draw text 50, 50, str$(n), "DemoView"
+		draw text 10, 90, "Sub_Loop", "DemoView"
+		sleep 1
+		Counter(n+1)
+	fi
+	return
+end sub

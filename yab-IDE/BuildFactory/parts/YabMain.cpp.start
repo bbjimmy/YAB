@@ -1,0 +1,8 @@
+#include <File.h>
+#include <String.h>
+#include <stdio.h>
+#include "YabInterface.h"
+
+char t[1024];
+const char* readSignature(int argc, char** argv)
+{

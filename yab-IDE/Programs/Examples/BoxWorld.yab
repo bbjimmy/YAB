@@ -1,0 +1,64 @@
+#!yab
+
+window open 100,100 to 380,410,"MainView","BoxWorld.yab"
+
+window set "MainView", "flags", "not-zoomable, not-h-resizable, not-v-resizable"
+
+layout "none", "MainView"
+
+view 0,0 to 110,30, "CheckboxView","MainView"
+checkbox 10,10, "checkbox1", "Please select", 0, "CheckboxView"
+
+view 0,31 to 110,120, "RadioView1","MainView"
+	radiobutton 10,10, "Radio11", "Radio 11", 0, "RadioView1"
+	radiobutton 10,30, "Radio12", "Radio 12", 0, "RadioView1"
+	radiobutton 10,50, "Radio13", "Radio 13", 1, "RadioView1"
+
+view 0,130 to 110,190,"RadioView2","MainView"
+	radiobutton 10,10, "Radio21", "Radio 21", 1, "RadioView2"
+	radiobutton 10,30, "Radio22", "Radio 22", 0, "RadioView2"
+
+view 0,195 to 110,280,"RadioView3","MainView"
+	radiobutton 10,5, "Radio31", "Radio 31", 0, "RadioView3"
+	radiobutton 10,25, "Radio32", "Radio 32", 0, "RadioView3"
+	radiobutton 10,45, "Radio33", "Radio 33", 1, "RadioView3"
+	radiobutton 10,65, "Radio34", "Radio 34", 0, "RadioView3"
+
+view 0, 285 to 280, 310, "CommandView","MainView"
+
+layout "leftright", "MainView"
+
+listbox 120,10 to 255,110, "List1", 1, "MainView"
+
+layout "standard", "MainView"
+
+listbox 120,120 to 255,230, "List2", 3, "MainView"
+
+listbox add "List1","Hello"
+listbox add "List1","World"
+
+for i=1 to 20
+ 	listbox add "List2","Number "+str$(i)
+next i
+
+dropbox 120,250 to 265,270, "drop1", "MyDrop:", "MainView"
+dropbox add "drop1", "Hello World"
+dropbox add "drop1", "Foo Bar"
+dropbox add "drop1", "--"
+dropbox add "drop1", "Acme Ltd"
+dropbox add "drop1", "Bobejaan" 
+
+alert "BoxWorld shows how to use Radiobuttons, Checkboxes, Listboxes and Dropboxes.","Ok","idea"
+
+inloop = true
+while(inloop)
+	a$ = message$
+	if(a$<>"") then
+		print a$
+		draw flush "CommandView"
+		draw text 5,15, left$(a$,len(a$)-1), "CommandView"
+	endif	
+	if(instr(a$,"_QuitRequested|")) inloop = false
+wend
+
+window close "MainView"

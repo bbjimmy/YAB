@@ -1,0 +1,32 @@
+#!yab
+
+window open 100,100 to 560,320, "WView", "SliderWorld"
+
+slider 20,20 to 350,50, "Slider1", "1. Slider with block thumb from 0.1 to 1", 1, 10, "WView"
+
+slider 20,70 to 350,100, "Slider2", "2. Slider with triangle thumb from 1 to 100 and limit labels; set to 20", 1, 100, "triangle", "WView"
+slider label "Slider2", "Foo", "Bar"
+slider set "Slider2", 20
+
+slider 20,120 to 350,150, "Slider3", "3. Slider from 50 to 75, with 5 bottom hash markings, disabled", 50, 75, "WView"
+slider label "Slider3", "Foo", "Bar"
+slider set "Slider3", "bottom", 5
+option set "Slider3", "enabled", false
+
+slider 20,170 to 350,200, "Slider4", "4. Slider from -20 to 20, with colors", -20, 20, "WView"
+slider color "Slider4", "barcolor", 240,140,140
+slider color "Slider4", "fillcolor", 140,140,240
+
+slider 360,20 to 440,200, "Slider5", "5. Slider vertical", 1, 100, "vertical", "WView"
+slider set "Slider5", "left", 15
+slider color "Slider5", "barcolor", 240,140,140
+slider set "Slider5", 70
+
+inloop = true
+while(inloop)
+	msg$ = message$
+	if(msg$<>"") print msg$
+	if(instr(msg$,"Quit")) inloop = false
+wend
+
+window close "WView"

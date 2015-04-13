@@ -1,0 +1,33 @@
+#!yab
+
+
+window open 100,100 to 300,300, "WView", "DropWorld"
+
+text 20,5, "Txt1", "Drop any file here:", "WView"
+view 20,20 to 180,180, "DropView", "WView"
+draw set "highcolor", 0,0,0, "DropView"
+draw set "lowcolor", 255,255,0, "DropView"
+pattern$ = "240225195135015030060120"
+draw set 0, pattern$
+draw rect 0,0 to 160,160, "DropView"
+draw set 0, "lowsolid"
+view dropzone "DropView"
+
+dim msg$(1)
+inloop = true
+while(inloop)
+	n = split(message$, msg$(), "|:")
+	for i = 0 to n
+		if(msg$(i) = "_Dropped") then
+			draw rect 20,181 to 290,200, "WView"
+			draw flush "WView"
+			draw text 20,195, msg$(i+1), "WView"
+		endif
+		if(msg$(i) = "_QuitRequested") inloop = false
+	next i
+	
+	if(msg$<>"") print msg$
+	sleep 0.1
+wend
+
+window close "WView"

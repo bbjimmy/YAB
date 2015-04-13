@@ -1,0 +1,65 @@
+1. check AutoFooter if all files are there, add new files when necessary
+
+2. generate flex.c and bison.c by typing:
+	flex -i -I -L -s -t yabasic.flex >flex.c
+	perl -i -n -e 'if (!/^\#include\s+<unistd.h>\s+$$/) {print if $$i;$$i++}' flex.c
+	bison  -d -l -t -v --output-file bison.c yabasic.bison 
+
+3. edit flex.c as follows:
+  - add the headers (after #include<stdio.h>) and the static declaration
+  	#include <zlib.h>
+	#include "program.h"
+	static int isparsed = 0;
+  - replace the default input buffer size
+  	#define YY_BUF_SIZE 16384
+    with
+    	#define YY_BUF_SIZE PROGLEN
+  - search for 
+  	#define YY_INPUT(buf,result,max_size) \ 
+    replace the last lines of this define 
+        else if ( ((result = fread( buf, 1, max_size, yyin )) == 0) \
+                  && ferror( yyin ) ) \
+                YY_FATAL_ERROR( "input in flex scanner failed" ); 
+    with
+    	else if ( ((result = zread( buf, 1, max_size, yyin )) == 0) && !ferror( yyin ) ) \
+                YY_FATAL_ERROR( "input in flex scanner failed" ); 
+  - add to the function 
+	static int yy_get_next_buffer()
+    after
+	int ret_val;
+    the following line
+	if(isparsed) return EOB_ACT_END_OF_FILE;
+  - add the function zread at the end of flex.c:
+	int zread(char* dest, size_t memb_size, size_t num_memb, FILE *file)
+	{
+        	long destlen = PROGLEN;
+        	if(isparsed==1)
+               		return 0;
+        	isparsed = 1;
+        	uncompress(dest,&destlen,myProg,sizeof(myProg));
+        	return destlen;
+	} 
+  - NOTE: you only have to go through this process when new commands have been added to
+    yabasic.flex. Otherwise you can just take the modified flex.c from the last BuildFactory.
+
+4. edit main.c as follows:	
+  - search for the function
+	int isbound(void) 
+    delete the whole function and replace it with:
+	int isbound(void) 
+	{
+  		FILE *interpreter;
+  		if (!interpreter_path || !interpreter_path[0]) {
+    			error(FATAL,"interpreter_path is not set !");
+    			return 0;
+  		}
+  		if (!(interpreter=fopen(interpreter_path,"r"))) {
+    			sprintf(string,"Couldn't open '%s' to check, if it is bound: %s",interpreter_path,my_strerror(errno));
+    			error(WARNING,string);
+    			return 0;
+  		}
+
+  		return 1; 
+	}
+
+

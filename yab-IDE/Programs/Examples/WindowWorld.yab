@@ -1,0 +1,52 @@
+#!yab
+
+window open 100,100 to 230,200, "win0", "Window0"
+
+layout "V-Center, H-Center", "win0"
+
+button 10,10 to 120,30, "NewWin_", "New Window", "win0"
+button 10,40 to 120,60, "NumWin_", "Show Number...", "win0"
+button 10,70 to 120,90, "Quit_", "Close All", "win0"
+
+alert "WindowWorld demonstrates how Windows are created and closed!",  "Ok", "idea"
+
+dim msgpart$(1)
+maxcount = 1
+
+inloop = true
+while(inloop = true)
+	msg$= message$
+	if (split(msg$, msgpart$(),":") = 2) item$ = msgpart$(1)
+	if (msg$ <> "") print msg$
+
+	switch msg$
+		case "NumWin_|"
+			alert "The number of open windows is "+str$(window count), "Ok", "info"
+			break
+
+		case "NewWin_|"
+			number$ = str$(maxcount)
+			i = maxcount * 10
+			window open 100+i,100+i to 230+i,200+i, "win"+number$, "Window"+number$
+			layout "v-center, h-center", "win"+number$
+			button 10,10 to 120,30, "NewWin_","New Window", "win"+number$
+			button 10,40 to 120,60, "NumWin_","Show Number...", "win"+number$
+			button 10,70 to 120,90, "Quit_","Close All", "win"+number$
+			maxcount = maxcount + 1
+			break
+
+		case "Quit_|"
+			inloop = false
+			break
+
+		case item$+":_QuitRequested|"
+			window close item$
+			break
+
+	end switch
+
+	if (window count < 1) inloop = false
+    
+wend
+
+exit

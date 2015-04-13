@@ -1,0 +1,66 @@
+1	english	x-vnd.Localizer	1483942934
+File			File
+Help			Help
+New...			New...
+Import ZETA...			Import ZETA...
+Mime Type			Mime Type
+English Source			English Source
+Target Language Code			Target Language Code
+Add Phrase			Add Phrase
+Cancel			Cancel
+Commit			Commit
+Open...			Open...
+Save...			Save...
+Save and Install...			Save and Install...
+Quit			Quit
+Help...			Help...
+About...			About...
+Localizer for Haiku\n\n2011 by Jan Bungeroth			Localizer for Haiku\n\n2011 by Jan Bungeroth
+Ok			Ok
+Saving catalog completed.\n\nSaved to 			Saving catalog completed.\n\nSaved to 
+All existing data will be lost!\n\nAre you sure?			All existing data will be lost!\n\nAre you sure?
+Yes			Yes
+No			No
+Error reading file\n			Error reading file\n
+Duplicate source lines were skipped.			Duplicate source lines were skipped.
+Mime type invalid.\n\nA valid mime type has the form:\nx-vnd.ApplicationName			Mime type invalid.\n\nA valid mime type has the form:\nx-vnd.ApplicationName
+Error writing file\n			Error writing file\n
+Error reading or writing file\n			Error reading or writing file\n
+No target language specified.\nOnly the English catalog was generated.			No target language specified.\nOnly the English catalog was generated.
+Catalogs saved and installed.			Catalogs saved and installed.
+Open Catalog			Open Catalog
+Import ZETA Locale			Import ZETA Locale
+Select Save Directory			Select Save Directory
+Delete			Delete
+Close			Close
+Localizer helps you to bring localization to your Haiku applications.\n\n			Localizer helps you to bring localization to your Haiku applications.\n\n
+Localization is done using special catalog files. These catalog files are then compiled into BMessages and stored in a specific directory. The directory and the catalog files are signed by an application mimetype.\n\n			Localization is done using special catalog files. These catalog files are then compiled into BMessages and stored in a specific directory. The directory and the catalog files are signed by an application mimetype.\n\n
+How to use Localizer:\n\n			How to use Localizer:\n\n
+1. Add the English strings of your program to the left list and their translations into the right list.\n\n			1. Add the English strings of your program to the left list and their translations into the right list.\n\n
+2. Enter the translation short code for the target language and the mimetype of your program.\n\n			2. Enter the translation short code for the target language and the mimetype of your program.\n\n
+3. 'Save and Install' will save your translations locally and install their compiled version to /boot/common/data/locale/catalogs\n\n			3. 'Save and Install' will save your translations locally and install their compiled version to /boot/common/data/locale/catalogs\n\n
+Make sure, both lists are also in sync!\n\n			Make sure, both lists are also in sync!\n\n
+The language code consists of a two letter country code (e.g. de for Germany or nl for Netherlands) or a combined code if the language code differs from the country code (e.g. nl_be for Dutch in Belgium).\n\n			The language code consists of a two letter country code (e.g. de for Germany or nl for Netherlands) or a combined code if the language code differs from the country code (e.g. nl_be for Dutch in Belgium).\n\n
+The mimetype identifies the application. An application mimetype usually has the format: x-vnd.ApplicationName			The mimetype identifies the application. An application mimetype usually has the format: x-vnd.ApplicationName
+Importing ZETA locale files:\n\n			Importing ZETA locale files:\n\n
+Localizer allows you to import old ZETA locale files.\n\n			Localizer allows you to import old ZETA locale files.\n\n
+Currently Localizer does feature context support, so all source strings are allowed only once. If there are several equal English strings in the ZETA file, only the first one is imported. The others are ignored.\n\n			Currently Localizer does feature context support, so all source strings are allowed only once. If there are several equal English strings in the ZETA file, only the first one is imported. The others are ignored.\n\n
+Localizer supports ZETA files using the format:\n			Localizer supports ZETA files using the format:\n
+  \"English string\"     <tab>    \"Target string\"\n\n			  \"English string\"     <tab>    \"Target string\"\n\n
+And also this format:\n			And also this format:\n
+  \"_key\" = \"English string\"\n			  \"_key\" = \"English string\"\n
+  \"_value\" = \"Target string\"\n			  \"_value\" = \"Target string\"\n
+(Note: _key and _value need to be on separate lines.)			(Note: _key and _value need to be on separate lines.)
+How to use localization in yab programs:\n\n			How to use localization in yab programs:\n\n
+First you have to load the locale catalog with the mimetype name:\n  localize \"x-vnd.MyApplication\"\n\n			First you have to load the locale catalog with the mimetype name:\n  localize \"x-vnd.MyApplication\"\n\n
+All widgets will now automatically translate all their strings.\n\n			All widgets will now automatically translate all their strings.\n\n
+To translate a specific string use:\n  translate$(myString$)\n\n			To translate a specific string use:\n  translate$(myString$)\n\n
+A new feature allows you to turn the automatic translation of widget strings off and on again.\n			A new feature allows you to turn the automatic translation of widget strings off and on again.\n
+To turn the automatic translation off, use:\n  localize stop\n\n			To turn the automatic translation off, use:\n  localize stop\n\n
+To turn it on again, use:\n  localize			To turn it on again, use:\n  localize
+How to use localization in C++ programs:\n\n			How to use localization in C++ programs:\n\n
+First, include Catalog.h and Locale.h:\n  #include <Catalog.h>\n  #include <Locale.h>\n\n			First, include Catalog.h and Locale.h:\n  #include <Catalog.h>\n  #include <Locale.h>\n\n
+Within your code, now you can simply translate a string with:\n  B_TRANSLATE(myString);\n\n			Within your code, now you can simply translate a string with:\n  B_TRANSLATE(myString);\n\n
+The locale kit will search for the catalog files associated with your application's signature mimetype.\n\n			The locale kit will search for the catalog files associated with your application's signature mimetype.\n\n
+To link your program, add the locale and localestub libraries:\n  -l locale -l localestub			To link your program, add the locale and localestub libraries:\n  -l locale -l localestub
+To translate a string separated with colons : use:\n  menu translate$(myString$)\nThis is useful for translating menu entries because menu messages are separated with :\n\n			To translate a string separated with colons : use:\n  menu translate$(myString$)\nThis is useful for translating menu entries because menu messages are separated with :\n\n

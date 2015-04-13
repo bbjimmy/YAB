@@ -1,0 +1,214 @@
+1	nl	x-vnd.yab-IDE	1378724574
+File			Bestand
+New...			Nieuw...
+Open...			Openen...
+Close			Sluiten
+Save			Opslaan
+Save As...			Opslaan als...
+Save As Template...			Als sjabloon opslaan...
+Page Setup...			Pagina instellingen...
+Print...			Afdrukken...
+Quit			Afsluiten
+Edit			Bewerken
+Undo			Ongedaan maken
+Cut			Knippen
+Copy			Kopiëren
+Paste			Plakken
+Select All			Alles selecteren
+Find			Zoek
+Find Again			Verder zoeken
+Find and Replace			Zoeken en vervangen
+Program			Toepassing
+Run			Uitvoeren
+Run in Terminal			In Terminal uitvoeren
+Set Run Parameters...			Parameter zetten...
+Build Factory...			Build-Factory...
+Tools			Werktuigen
+Pattern Editor...			Patroon aanmaken...
+Color Selection...			Kleur kiezen...
+ASCII Table...			ASCII lijst...
+View			Venster
+Next File			Volgend bestand
+Previous File			Vorig bestand
+Full Screen			Volledig scherm
+Maximize Editor			Editor maximaliseren
+Auto Indent			Automatisch inspringen
+Auto Completion			Automatisch aanvullen
+Refresh Colors			Kleuren verversen
+Reformat Sourcecode			Broncode herformateren
+Undo Reformat			Formatering ongedaan maken
+Options...			Instellingen...
+Introduction to the IDE...			Inleiding tot de IDE...
+yab Help...			yab help...
+Yabasic Manual...			Yabasic handboek...
+Online Resources			Website's online
+yab Homepage...			yab Homepage...
+yab Forums...			yab forums...
+Yabasic Homepage...			Yabasic Homepage...
+Team Maui...			Team Maui...
+About...			Over yab-IDE...
+New			Nieuw
+Open			Openen
+Build Factory			Build Factory
+Pattern Editor			Patroon aanmaken
+Options			Instellingen
+yab Help			yab help
+Go to Line:			Ga naar lijn:
+Go to Line			Ga naar lijn
+ Files 			 Bestanden 
+ Help 			 Help 
+Filename			Bestandsnaam
+Command			Commando
+yab Output			yab output
+Immediate			Onmiddelijk uitvoeren
+Execute			Uitvoeren
+Find:			Zoek:
+Replace:			Vervang:
+Case Sensitive			Hoofdlettergevoelig
+Replace All			Alles vervangen
+Suspecting user input, therefore starting in a terminal.			Eem gebruikers ingave wordt verwacht, de toepassing word gestart in een Terminal.
+Ok			Ok
+File: 			Bestand: 
+ (not saved)   			 (niet opgeslagen)   
+Line			Lijn
+Please wait...			Even wachten...
+Loading Program			Toepassing laden
+Running			Draait
+Running Program			In uitvoering
+Error! Program could not be killed.			Fout! Toepassing kan niet gestopt worden.
+Oops			Oeps
+Close terminal to break program			Terminal sluiten om toepassing te sluiten
+yab-IDE Set Run Parameters			yab-IDE parameter zetten
+Set Run Parameters			Parameter zetten
+yab Parameters:			yab Parameter:
+Program Parameters:			Toepassing parameter:
+yab-IDE New Program			yab-IDE nieuwe toepassing
+New yab Program			Nieuwe yab toepassing
+Please select one of the available templates for your program:			Gelieve een van de beschikbare sjablonen te kiezen:
+Name:			Naam:
+Browse...			Bladeren...
+Advanced Options			Geavanceerd
+Remove Template			Sjabloon wissen
+Project Directory			Projectmap
+Could not open template: 			Sjabloon kon niet geladen worden: 
+Opening an empty file instead.			Open een leeg bestand in de plaats.
+Really delete template			Sjabloon wissen
+Yes			Ja
+Cancel			Annuleren
+This standard template can not be deleted!			Dit standaard sjabloon kan niet verwijderd worden!
+Template successfully removed.			Sjabloon verwijderd.
+Error while deleting template!			Fout bij het verwijderen sjabloon!
+Empty			Leeg bestand
+Basic Template			Eenvoudig sjabloon
+Editor Template			Sjabloon voor een Editor
+Command Line Template			Sjabloon voor commandline
+                             			                             
+Create an empty file.			Leeg bestand aanmaken.
+Create a new program with a bare			Nieuwe toepassing aanmaken
+window.			met een leeg venster.
+Create a new program with menus			Nieuwe toepassing maken met
+and an editor.			menu's een een editor.
+                            			Nieuwe commandline
+Create a new command line program.			toepassing aanmaken.
+yab-IDE Save As Template			yab-IDE Opslaan als sjabloon
+Save As Template			Als sjabloon opslaan
+Save your code as a template for other programs:			Broncode als sjabloon opslaan
+Template Name			Sjabloonnaam
+Description (not more than 30 characters per line)			Beschrijving (niet meer dan 30 karakters per lijn)
+Drop image here			Afbeelding hier slepen
+Could not load image!			Afbeelding kon niet geladen worden
+Error while saving template!			Fout bij het opslaan van sjabloon!
+File could not be saved!			Bestand kon niet opgeslagen worden!
+Sorry, you can not open more than 			Opgelet je kan niet meer dan 
+ files at once!\n\nPlease close one or more other files first.			 bestanden openen in een keer!\n\nGelieve eerst een of meerdere bestanden te sluiten.
+File is already open.			Bestand is al open.
+Error while loading file:\n\n			Fout bij het laden van het bestand:\n\n
+File \"			Bestand \"
+\" not saved!\n\nSave the file now?			\" is niet opgeslagen\n\nBestand nu opslaan?
+Error while printing!			Fout bij het afdrukken!
+Some files are not saved!\n\nDo you really want to quit?			Enkele bestanden zijn niet opgeslagen!\n\nWil je werkelijk afsluiten?
+Program is not saved.\n\nSave it now?			Toepassing is niet opgeslagen.\n\nNu opslaan?
+Save Always			Altijd opslaan
+Save Now			Nu opslaan
+Reformating did not close all open loops and conditions.\nReformating currently does not support loops and conditions opened and closed by a colon (:).\nE.g. while(loop):wend\n\nYou can undo the reformating before doing any further changes.			Herformateren heeft niet alle loops en condities kunnen sluiten.\nHerformateren ondersteun momenteel geen loops en conditie's tussen duppelpunten (:).\nBv. while(loop):wend\n\nJe kan de herformatering ongedaan maken zolang de tekst niet veranderd wordt.
+Do not show this warning again			Deze waarschuwing niet meer tonen
+Changes made since reformating will be lost!			Aanpassingen sinds de laatste herformatering zullen verloren gaan!
+The operation \"Replace All\" can not be reverted!\n\nDo you want to continue?			De operatie \"Alles vervangen\" kan niet teruggedraaid worden!\n\nToch verdergaan?
+yab-IDE Build Factory			yab-IDE Build-Factory
+Target file name:			Doelbestand:
+Use the Haiku tab view instead of the ZETA native tab view			Gebruik de Haiku tabview in plaats van de ZETA eigen tabvies
+Create Binary			Compileer bin
+The compiler GCC was not found!\n\nPlease install the development tools from your ZETA CD.			De GCC compiler is niet gevonden!\n\nGelieve de ontwikkel toepassingen van de ZETA CD te installeren.
+The compiler GCC was not found!\n\nPlease install the development tools.			De GCC compiler is niet gevonden!\n\nGelieve de ontwikkel toepassingen te installeren.
+Visit Download Site			GCC nu downloaden
+Warning: Although you are using the BeOS yab, the resulting binary will be ZETA only!			Waarschuwing: Ondanks dat je BeOS yab gebruikt, zal de toepassing enkel op ZETA draaien!
+Build Factory Output\n\n			Build-Factory Output\n\n
+Please wait, processing... (this may take a while)\n\n			Even geduld... (de bewerking kan een tijdje duren)\n\n
+Build was successful			Aanmaken gelukt
+Build failed!			Aanmaken mislukt!
+yab-IDE Pattern Editor			yab-IDE patroon aanmaken
+Insert Pattern			Patroon invoegen
+yab-IDE Color Selection			yab-IDE kleurkiezer
+Color Selection			Kleurselectie
+Default Colors:			Standaardkleuren:
+Black			Zwart
+Darken 4			Donker 4
+Darken 3			Donker 3
+Darken 2			Donker 2
+Darken 1			Donker 1
+Default Background			Standaard achtergrond
+Lighten 1			Lichter 1
+Lighten 2			Lichter 2
+White			Wit
+Red			Rood
+Brown			Bruin
+Yellow			Geel
+Green			Groen
+Cyan			Cyaan
+Light Blue			Licht blauw
+Blue			Blauw
+Magenta			Magenta
+Light Magenta			Licht Magenta
+Insert Color			Kleur invoegen
+yab-IDE ASCII Table			yab-IDE ASCII tabel
+ASCII Table			ASCII tabel
+yab-IDE Options			yab-IDE Instellingen
+Editor			Editor
+General			Algemeen
+Environment			Omgeving
+Directories			Mappen
+Language			Talen
+Number of spaces per tab:			Aantal spaties per tab:
+Ask about saving before running a program			Vraag naar opslaan voor het draaien van de toepassing
+Show warning when reformating sourcecode did not close all loops and conditions			Toon waarschuwing als herformatering niet alle loops en condities sluiten kon
+Show warning before undo reformating			Toon waarschuwing voor het ongedaan maken van de herformatering
+Show warning before applying Replace All			Toon waarschuwing voor het toepassen \"Alles vervangen\"
+Select font for editor:			Selecteer een font voor de editor:
+Font Family			Font
+Font Style			Stijl
+Font Size			Grootte
+My hovercraft is full of eels.			Mijn hoovercraft zit vol met vissen.
+Factory Settings			Standaardinstellingen
+Enable auto completion			Auto-aanvullen inschakelen
+Number of characters for starting completion:			Aantal karakters voor het starten van het aanvullen:
+New Entry:			Nieuwe ingang:
+Add New Entry			Nieuwe ingang toevoegen
+Remove Entry			Ingang wissen
+Note: You have to restart the IDE to update the			Aandacht: de IDE moet herstart worden
+autocompletion when removing entries.			zodat gewiste ingangen niet meer verscheinen.
+Note: Only change the directories, when you know what you are doing!			Aandacht: Verander enkel de mappen als je weet wat je doet!
+Default yab Binary			Standaard yab-Interpreter
+Default yab Directory			Standaard yab-map
+Use the automatic localization			Gebruik Haiku's taalsysteem
+Supported Languages			Ondersteunde talen
+Entry already exists.			Ingang bestaat reeds
+Restart yab-IDE to change localization			yab-IDE herstarten om de localisering door te voeren
+Could not find yab 1.0 directory!\n\nPlease do a proper installation.			Kon de map yab 1.0 niet vinden!\n\nGelieve yab goed te installeren.
+Could not find yab binary!\n\nPlease do a proper installation.			Kon de interpreter van yab 1.0 niet vinden!\n\nGelieve yab goed te installeren.
+New yab directory set to:\n\n			Nieuwe yab map gezet naar:\n\n
+\n\nRestart the IDE using the new directory.			\n\nyab-IDE herstarten om de localisering door te voeren.
+Invalid directory:\n\n			Ongeldige map:\n\n
+yab binary set to:\n\n			yab-Interpreter insteld naar:\n\n
+Invalid file:\n\n			Ongeldig bestand:\n\n
+Export As HTML...			Als HTML opslaan...
+Open Project Folder...			Projectmap openen...

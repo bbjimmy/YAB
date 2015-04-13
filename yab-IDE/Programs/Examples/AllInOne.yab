@@ -1,0 +1,201 @@
+// This example demonstrates all widgets
+
+// open the window
+window open 100,100 to 640,500, "Win", "yab Demo"
+window set "Win", "Flags", "Not-Resizable, Not-Zoomable"
+
+// set the title
+view 10,10 to 530,50, "Title", "Win"
+draw set "bgcolor", 50,50,200, "Title"
+draw set "lowcolor", 50,50,200, "Title"
+draw set "highcolor", 255,255,255, "Title"
+if(peek$("os") = "Haiku") then
+	draw set "DejaVu Sans,Condensed Bold,32", "Title"
+else
+	draw set "Zurich,Bold,32", "Title"
+endif
+draw text 10,32, "yab Widgets and Views", "Title"	
+
+// make the tabview
+tabview 10,60 to 530,390, "Box", "top", "Win"
+tabview add "Box", "Widgets"
+tabview add "Box", "Views and More"
+
+// button
+button 10,10 to 100,30, "Button", "Button", "Box1"
+tooltip "Button", "BUTTON"
+
+// button image
+button image 10,40, "ButtonImage", "img/button_pressed.png", "img/button_norm.png", "", "Box1"
+tooltip "ButtonImage", "BUTTON IMAGE"
+
+// checkbox
+checkbox 10,70, "Check", "Checkbox", true, "Box1"
+tooltip "Check", "CHECKBOX"
+
+// checkbox image
+checkbox image 10,92, "CheckImage", "img/checkbutton_enabledOn.png", "img/checkbutton_enabledOff.png", "", "", true, "Box1"
+tooltip "CheckImage", "CHECKBOX IMAGE"
+
+// radiobutton
+radiobutton 10,130, "Radio1", "1. Radiobutton", true, "Box1"
+tooltip "Radio1", "RADIOBUTTON"
+radiobutton 10,150, "Radio2", "2. Radiobutton", false, "Box1"
+tooltip "Radio2", "RADIOBUTTON"
+
+// dropbox
+dropbox 10,175 to 120,195, "Drop", "Dropbox", "Box1"
+dropbox add "Drop", "Foo"
+dropbox add "Drop", "Bar"
+tooltip "Drop", "DROPBOX"
+
+// listbox
+listbox 10,210 to 100,290, "List", 1, "Box1"
+listbox add "List", "Foo"
+listbox add "List", "Bar"
+tooltip "List", "LISTBOX"
+
+// columnbox
+columnbox 130,10 to 270,150, "Column", 1, "", "Box1"
+columnbox column "Column", " ", 1, 30,30,30, "align-center"
+columnbox column "Column", "Column", 2, 90,90,90, "align-center"
+columnbox add "Column", 1,1, 20, "__Icon__=img/yab.png"
+columnbox add "Column", 2,1, 20, "Foo"
+columnbox add "Column", 2,2, 20, "Bar"
+tooltip "Column", "COLUMNBOX"
+
+// treebox
+treebox 130,160 to 270,290, "Tree", 1, "Box1"
+treebox add "Tree", "Root"
+treebox add "Tree", "Root", "Foo", true
+treebox add "Tree", "Root", "Bar", true
+tooltip "Tree", "TREEBOX"
+
+// text
+text 300,10, "Text", "Text (cannot be flushed)", "Box1"
+tooltip "Text", "TEXT"
+
+// texturl
+texturl 300,30, "TextURL", "Team MAUI", "http://www.team-maui.de", "Box1"
+tooltip "TextURL", "TEXTURL"
+
+// textcontrol
+textcontrol 300,50 to 500,70, "TextCtrl", "TextControl", "", "Box1"
+tooltip "TextCtrl", "TEXTCONTROL"
+
+// spincontrol
+spincontrol 300,80, "Spin", "Spincontrol", 0,100,1, "Box1"
+tooltip "Spin", "SPINCONTROL"
+
+// calendar
+calendar 300,120, "Cal", "DDMMYYYY.", "01.01.1970", "Box1"
+tooltip "Cal", "CALENDAR"
+
+// textedit
+textedit 300,150 to 500,215, "TextEd", 3, "Box1"
+textedit add "TextEd", "Simply edit your text..."
+tooltip "TextEd", "TEXTEDIT"
+
+// slider
+slider 300,225 to 500,245, "Slider", "Slider", 1, 23, "Box1"
+tooltip "Slider", "SLIDER"
+
+// statusbar
+statusbar 300,265 to 500,290, "Status", "Start", "Finish", "Box1"
+statusbar set "Status", "Start", "Finish", 66
+tooltip "Status", "STATUSBAR"
+
+// view
+view 10,10 to 100,100, "View", "Box2"
+draw set "bgcolor", "jan-favorite-color", "View"
+draw text 20,35, "Plain View", "View"
+tooltip "View", "VIEW"
+
+// canvas
+canvas 10,110 to 100,195, "Canvas", "Box2"
+draw text 20,35, "Canvas", "Canvas"
+tooltip "Canvas", "CANVAS"
+
+// boxview
+boxview 10,205 to 100,290, "Boxview", "Boxview", 2, "Box2"
+tooltip "Boxview", "BOXVIEW"
+
+// tabview
+tabview 120,10 to 260,100, "Tab", "top", "Box2"
+tabview add "Tab", "First"
+tabview add "Tab", "Second"
+tooltip "Tab", "TABVIEW"
+
+// splitview
+splitview 120,110 to 260,195, "Split", true, false, "Box2"
+draw set "bgcolor", "Panel-Background-Color, Darken-1-Tint", "Split1"
+draw set "bgcolor", "Panel-Background-Color, Lighten-1-Tint", "Split2"
+tooltip "Split", "SPLITVIEW"
+
+// colorcontrol
+colorcontrol 120,203, "Color", "Box2"
+tooltip "Color", "COLORCONTROL"
+
+// popupmenu (only button, code in messageloop)
+button 120,270 to 245,290, "Popup", "Popupmenu", "Box2"
+tooltip "Popup", "POPUPMENU"
+
+// filepanel (only button, code in messageloop)
+button 255,270 to 350,290, "File", "Filepanel", "Box2"
+tooltip "File", "FILEPANEL"
+
+// menu
+view 280,10 to 500,100, "Menu", "Box2"
+menu "Menu", "Foo", "", "Menu"
+menu "Menu", "--", "", "Menu"
+menu "Menu", "Bar", "", "Menu"
+draw set "bgcolor", "Panel-Background-Color, Darken-1-Tint", "Menu"
+draw text 20,35, "View with menu", "Menu"
+tooltip "Menu", "MENU"
+
+// scrollbar
+view 280,110 to 500-peek("scrollbarwidth"),195-peek("scrollbarwidth"), "ScrollView", "Box2"
+scrollbar "Scroll", 3, "ScrollView"
+scrollbar set "Scroll", "horizontal-range", 0,100
+scrollbar set "Scroll", "vertical-range", 0,50
+if(peek$("os") = "Haiku") then
+	draw set "DejaVu Sans,Condensed Bold,32", "ScrollView"
+else
+	draw set "Zurich,Bold,32", "ScrollView"
+endif
+draw text 130,90, "Foobar", "ScrollView"
+tooltip "Scroll", "SCROLLBAR"
+
+// stackview
+stackview 420,205 to 500,260, "StackView", 2, "Box2"
+button 360,270 to 425,290, "Stack1", "Stack1", "Box2"
+button 435,270 to 500,290, "Stack2", "Stack2", "Box2"
+draw set "bgcolor", 200,200,255, "StackView1"
+draw text 10,20, "First view", "StackView1"
+draw set "bgcolor", 200,255,255, "StackView2"
+draw text 10,20, "Second view", "StackView2"
+tooltip "StackView", "STACKVIEW"
+
+// messageloop
+while(not quitting)
+	msg$ = message$
+	if(instr(msg$, "Popup")) then
+		// popupmenu
+		select$ = popupmenu 120,270, "Foo|--|Bar", "Box2"
+	elsif(instr(msg$, "File")) then
+		// filepanel
+		select$ = filepanel "Load-File", "Example Filepanel", "/boot/home"
+	elsif(instr(msg$, "Stack1")) then
+		// set stackview
+		stackview set "StackView", 1
+	elsif(instr(msg$, "Stack2")) then
+		// set stackview
+		stackview set "StackView", 2
+	elsif(instr(msg$, "Quit")) then
+		// exit
+		quitting = true
+	endif
+wend
+
+window close "Win"
+

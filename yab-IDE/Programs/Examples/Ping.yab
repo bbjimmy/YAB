@@ -1,0 +1,33 @@
+#!yab
+
+doc Start Ping.yab first by double clicking it,
+doc then start Pong.yab.
+doc This demonstrates how yab sends messages to another yab application.
+doc Note: don't start Ping.yab in the IDE as the IDE only allows one 
+doc       running yab program at a time.
+
+window open 100,100 to 300,300, "Ping", "Ping"
+
+x = 20
+y = 50
+stepx = 5
+stepy = 5
+
+while(not instr(message$, "Quit"))
+	x = x + stepx
+	y = y + stepy
+	if(x <= 0 or x >= 400) stepx = -stepx
+	if(y <= 0 or y >= 200) stepy = -stepy
+	if(x >= 190) then
+		ret = message send "application/x-vnd.Pong.yab", str$(x) + ":" + str$(y)
+		if(ret <> 0) then
+			stepx = -stepx
+			if(x > 190) x = 190
+		endif
+	endif
+	
+	draw flush "Ping"
+	draw circle x,y, 8, "Ping"
+wend
+
+window close "Ping"

@@ -1,0 +1,97 @@
+// Filebox is a library to have an easy access to a list of files.
+// This is easier than poking around with columnboxes yourself.
+
+// Open a new filebox from (x1,y1) to (x2,y2)
+// with the id ID$, the type of scrollbar ScrollbarType on View$
+export sub Filebox(x1,y1,x2,y2, ID$, ScrollbarType, View$)
+	local myscrollbar
+	columnbox x1,y1 to x2,y2, ID$, ScrollbarType, "resizable", View$
+	columnbox column ID$, " ", 1, 20, 20, 20, "align-center"
+	if(scrollbarType=1 or scrollbarType=3) myscrollbar = peek("scrollbarwidth")
+	columnbox column ID$, "Name", 2, 1000, 21, x2-x1-24-myscrollbar, "align-left"
+	columnbox color ID$, "Selection-Active", 220,220,250
+        columnbox color ID$, "Row-Divider", 255,255,255 
+	return
+end sub
+
+// Easy interface to a Filebox, simply name a directory
+export sub FileboxDirectorySimple(ID$, dir$)
+	FileboxDirectory(ID$,dir$,false)
+	return
+end sub
+
+// return the name of the row position
+export sub FileboxName$(ID$, position)
+	return columnbox get$ ID$, 2, position
+end sub
+
+// return true, if the row position is a directory
+export sub FileboxIsDirectory(ID$, position)
+	local t$
+	t$ = columnbox get$ ID$, 1, position
+	if(t$ = "__Mime__=application/x-vnd.Be-directory") return true
+	return false
+end sub
+
+// Give a directory and the following options:
+// showDot: set this to true to show hidden (dot) files
+export sub FileboxDirectory(ID$, dir$, showDot)
+	local t$
+	local i
+	local n
+	local arraysizeDir
+	local arraysizeFiles
+
+	dim directories$(1)
+	dim files$(1)
+
+	arraysizeDir = 0
+	arraysizeFiles = 0
+
+	columnbox clear ID$
+	if(showDot) then
+		t$ = system$("ls --format=single-column --color=none -a "+dir$+" |sort -f")
+	else
+		t$ = system$("ls --format=single-column --color=none "+dir$+" |sort -f")
+	endif
+
+	dim splitdir$(1)
+
+	n = split(t$, splitdir$(), "\n")
+	for i=1 to n-1
+               if(system("test -d \""+ dir$+splitdir$(i)+"\"") = 0) then
+                        // comment the if clause out if you want to have the direcotries "." and ".." listed
+                        if(splitdir$(i)<>"." and splitdir$(i)<>"..") then
+                                arraysizeDir = arraysizeDir + 1
+                                dim directories$(arraysizeDir)
+                                directories$(arraysizeDir-1) = splitdir$(i)
+                        endif
+                // handle files
+                else
+                        arraysizeFiles = arraysizeFiles + 1
+                        dim files$(arraysizeFiles)
+                        files$(arraysizeFiles-1) = splitdir$(i)
+                endif 
+	next i
+	for i=0 to arraysizeDir-1
+		FileboxAdd(ID$, directories$(i), true)
+	next i
+	for i=0 to arraysizeFiles-1
+		FileboxAdd(ID$, files$(i), false)
+	next i
+	return
+end sub
+
+sub FileboxAdd(ID$, Name$, IsFolder)
+	local maxpos
+
+	maxpos = (columnbox count ID$) + 1
+
+	if(IsFolder) then
+		columnbox add ID$, 1, maxpos, 18, "__Mime__=application/x-vnd.Be-directory"
+	else
+		columnbox add ID$, 1, maxpos, 18, "__Mime__=application/octet-stream"
+	endif
+	columnbox add ID$, 2, maxpos, 20, Name$
+	return
+end sub

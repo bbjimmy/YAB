@@ -1,0 +1,835 @@
+-= A =-
+
+ALERT Text$, ButtonLabel$, Type$
+  Opens an alert window with Text$ and the button Label$ of type Type$
+  Type$ = "none/info/idea/warning/stop"
+Selected = ALERT Text$, Button1$, Button2$, Button3$, Type$
+  A more general Alert window. Specify a text and up to three buttons.
+  If Button2$ or Button3$ is set to "", the button is not shown.
+  The selected button is returned, where Selected = 1 is the left, 2 the middle and 3 the right button.
+  Type$ = "none/info/idea/warning/stop"
+ATTRIBUTE SET Type$, Name$, Value$, Filename$
+  Set the attribute Name$ of type Type$ for the file Filename$ with the string Value$.
+  These are valid types Type$:
+  "String", "Int", "Long", "Double", "Float", "Mime", "Bool"
+ues a value$ of "true" or "false" for Bool type attributes
+ATTRIBUTE CLEAR Name$, Filename$
+  Delete the attribute Name$ from file Filename$.
+Value$ = ATTRIBUTE GET$ Name$, Filename$
+  Get the string value of the attribute Name$ for file Filename$.
+	Returns "true" or "false" for "Bool" type attributes.
+Value = ATTRIBUTE GET Name$, Filename$
+  Get the number value of the attribute Name$ for file Filename$.
+
+
+-= B =-
+
+BITMAP Width, Height, ID$
+  Creates a new bitmap in memory, you can draw on it
+  A bitmap is always initialized with a white transparent background
+color = BITMAP COLOR x,y, ID$, ColorPart$
+  ColorPart$ = "red" or "green" or "blue"
+  Returns the color of the pixel at position (x,y) of the bitmap ID$
+BITMAP GET x1, y1 to x2, y2, Target_bitmap$, Source_bitmap$
+  Copies specified area of Source_bitmap$ to Target_bitmap$.
+BITMAP GET IconSize, Bitmap$, File$
+  Copies the icon, shown in Tracker, of File$ in the specified IconSize onto Bitmap$.
+BITMAP GET ID$, Option$, Path$
+  copies an icon to a bitmap
+  An Option can be:
+  "Path" = Path$ must be the path to a file
+  "Mime" or "Mime16" = Path$ must be the mimetype of the file which icon is to be swown.
+    The resulting bitmap is 16 to 16.
+  "Mime32" = Path$ must be the mimetype of the file which icon is to be swown.
+    The resulting bitmap is 32 to 32.
+BITMAP GET ID$, Option$
+  Option$ = "height" or "width" delivers height and width of bitmap ID$
+BITMAP REMOVE Bitmap$
+  Removes Bitmap$ from memory
+ErrCode = BITMAP IMAGE ImageFile$, Bitmap$
+  Load image file ImageFIle$ into a new Bitmap called Bitmap$
+ErrCode = BITMAP SAVE Bitmap$, FileName$, Format$
+  Saves a bitmap as FileName$ (overwrites existing ones!) in a Format$ of one of the following:
+  {"png", "tiff", "ppm", "bmp", "jpeg", "tga"}
+  ErrCode = 0 everything worked fine
+  ErrCode = 1 file could not be saved
+BOXVIEW x1,y1 TO x2,y2, ID$, Label$, LineType, View$
+  Adds a box, note: the actual view of the BOXVIEW (where you can place your widgets) is at
+  (x1+5,y1+10) to (x2-5,y2-5). This may be a subject of change!
+  LineType = 0 means no border
+  LineType = 1 means simple line border
+  LineType = 2 means fancy line border
+BUTTON x1,y1 TO x2,y2, ID$, Label$, View$
+  Sets a button at position (x1,y1) to (x2,y2) with label Label$ on the view View$
+BUTTON IMAGE x,y, ID$, EnabledPressed$, EnabledNormal$, Disabled$, View$
+  Create an image button at (x,y) on View$ with three files:
+  EnabledNormal$ The image of the released button 
+  EnabledPressed$ The image of the pressed button 
+  Disabled$ The image of the disabled button (you can put in an empty string "" if you don't need a
+            disabled button)
+
+
+-= C =-
+
+CALENDAR x,y, ID$, Format$, Date$, View$
+  Open a calendar widget at (x,y), giving the format, the date and put that on the view View$.
+  Format$ = ("DDMMYYYY" or "MMDDYYYY") + ("." or "/" or "-"); default: "DDMMYYYY."
+CALENDAR SET Calendar$, Date$
+  Set the date according to the current format (DDMMYYYY or MMDDYYYY).
+date$ = CALENDAR GET$ Calendar$
+  Get the current date selected in Calendar$.
+CANVAS x1,y1 to x2,y2, ID$, View$
+  A canvas is a special view for flicker-free drawing. It always shows a bitmap
+  and thus cannot be resized. However, it does not have a drawing queue, so you
+  do not need DRAW FLUSH
+  A canvas is always initialized with a white background
+CHECKBOX x1,y1, ID$, Label$, IsActivated, View$
+  Display a checkbox at (x1,y1) with Label$ on View$; if IsActivated is set to 0, the checkbox is
+  off else it is on.
+CHECKBOX SET CheckBox$, IsActivated
+  (De-)Activate the check box CheckBox$.
+CHECKBOX IMAGE x,y, ID$, EnabledOn$, EnabledOff$, DisabledOn$, DisabledOff$, IsActivated, View$
+  Create an image checkbox at (x,y) on View$ with four files:
+  EnabledNormal$ The image of the released checkbox
+  EnabledPressed$ The image of the pressed checkbox
+  DisabledNormal$ The image of the normal disabled checkbox (you can put in an empty string "" 
+                  if you don't need a disabled button)
+  DisabledPressed$ The image of the pressed disabled checkbox (you can put in an empty string "" 
+                  if you don't need a disabled button)
+  Set isActivated to true/false when the checkbox should be on/off.
+CLIPBOARD COPY Text$
+  Copy Text$ to the system clipboard.
+Text$ = CLIPBOARD PASTE$
+  Paste ASCII text from the system clipboard into Text$.
+COLORCONTROL x,y, ID$, View$
+  Create a color control widget at x,y. Note: it's width is 276 and it's height is 54 pixels.
+COLORCONTROL SET ColorControl$, r,g,b
+  Set the color control ID$ to the color r,g,b.
+Value = COLORCONTROL GET ColorControl$, "Red|Blue|Green"
+  Get the currently selected red/green/blue value of the colorcontrol.
+COLUMNBOX x1,y1 TO x2,y2, ID$, HasHScrollbar, Option$, View$
+  HasHScrollbar is true, when the columnbox should get a horizontal scrollbar (it always has a vertical).
+  Option$ affects all columns! The columns can be made movable, resizable, removable
+  Option$ = "movable, resizable, popup, removable"
+  Option$ = "no-border" sets up the columnbox without border
+COLUMNBOX COLUMN ColumnBox$, Name$, Position, MaxWidth, MinWidth, Width, Option$
+  Option$ = "align-left, align-center, align-right"
+COLUMNBOX ADD ColumnBox$, Column, Row, Height, Item$
+  If Item$ = "__Icon__="+FileName$ then the image file FileName$ will be shown,
+  if Item$ = "__Path__="+FileName$ then the large Trackericon of the file FileName$ will be shown
+  if Item$ = "__Mime__="+Signature$ then the small icon of the mime type Signature$ will be shown
+COLUMNBOX SELECT ColumnBox$, Row
+  Selects Row of ColumnBox$.
+  Row = 0 means deselect.
+COLUMNBOX REMOVE ColumnBox$, Row
+  Removes the entries in Row of ColumnBox$
+COLUMNBOX CLEAR ColumnBox$
+  Removes all entries of ColumnBox$.
+COLUMNBOX COLOR ColumnBox$, Option$, r,g,b
+  Option$ = "selection-text, non-focus-selection, selection, text, row-divider, background"
+n = COLUMNBOX COUNT ColumnBox$
+  Returns the number of entries in ColumnBox$.
+Item$ = COLUMNBOX GET$ ColumnBox$, Column, Row
+  Returns the entry at Row in Column of Columbox$.
+
+
+-= D =-
+
+DRAW TEXT x1,y1, Text$, View$
+  Draws text at position (x1,y1) on View$
+DRAW RECT x1,y1 TO x2,y2, View$
+  Draws a rectangle from (x1,y1) to (x2,y2) in the current high color on View$
+DRAW BITMAP x,y, Bitmap$, Mode$, View$
+  Draw a bitmap on a view, another bitmap or a canvas.
+  Possible Mode$:
+  "Copy" -- copy the bitmap to the target ignoring transparency
+  "Alpha" -- copy the bitmap to the target supporting transparency
+DRAW BITMAP x1,y1 TO x2,y2, Bitmap$, Mode$, View$
+  Draws and scales the bitmap Bitmap$.
+  If x2 is set to -1, the width is scaled according to the height;
+  if y2 is set to -1, the height is scaled according to the width;
+  if x2 and y2 are set to -1, the image is not scaled at all (this is like DRAW BITMAP x,y, Bitmap$, Mode$, View$).
+  Possible Mode$:
+  "Copy" -- copy the bitmap to the target ignoring transparency
+  "Alpha" -- copy the bitmap to the target supporting transparency
+DRAW DOT x1,y1, View$
+DRAW LINE x1,y1 TO x2,y2, View$
+DRAW CIRCLE x1,y1, Radius, View$
+DRAW CURVE x1,y1, x2,y2, x3,y3, x4,y4, View$
+DRAW ELLIPSE x1,y1, xRadius, yRadius, View$
+DRAW FLUSH View$
+  Deletes all former drawing commands from the drawing queue on View$
+LoadError = DRAW IMAGE x,y, ImageFile$, View$  
+  Draws the image ImageFile$ at position x,y on View$, returns LoadError 
+  LoadError:
+	0 = success
+	1 = file not found
+	2 = translator roster not found
+	3 = translation failed
+	4 = ditaching bitmap failed
+err = DRAW IMAGE x1,y1 TO x2,y2, Image$, View$
+  Draws and scales the image file Image$. Transparent images are set correctly now.
+  If x2 is set to -1, the width is scaled according to the height;
+  if y2 is set to -1, the height is scaled according to the width;
+  if x2 and y2 are set to -1, the image is not scaled at all (this is like DRAW IMAGE x1,y1, Image$, View$).
+Width = DRAW GET "Text-Width", Text$, View$
+  Return the width in pixel of the string Text$ in the current font of View$.
+Height = DRAW GET "Max-Text-Height", View$
+  Return the maximum height in pixel of the current font of View$. This is the size of the font plus
+  how far characters can descend below the baseline.
+FontFamilies$ = DRAW GET$ "FontFamily"
+  Returns a list of all installed fonts separated by "|".
+FontStyles$ = DRAW GET$ FontFamily$
+  Returns a list of all font styles for a font FontFamily$ separated by "|".
+DRAW SET FillOrStroke, Pattern$
+  FillOrStroke = 0 means fill
+  FillOrStroke = 1 means stroke
+  Pattern$ is a 8x8 1 bit map; one line is one character
+  Pattern$ = "HighSolidFill" means solid fill with the current high color 
+  Pattern$ = "LowSolidFill" means solid fill with the current low color (default)
+  Pattern$ = "CheckeredFill" means checkered fill
+DRAW SET Color$, r,g,b, View$
+  Color$ is one of the following:
+  "BGColor", r,g,b   (216,216,216 default)
+  "HighColor", r,g,b   (0,0,0 default)
+  "LowColor", r,g,b   (216,216,216 default)
+DRAW SET Color$, Option$, View$
+  Option$ is one of the following:
+  "Panel-Background-Color"
+  "Panel-Text-Color"
+  "Panel-Link-Color"
+  "Menu-Background-Color"
+  "Menu-Selection-Background-Color"
+  "Menu-Item-Text-Color"
+  "Menu-Selected-Item-Text-Color"
+  "Keyboard-Navigation-Color"
+  "Jan-Favorite-Color"
+
+  To those options the following can be added:
+  "Lighten-1-Tint"
+  "Lighten-2-Tint"
+  "Lighten-Max-Tint"
+  "Darken-1-Tint"
+  "Darken-2-Tint"
+  "Darken-3-Tint"
+  "Darken-4-Tint"
+  "Darken-Max-Tint"
+  "Disabled-Label-Tint"
+  "Disabled-Mark-Tint"
+  "Highlight-Background-Tint"
+
+  Example:
+  draw set "bgcolor", "Menu-Background-Color, Lighten-1-Tint", View$
+
+DRAW SET Font$, View$
+  Set the drawing font on View$.
+  Font$ = FontFamily$ + "," + FontStyle$ + "," + Size + "," + FontOption$ + "," Rotation + "," + Shear
+    where FontOption$ can contain the following options (only used when supported by the font):
+    FontOption$ = "bold" or "italic" or "outlined" or "underscore" or "strikeout" or "regular" (regular is default)
+    where Rotation is between 0.0 (default) and 360.0
+    where Shear is between 45.0 (slanted to right) and 135.0 (slanted to left) with 90.0 default
+      
+  or Font$ = "system-plain" for the plain system font,
+  or Font$ = "system-bold" for the bold system font,
+  or Font$ = "system-fixed" for the fixed system font
+DRAW SET "Alpha", Alpha-Value 
+  Sets the Alpha-Channel for the transparency of the drawing colors. Use this before setting the color
+  with DRAW COLOR.
+  Alpha-Value is a value between 0 and 255 where 0 is total transparency and 255 is opaque.
+  Note: When Alpha-Value is below 255, use only HighSolidFill, patterns are ignored!
+  Note: Transparent drawing (that is Alpha-Value below 255) is not printed (see PRINTER) correctly!
+DROPBOX x1,y1 TO x2,y2, ID$, Label$, View$
+  Adds an empty dropbox (BMenuField) at (x1,y1) to (x2,y2) known as ID$ and with a label on View$. 
+DROPBOX ADD DropBox$, Item$
+  Add Item$ to the dropbox. Use Item$ = "--" for a separator. 
+DROPBOX CLEAR DropBox$
+  Clear the drop box from all items.
+n = DROPBOX COUNT DropBox$
+  Count the number of items.
+Item$ = DROPBOX GET$ DropBox$, Position
+  Get the item at Position.
+DROPBOX REMOVE DropBox$, Position
+  Removes item number Position. 
+  Note: If the removed item was marked, the item before it will be marked instead. You will NOT get
+  a message that the marked item has changed. If the first item will be deleted, the next item in
+  the drop box will be marked.
+  Note: Each time an item was removed, the drop box count will change too!
+DROPBOX SELECT DropBox$, Position
+  Select the item at position Position. Counting starts at 0.
+
+
+-= F =-
+
+File$ = FILEPANEL Mode$, Title$, Directory$
+  Mode$ = "Load-File"
+  Mode$ = "Load-Directory"
+  Mode$ = "Load-File-and-Directory"
+  Mode$ = "Save-File"
+  Opens a filepanel in Directory$. According to the Mode$, you can either select a file, 
+  a directory or both for loading or select/enter a file for saving. The selected file is File$.
+File$ = FILEPANEL Mode$, Title$, Directory$, Filename$
+  Same as above, except that you can provide preset Filename$ for the mode "Save-File"
+
+
+-= I =-
+
+State = ISMOUSEIN(View$)
+  State = 0 the mouse cursor is not in the view View$
+  State = 1 the mouse cursor is in the view View$
+
+
+-= K =-
+
+Msg$ = KEYBOARD MESSAGE$(View$)
+  Works like INKEY$ on the command line (well, nearly; it does not wait for input as inkey$ does).
+
+
+-= L =-
+
+LAUNCH FileName$
+  Launch the program FileName$ or the associated executable
+LAYOUT Layout$, WindowOfView$
+  Set the layout for all views on the window of View$. The layout will affect all following new widgets, 
+  but not the already created. Draw commands are not affected by the layout, put them on an own view.
+  Layout$ (not case sensitive):
+	"Standard" = default layout, all widgets follow bottom and right side of the window
+			except for listboxes and textedit which follow all sides.
+	"All" = follow all sides (widgets resize)
+	"None" = follow the top and the left side (equals "top, left")
+  -OR- Layout$ is a combination of a horizontal and a vertical command (e.g. "Right, Top" etc.).
+  Horizontal:
+	"Left" = follow left side (default, when no other horizontal layout is given)
+	"Right" = follow the right side
+	"Left, Right" = follow the left and the right side (resize)
+	"H-Center" = follow the horizontal center
+  Vertical:
+	"Top" = follow the top side (default, when no other vertical layout is given)
+	"Bottom" = follow the bottom side
+	"Top, Bottom" = follow the top and bottom side (resize)
+	"V-Center" = follow the vertical center
+
+LISTBOX x1,y1 TO x2,y2, ID$, ScrollbarType, View$
+  Adds an empty listbox at (x1,y1) to (x2,y2) known as ID$ and with a ScrollbarType on View$.
+  ScrollbarType:
+	0 = none
+	1 = vertical scrollbars
+	2 = horizontal scrollbars
+	3 = vertical & horizontal scrollbars
+LISTBOX ADD ListBox$, Item$
+  Add the item Item$ to the listbox; note: this replaces ITEM ADD, which is obsolete and will be removed.
+LISTBOX ADD ListBox$, Position, Item$
+  Add the item Item$ at the position Position.
+LISTBOX CLEAR ListBox$
+  removes all entries in ListBox$.
+n = LISTBOX COUNT ListBox$
+  Count the number of entries in the list box ListBox$
+Entry$ = LISTBOX GET$ ListBox$, Row
+  Returns the Entry$ of Row in ListBox$.
+LISTBOX REMOVE ListBox$, Item$
+  Removes an item Item$ from the Listbox ID$.
+LISTBOX REMOVE ListBox$, Position
+  Remove the item at position Position.
+LISTBOX SELECT ListBox$, Position
+  Select the item at position Position.
+  Position = 0 means deselect
+LISTBOX SORT Listbox$
+  Sort the entries of ListBox$ alphabetically.
+LOCALIZE Mimetype$
+  Initialize automatic translation and use the locale mimetype Mimetype$. See also the Localizer help program.
+LOCALIZE STOP
+  Turn automatic translation off.
+LOCALIZE
+  Turn automatic translation on again.
+
+
+-= M =-
+
+MENU Head$, Menu$, Shortcut$, View$
+  Add a menu to the menubar with the menu head Head$, the menu item Menu$ and the shortcut Shortcut$ 
+  on View$.
+  Shortcut$ can contain the following modifiers at the beginning and the shortcut character at the end:
+  Modifiers$+ShortcutCharacter$
+  "S" for the shift key
+  "C" for the control key
+  "O" for the option key (on most keyboards probably the Windows button)
+  These modifiers can be combined, but the following combinations do not work:
+  "SO", "SC" and "SCO"
+  Note: The command key (ALT) is always part of the shortcut.
+MENU SET MenuHead$, SetRadioMode, View$
+  Put the menu in radio mode, so up to one item is marked.
+  Note: you have to set the first marked item yourself.
+MENU SET MenuHead$, MenuItem$, Option$, View$
+  Enable/Disable or mark/unmark or remove a menu item.
+  Option$ = "Disable|Enable|Mark|Plain|Remove"
+Translation$ = MENU TRANSLATE$(Source$)
+  Translation$ holds the translation of Source$. Different to TRANSLATE$, the Source$ is splitted at colons : and
+  and the string parts are translated separatly. This is useful for comparing translated menu messages.
+  E.g.
+  if(myMenuMessage$ = menu translate$("File:Open")) ... 
+msg$ = MESSAGE$
+  Collects the messages generated by the GUI elements.
+Arrived = MESSAGE SEND Application$, Message$
+  Send a string to the yab application with signature Application$
+  (default signature is: "application/x-vnd.yab-app", you can change the signature when you add
+  a comment in the first or second line of your program like this:
+    // mimetype "application/x-vnd.myapp"
+  Note: this does not work for bound programs currently!)
+  The destination yab application will produce a message$ stating:
+    _Scripting:...|
+  where the ... are the Message$.
+  The command returns one of the following error codes:
+   0: Message was delivered
+   1: The destination program was not found
+   2: The target's message queue is full
+   3: Time out, the message never made it to the target
+   4: An other error occurred
+mouse$ = MOUSE MESSAGE$(View$)
+  Returns the state of the mouse related to View$.
+  It consists out of X:Y:LMB:MMB:RMB (where MB is the corresponding left, middle, right mousebutton).
+mouse$ = MOUSE MESSAGE$
+  Returns the state of the mouse related to the application.
+  It consists out of VIEW:X:Y:LMB:MMB:RMB (where VIEW is the View$ the mouse is over, MB is the 
+  corresponding left, middle, right mousebutton).
+MOUSE SET Option$
+  Hide or show the mouse cursor for this application.
+  Option$ = "Hide" -- hide the mouse cursor
+  Option$ = "Show" -- show the mouse cursor
+  Option$ = "Obscure" -- hide the mouse cursor until the mouse is moved
+
+
+-= O =-
+
+OPTION SET View$, "Auto-Resize"
+  Automatically resize the view View$ to preferred (when this is supported by the view).
+OPTION SET View$, "Focus", HasFocus
+  Set/remove the focus of View$ (when this is supported by the view).
+OPTION SET Control$, "Enabled", IsEnabled 
+  Enable/disable the control Control$.
+OPTION SET Control$, "Label", NewLabel$
+  Give a Control a new label.
+OPTION SET Control$, "Visible", IsVisible
+  Set the control Control$ unvisible or visible
+  Note: The following widgets are controls:
+  CHECKBOX, RADIOBUTTON, SLIDER, TEXTCONTROL, BUTTON, COLORCONTROL, SPINCONTROL, CALENDAR
+OPTION COLOR View$, "BGColor", r,g,b
+  Set the background color of any view (note: this is different to DRAW SET!)
+
+
+-= P =-
+
+x = PEEK("DesktopWidth")
+  Returns the current X-resolution of the current desktop
+y = PEEK("DesktopHeight")
+  Returns the current Y-resolution of the current desktop
+x = PEEK("Deskbar-x")
+  Returns the position of the left side of the Deskbar
+y = PEEK("Deskbar-y")
+  Returns the position of the top side of the Deskbar
+w = PEEK("DeskbarWidth")
+  Returns the height of the Deskbar
+h = PEEK("DeskbarHeight")
+  Returns the width of the Deskbar
+p = PEEK("Deskbarposition")
+  Returns the position of the Deskbar as follows (clockwise):
+  1 = top-left
+  2 = top
+  3 = top-right
+  4 = bottom-right
+  5 = bottom
+  6 = bottom-left
+i = PEEK("Deskbarexpanded")
+  Returns true if the Deskbar is expanded (only possibe in position 1 and 3) and false if not.
+Height = PEEK("menuheight")
+  Returns the height of the menu (which is related to the user's font settings). 
+  This returns the height only when any window already has a menu, otherwise it returns -1.
+Width = PEEK("scrollbarwidth")
+  Returns the width of the scrollbars.
+  Different to "menuheight", it returns the correct width even if no scrollbars are used.
+Height = PEEK("tabheight")
+  Returns the height of the tabfield.
+Directory$ = PEEK$("directory")
+  Returns application directory. Use this in the following way:
+  if (peek("isbound")) then
+	Directory$ = peek$("directory")
+  else
+	Directory$ = system$("pwd")
+  endif
+TrackerItem$ = PEEK$("refsreceived")
+  Returns TrackerItem which you used 'open with...' your application on.
+Selected$ = POPUPMENU x,y, MenuItems$, View$
+  Pop up a menu at position (x,y) on View$ with the menu items MenuItems$ which are separated
+  by "|". Waits until an item is selected and returns it's label as Selected$.
+PRINTER SETUP SetupFile$
+  Setup the printing enviroment and store it in file named SetupFile$.
+PrintingError = PRINTER JobName$, SetupFile$, View$
+  Load the settings from SetupFile$ (or ask for them when the file is invalid) and print
+  the view View$ as the job named JobName$.
+  Note: Alpha transparency is not printed correctly!
+  Note: Due to a bug in BeOS and ZETA, there are probably problems printing CHECKBOX IMAGE and
+  BUTTON IMAGE images, use DRAW IMAGE instead!
+  Note: currently untested in Haiku
+  Error codes for PrintingError:
+    0 = No Problems
+    1 = Page setup failed (probably communication problems with the print server)
+    2 = The configuration file was loaded but page setup failed
+    3 = The view View$ was not found
+    4 = The number of pages is 0 or less
+    5 = The printing was canceled or something went wrong with printing
+  Note: PrintingError = 4 can happen because of a bug in the PDF printing driver; although
+  a page size is shown, none is selected. If this happens, you may want to call a PRINTER SETUP
+  for the user and try to print again.
+  Note: When an error with code 1,2,3 or 4 occurs, you can be shure that nothing was sent to the printer yet.
+
+
+-= R =-
+
+RADIOBUTTON x1,y1, ID$, Label$, IsActivated, View$
+  Add a radio button at (x1,y1) and Label$ on View$. If isActivated is set to 0, the radio button is 
+  off else it is on. Radio buttons should be grouped together in one view.
+RADIOBUTTON SET RadioButton$, IsActivated
+  (De-)Activate the radio button RadioButton$.
+
+
+-= S =-
+
+SCREENSHOT x1, y1 to x2, y2, Bitmap$
+  Takes a screenshot and copies the specified region of the desktop onto Bitmap$, which will be created!
+SCROLLBAR ID$, ScrollbarType, View$
+  Make View$ scrollable.
+SCROLLBAR SET Scrollbar$, Borderoption$
+  Borderoption$ = "no-border" or "plain-border" or "fancy-border" (default)
+SCROLLBAR SET Scrollbar$, "Vertical Position", Position
+SCROLLBAR SET Scrollbar$, "Horizontal Position", Position
+  Set the scrollbar to the position Position. Default is (0,0).
+SCROLLBAR SET Scrollbar$, "Vertical Range", Min, Max
+SCROLLBAR SET Scrollbar$, "Horizontal Range", Min, Max
+  Set the scrollbars to a maximum range, default is (1000,1000).
+  Note: the Max value will be added to the view's actual width/height.
+SCROLLBAR SET Scrollbar$, "Vertical Steps", SmallSteps, BigSteps
+SCROLLBAR SET Scrollbar$, "Horizontal Steps", SmallSteps, BigSteps
+  Set the scrollbar steps. 
+  SmallSteps are the scrolling steps when the user clicks on the arrow buttons (default is 1.0).
+  BigSteps are the scrolling steps when the user clicks on the empty part of the scrollbar (default is 10.0).
+Position = SCROLLBAR GET Scrollbar$, "Horizontal"
+Position = SCROLLBAR GET Scrollbar$, "Vertical"
+  Get the current position of the scrollbars.
+SHORTCUT View$, Shortcut$, MyMessage$
+  Set a key Shortcut$ on View$, giving back the Message$ when used.
+  This is comparable to the shortcuts used in menus, but NOTE:
+  in opposite to a menu, you can't use command -X, -C, -V, -A, -W, -Q !
+SLIDER x1,y1 TO x2,y2, ID$, Label$, Min, Max, View$
+  Add a slider with a minimum and and a maximum value (Min, Max).
+SLIDER x1,y1 TO x2,y2, ID$, Label$, Min, Max, Option$, View$
+  Option$ = "block/triangle, horizontal/vertical"
+SLIDER LABEL Slider$, StartLabel$, EndLabel$
+  Set start and end limit labels
+SLIDER SET Silder$, Location$, Count
+  Set the hashmarks.
+  Note: The Zeta sliders do not distinguish between top/bottom/left/right marks, just use "both"
+  Location$ = "none/bottom/top/both" use hashmarks for horizontal sliders
+  Location$ = "none/left/rigth/both" use hashmarks for vertical sliders
+  Count = number of hashmarks
+SLIDER COLOR Silder$, Part$, r,g,b
+  Part$ = "barcolor"
+  Part$ = "fillcolor"
+SLIDER SET Silder$, Value
+  Set the slider to Value.
+Value = SLIDER GET Slider$
+  Get the currently selected value of the slider.
+ID = SOUND PLAY SoundFile$
+  Play the sound file SoundFile$ (can be anything like wav, mp3, etc.).
+  You are given an ID to handle the playback later in your code.
+  Note: Currently not supported by Haiku!
+SOUND STOP ID
+  Stop the sound with ID
+SOUND WAIT ID
+  Waits until the sound with ID is finished playing.
+SPINCONTROL x,y, ID$, Label$, Min, Max, Step, View$
+  Set a spin control for the range (Min,Max), counting by Step.
+SPINCONTROL SET SpinControl$, Value
+  Set the spin control SpinControl$ to Value.
+Value = SPINCONTROL GET SpinControl$
+  Get the current spin control value.
+SPLITVIEW x1,y1 TO x2,y2, ID$, IsVerticalSplit, NormalStyle, View$
+  Set up the new view ID$ and split it into two new views ID$+"1" and ID$+"2".
+  If IsVerticalSplit = true, a vertical splitter is set,
+  if IsVerticalSplit = false, a horizontal splitter is set.
+  If NormalStyle = true, the splitter is 10 pixels thick,
+  If NormalStyle = false, the splitter is 4 pixels thick.
+SPLITVIEW SET SplitView$ "Divider", Position
+  Set the position of the divider, default is the half of the total split view.
+SPLITVIEW SET SplitView$ "MinimumSizes", LeftOrTop, RightOrBottom
+  Set the minimum sizes of the left (or top) view and the right (or bottom) view.
+Position = SPLITVIEW GET SplitView$, "Divider"
+  Get the current position of the divider.
+STACKVIEW x1,y1 TO x2,y2, ID$, NumberOfViews, View$
+  Set up a stack of views where only one is always visible.
+STACKVIEW SET StackView$, ViewNumber
+  Set the view number ViewNumber as the visible view.
+ViewNumber = STACKVIEW GET StackView$
+  Get the current number of the visible view.
+STATUSBAR x1, y1 to x2, y2, ID$, Label1$, Label2$, View$
+  Creates a statusbar with ID$ and label(s) on View$.
+  Label1$ is on the left side above the actual bar and so is Label2$ on the right.
+STATUSBAR SET ID$, Label1$, Label2$, State
+  Sets Statusbar ID$ to State and changes the Labels to specified ones.
+STATUSBAR SET ID$, r, g, b
+  Set the color of the statusbar
+STATUSBAR SET ID$, BarHeight
+  Set the height of the statusbar
+SUBMENU MenuHead$, MenuItem$, SubMenuItem$, Modifier$, View$
+  This is the same as MENU, it just adds a submenu instead. Deeper leveling is not possible
+  in yab, as a deeper menu structure would be bad style anyway.
+SUBMENU SET MenuHead$, MenuItem$, SetRadioMode, View$
+  Put the submenu in radio mode, so up to one item is marked.
+  Note: you have to set the first marked item yourself.
+SUBMENU SET MenuHead$, MenuItem$, SubMenuItem$, Option$, View$
+  Enable/Disable or mark/remove a submenu item.
+  Option$ = "Disable|Enable|Mark|Plain|Remove"
+
+
+-= T =-
+
+TABVIEW x1,y1 TO x2,y2, ID$, Option$, View$
+  Option$ = "top, bottom" where to place the tabs.
+TABVIEW ADD TabView$, TabName$
+  For each tab, a new view is created; you can add widgets or draw on these views as ususal.
+  The ids for the views ist TabView$+"1" for the first, TabView$+"2" for the second view, etc.
+TABVIEW SET TabView$, TabNumber
+  Open the tab number TabNumber.
+TabNumber = TABVIEW GET TABVIEW$
+  Get the current opened tab. 
+TEXT x,y, ID$, Text$, View$
+  Displays Text$ at position (x,y) on View$. This cannot be flushed like DRAW TEXT and is meant for
+  permanent labels.
+TEXT x1,y1 TO x2,y2, ID$, Text$, View$
+  Displays Text$ on View$. This cannot be flushed like DRAW TEXT and is meant for permanent labels.
+  Furthermore you can set the alignment for this command with the TEXT SET command.
+TEXT SET Text$, Alignment$
+  Set the alignment of Text$ to either "align-left", "align-center" or "align-right".
+TEXTCONTROL x1,y1 TO x2,y2, ID$, Label$, Text$, View$
+  Opens a textcontrol from (x1,y1) to (x2,y2) with Label$ and preset Text$ on View$
+TEXTCONTROL SET TextControl$, Text$
+  Set the text control's text to Text$.
+TEXTCONTROL SET TextControl$, IsPassword 
+  IsPassword = false Normal typing
+  IsPassword = true Hide typing
+TEXTCONTROL SET TextControl$, Option$, Value$
+ Option$="align" Value$= "left" / "right" / "center"
+  *** note *** Haiku has issues aligh right. There are open tickets. 
+   Option$="exclude", Value$=characters to disallow.
+ Option$="include", Value$=characters to allow.
+ Option$="length", Value$=str$(number) of characters allowed.
+  Sets the font used to the system fixed font.
+ Option$="type"
+  Value$="number" Only allow  to characters 0-9 and  ".", full stop.
+  Value$=""alphanumeric" allow all characters.
+ Option$="focus" Value$ = "true" / "false" Set the focus of TextControl$.
+ Option$="Curser", Value$=str$(number) positions the curser, sets the focus to true.
+TEXTCONTROL CLEAR TextControl$
+  Delete the text of the text control.
+Text$ = TEXTCONTROL GET$ TextControl$
+  Get the entry of the text control TextControl$. Even works, when Return was not pressed.
+TEXTEDIT x1,y1 TO x2,y2, ID$, ScrollbarType, View$
+  Opens an editor at (x1,y1) to (x2,y2) with ID$ (not displayed) on View$. For the 
+  scrollbartypes look at the listbox entry.
+  TEXTEDIT also follows all sides in standard layout.
+TEXTEDIT ADD TextEdit$, Text$
+  Insert Text$ in the textedit TextEdit$ on View$.
+TEXTEDIT CLEAR TextEdit$
+  Clears the text from the textedit TextEdit$ on View$. 
+EnteredText$ = TEXTEDIT GET$ TextEdit$
+  EnteredText$ holds the text of the textedit ID$ on View$
+SelectedText$ = TEXTEDIT GET$ TextEdit$, Option$
+  Returns the current selected text, can be empty of course.
+  Option$ = "Selection"
+TextLine$ = TEXTEDIT GET$ TextEdit$, LineNumber
+Width = TEXTEDIT GET TextEdit$, "Line-Width", LineNumber
+Height = TEXTEDIT GET TextEdit$, "Line-Height", LineNumber
+LineNumber = TEXTEDIT GET TextEdit$, Option$, Search$
+  LineNumber = Option$ = "Find", Search$
+  LineNumber = Option$ = "Case-Sensitive-Find", Search$
+LineNumber = TEXTEDIT GET TextEdit$, Option$
+  IsChanged = Option$ = "hasChanged"
+  LineNumber = Option$ = "countlines"
+  LineNumber = Option$ = "currentline"
+  YOffset = Option$ = "vertical-scrollbar"
+  XOffset = Option$ = "horizontal-scrollbar"
+  Position = Option$ = "cursor-position"
+  TextLength = Option$ = "textlength"
+TEXTEDIT SET TextEdit$, Option$
+  Applys an option to the textedit TextEdit$ on View$.
+  Option$ = "cut, copy, paste, clear, select-all, undo"
+TEXTEDIT SET TextEdit$, Option$, Value
+  Option$ = "autoindent", true/false
+  Option$ = "wordwrap", true/false
+  Option$ = "editable", true/false
+  Option$ = "color-case-sensitive", true/false
+  Option$ = "changed", true/false
+  Option$ = "gotoline", LineNumber
+  Option$ = "select", LineNumber
+  Option$ = "tabwidth", TabWidth
+  Option$ = "textwidth", TextWidth
+  Option$ = "autocomplete-start"
+  Option$ = "has-autocompletion"
+  Option$= "align", left/center/right
+  Default options are:
+    autoindent = false
+    wordwrap = true
+    editable = true
+    color-case-sensitive = false
+    changed = false
+    has-autocompletion = true
+    autocomplete-start = 4
+    align = left
+TEXTEDIT SET TextEdit$, Option$, Value$
+  Option$ = "autocomplete"
+  Add a word Value$ to the auto-completion list.
+  Option$ = "font"
+  Set the font to Value$ (similar to DRAW SET); default is "system-plain"
+TEXTEDIT COLOR TextEdit$, Option$, Command$
+  Option$ = "color1, color2, color3, color4, char-color", Command$
+  Add the command Command$ to the list of words that are checked for syntax highlighting
+  The char-color behaves differently and highlights only the first character of Command$
+  (this happens after the highlighting of the other colors).
+TEXTEDIT COLOR TextEdit$, Option$, r,g,b
+  Option$ = "bgcolor, textcolor, color1, color2, color3, color4, char-color", r,g,b
+  Default colors are:
+    bgcolor = 255,255,255 (white)
+    textcolor = 0,0,0 (black)
+    color1 = 0,0,255 (blue)
+    color2 = 255,0,0 (red)
+    color3 = 0,250,0 (green)
+    color4 = 185,185,185 (gray)
+    char-color = 200,0,255 (magenta)
+TEXTURL x,y, ID$, Label$, Address$, View$
+  Set the web/email/ftp address at (x,y) with the label Label$ and the url Address$.
+  This widget is quite nice, it launches the appropriate application when clicked, it supports
+  a right-click popup-menu and you can drag the url to create either a person file or a bookmark.
+  Email can be either of the style: "mailto:foo@bar.com" or just "foo@bar.com"
+  A web url starts either with "http://" or with "file://"
+  And a ftp address starts with "ftp://"
+TEXTURL COLOR TextURL$, Option$, r,g,b
+  Set the colors for the URL. Valid options are:
+  "Label" for the color of the label,
+  "Click" for the color of the label, when clicked and
+  "Mouse-over" for the color of the label, when the mouse is moved over the label.
+Id = THREAD GET Option$, Program$
+  Option$ = "TeamID" returns the team ID for the program named Program$
+    Specify the whole path with parameters (only the first 64 characters are important)
+    for the team, the first team with this path and parameters will be returned.
+  Option$ = "ThreadID" returns the thread ID for the program named Program$
+    Specify the program name, the first thread with this name will be returned.
+  Returns -1 when the program was not found.
+Success = THREAD REMOVE Option$, ID
+  Option$ = "TeamID" kills the team with number ID
+  Option$ = "ThreadID" kills the thread with number ID
+  Returns True when successful and False otherwise.
+  Note: You can crash your system with this command! If you don't know what this command is meant for,
+  then don't use it!     
+TOOLTIP View$, Text$
+  Set Text$ as the tooltip information for any Widget or View View$.
+  Set Test$ = "" to remove the tooltip again.
+TOOLTIP COLOR "bgcolor/textcolor", r,g,b
+  Set the background/text color of all tooltips to r,g,b. Note: This is currently not supported.
+Translation$ = TRANSLATE$(Source$)
+  Translation$ holds the translation of Source$
+TREEBOX x1,y1 to x2,y2, ID$, ScrollbarType, View$
+  Adds a tree box. This behaves just like a LISTBOX but is able to show nested trees.
+  Note: ITEM ADD does not work here. Use TREEBOX ADD instead. ITEM ADD will be depricated in
+  one of the next releases.
+TREEBOX ADD TreeBox$, RootItem$
+  Add the item RootItem$ to the top level of the tree.
+TREEBOX ADD TreeBox$, HeadItem$, ListItem$, IsExpanded
+  Add the item ListItem$ under the level of HeadItem$ of the tree.
+TREEBOX CLEAR TreeBox$
+  Clear the tree.
+TREEBOX REMOVE TreeBox$, ListItem$
+  Removes the first list item ListItem$ from the tree. Note: this also removes all subitems!
+n = TREEBOX COUNT TreeBox$
+  Returns the number of entries in TreeBox$
+Item$ = TREEBOX GET TreeBox$, Position
+  Returns the Item$ at position Position in TreeBox$.
+TREEBOX EXPAND TreeBox$, Head$
+  Expands Head$ in TreeBox$.
+TREEBOX COLLAPSE TreeBox$, Head$
+  Collapses Head$ in TreeBox$.
+TREEBOX REMOVE TreeBox$, Position
+  Removes the entry at position Position in TreeBox$.
+TREEBOX REMOVE TreeBox$, Head$, ListItem$
+  Removes ListItem$ under Head$ in TreeBox$.
+TREEBOX SELECT TreeBox$, Position
+  Selects theitem at position Position in TreeBox$.
+TREEBOX SORT TreeBox$
+  Sorts the entries of TreeBox$ alphabetically.
+
+
+-= V =-
+
+VIEW x1,y1 TO x2,y2, ID$, View$
+  Adds a view
+VIEW DROPZONE View$
+  Define View$ as a drop zone that accepts dropped files.
+  DROPZONE now accepts multiple files (and sends them in inversed order as message)
+VIEW REMOVE View$
+  Remove View$. The window view cannot be removed. Should be much more stable now.
+  Warning: Currently clears all internal information about menues and drop boxes. It is only safe to
+  use it, when you don't have any menues or drop boxes on views that will not be removed.
+  Warning: Never remove menus with shortcuts, otherwise yab will crash when the shortcut key is pressed!
+Result = VIEW GET View$, Option$
+  Option$ = "Position-X/Position-Y/Width/Height/Exists/Focused"
+  Returns the requested property or if used with Exists/Focused returns 1 if so and 0 if not.
+
+
+-= W =-
+
+WINDOW OPEN x1,y1 TO x2,y2, ID$, Title$ 
+  Open window at position x1,y1 to x2,y2 in screen coordinates with title Title$.
+  Automatically generates a window-sized view called ID$.
+WINDOW CLOSE WindowView$
+  Closes window containing the view View$. Warning: this might destabilize your program if you try
+  to reconstruct your old window or further use old views! The yab-taskforce is set on the tracks of
+  this bug ;)
+n = WINDOW COUNT
+  Returns the number of open windows
+Result = WINDOW GET View$, Option$
+  Option$ = "Position-X/Position-Y/Width/Height/Minimum-Width/Minimum-Height/Maximum-Width/Maximum-Height/Exists"
+  Returns the requested property or if used with Exists returns 1 if found and 0 if not.
+WINDOW SET Window$, Option$, Value$
+  "Look", "Document/Titled(default)/Floating/Modal/Bordered/No-Border"
+  "Feel", "Normal(default)/Modal-App/Modal-All/Floating-App/Floating-All"
+  See "BeBook->Interface Kit->BWindow->Constants and Defined Types" for details.
+  "Title", Title$
+  "Flags", "Not-Closable, Not-Zoomable, Not-Minimizable, Not-H-Resizable, Not-V-Resizable, 
+            Not-Resizable, No-Workspace-Activation, Accept-First-Click"
+  See "BeBook->Interface Kit->BWindow->Constants and Defined Types" for details.
+  "Flags", "Reset"
+  Resets the flags back to none.
+  "Workspace", "All"
+  Causes the window to appear on all workspaces.
+  "Workspace", "Current"
+  Causes the window to appear on only the current workspace.
+  "Workspace", "n"  (where n is a number >= 1)
+  Causes the window to appear on workspace number n
+WINDOW SET Window$, Option$, r,g,b
+  "BGColor", r,g,b   (216,216,216 default)
+  "HighColor", r,g,b   (0,0,0 default)
+  "LowColor", r,g,b   (216,216,216 default)
+WINDOW SET Window$, Option$, x,y
+  "ResizeTo", x,y
+  "MoveTo", x,y
+  "MinimumTo", x,y
+  "MaximumTo", x,y
+WINDOW SET WindowView$, Option$
+  Option$ = "Activate"
+    Activate the window, so it is in the foreground.
+  Option$ = "Deactivate"
+    Deactivate the window, so it is in the background.
+  Option$ = "Minimize"
+    Minimize the window, or restore the window if it is already minimized.
+  Option$ = "Maximize"
+    Maximize (zoom) the window.
+  Option$ = "Enable-Updates"
+    Updates the window again after a "Disable-Updates". 
+  Option$ = "Disable-Updates"
+    Disables the automatic window updates.

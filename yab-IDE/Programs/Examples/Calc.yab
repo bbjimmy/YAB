@@ -1,0 +1,202 @@
+#!yab
+sleep .01
+This_dir$ = getdir$("Calc.yab")
+
+//localize
+window open 100,50 to 320,320, "Calc", "CalcView"
+
+
+draw set "bgcolor", 100, 150, 220, "Calc"
+draw set "lowcolor", 100, 190, 100, "Calc"
+draw set "highcolor", 255, 255, 255, "Calc"
+window set "Calc", "minimumto", 220, 260
+window set "Calc", "maximumto", 220, 260
+
+layout "all", "Calc"
+
+menu "File", "Reset", "R", "Calc"
+menu "File", "--", "", "Calc"
+menu "File", "Quit", "Q", "Calc"
+menu "Help", "Help...", "H", "Calc"
+menu "Help", "--", "", "Calc"
+menu "Help", "About...", "", "Calc"
+
+button 20,70 to 55,105,"b7", "7", "Calc"
+button 65,70 to 100,105,"b8", "8", "Calc"
+button 110,70 to 145,105,"b9", "9", "Calc"
+button 155,70 to 190,105,"b/", "/", "Calc"
+button 20,115 to 55,150,"b4", "4", "Calc"
+button 65,115 to 100,150,"b5", "5", "Calc"
+button 110,115 to 145,150,"b6", "6", "Calc"
+button 155,115 to 190,150,"b*", "*", "Calc"
+button 20,160 to 55,195,"b1", "1", "Calc"
+button 65,160 to 100,195,"b2", "2", "Calc"
+button 110,160 to 145,195,"b3", "3", "Calc"
+button 155,160 to 190,195,"b-", "-", "Calc"
+button 20,205 to 55,240,"b0", "0", "Calc"
+button 65,205 to 100,240,"b.", ".", "Calc"
+button 110,205 to 145,240,"bC", "C", "Calc"
+button 155,205 to 190,240,"b+/=", "+=", "Calc"
+
+draw text 20,50,"0","Calc"
+
+display$ = "0"
+result = 0
+type$ = "+"
+
+dim msgbuffer$(1)
+inloop = true
+while(inloop)
+	msgnumber = split(message$, msgbuffer$(), "|")
+	for i=0 to msgnumber
+		switch msgbuffer$(i)
+			case "b."
+			case "b0"
+			case "b1"
+			case "b2"
+			case "b3"
+			case "b4"
+			case "b5"
+			case "b6"
+			case "b7"
+			case "b8"
+			case "b9"
+				if(len(display$)<10) display$ = display$ + right$(msgbuffer$(i),1)
+				while(left$(display$,1)="0")
+					display$ = right$(display$,len(display$)-1)
+				wend
+				if(display$="") display$="0"
+				draw rect 20,30 to 170,60, "Calc"
+				draw flush "Calc"
+				draw text 20,50, display$,"Calc"
+				break
+			case "b-"
+				result = calculate(result, type$, val(display$))
+				type$ = "-"
+				draw rect 20,30 to 170,60, "Calc"
+				draw flush "Calc"
+				draw text 20,50, str$(result),"Calc"
+				display$="0"
+				break
+			case "b+/="
+				result = calculate(result, type$, val(display$))
+				type$ = "+"
+				draw rect 20,30 to 170,60, "Calc"
+				draw flush "Calc"
+				draw text 20,50, str$(result),"Calc"
+				display$="0"
+				break
+			case "b*"
+				result = calculate(result, type$, val(display$))
+				type$ = "*"
+				draw rect 20,30 to 170,60, "Calc"
+				draw flush "Calc"
+				draw text 20,50, str$(result),"Calc"
+				display$="0"
+				break
+			case "b/"
+				result = calculate(result, type$, val(display$))
+				type$ = "/"
+				draw rect 20,30 to 170,60, "Calc"
+				draw flush "Calc"
+				draw text 20,50, str$(result),"Calc"
+				display$="0"
+				break
+			case "bC"
+			case "Calc:File:Reset"
+				result=0
+				draw rect 20,30 to 170,60, "Calc"
+				draw flush "Calc"
+				draw text 20,50, str$(result),"Calc"
+				display$="0"
+				type$ = "+"
+				break
+			case "Calc:File:Quit"
+			case "Calc:_QuitRequested"
+				 window close "Calc"
+				break
+			case "Calc:Help:Help..."
+				alert "Calc demonstrates how to program\n a calculator in yab.\n\n", "Ok", "info"
+				break
+			case "Calc:Help:About..."
+				window open 250,100 to 570,291, "About", "About"
+				window set "About", "look", "bordered"
+				window set "About", "feel", "modal-app"
+				draw set "BGColor", 255,255,255, "About"
+				window set "About", "minimumto", 320, 191
+				window set "About", "maximumto", 320, 191
+
+				err = draw image 0,0, This_dir$+"img/image.png", "About"
+				if(err>0) then
+					alert "Error loading image.png!"+str$(err), "Close", "warning"
+					window close "About"
+				else
+					button 20,163 to 300,183,"b", "Close", "About"
+				endif
+
+				break
+			case translate$("b")
+			case translate$("About:_QuitRequested")
+				window close "About"
+				break
+			default
+				break
+		end switch
+	next i
+	
+	if(window count = 0) inloop = false
+	sleep 0.1
+wend
+
+sub calculate(a,type$,b)
+	ret = 0
+	switch(type$)
+		case "+"
+			ret = a + b
+			break
+		case "-"
+			ret = a - b
+			break
+		case "*"
+			ret = a * b
+			break
+		case "/"
+			ret = a / b
+			break
+	end switch
+	return ret
+end sub
+
+//////////////////////////////////////////////////////////////////
+sub getdir$( programname$)
+// find out in which directory we are in 
+////////////////////////////////////////////////////////////////
+local path$
+local catch 
+catch=0
+if (!peek("isbound")) then
+	path$=system$("ps")
+	x=instr(path$,"/"+programname$)
+	path$=left$(path$,x)
+	for x=len(path$)-1 to 1 step -1
+		if (instr(path$," ",x) and catch=0) catch=x+1
+	next
+	path$=right$(path$,len(path$)-catch) 
+	path$=trim$(path$)
+	if path$="/" then
+		  path$ = trim$(system$("pwd"))+"/"
+	else
+		path$="/"+path$
+	endif
+
+else
+path$=trim$(peek$("directory") )
+path$=path$+"/"
+
+end if
+
+return path$
+end sub
+
+
+

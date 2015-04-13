@@ -1,0 +1,283 @@
+#!yab
+
+// MessageWorld - shows the messages the widgets return
+// by DasJott
+
+// Main background colors
+r = 206 : g = 226 : b = 246
+
+// open main window
+window open 100, 200 to 600, 450, "MainView", "MessageWorld - Select a widget to be explained"
+	window set "MainView", "maximumto", 500, 250
+	window set "MainView", "minimumto", 500, 250
+	draw set "bgcolor", r, g, b, "MainView"
+
+// open view inside the main window
+view 0, 0 to 500, 180, "ContentView", "MainView"		// for the contents; widgets and text.
+	draw set "bgcolor", r+20, g+20, b+20, "ContentView"
+	draw text 210, 60, "MessageWorld", "ContentView"
+	draw text 150, 75, "Shows the messages the widgets return.", "ContentView"
+	draw text 149, 100, "Please select the widget to be explained.", "ContentView"
+	draw text 125, 125, "Please use each widget to get the message shown.", "ContentView"
+	draw text 135, 140, "The sourcecode is also shown for each widget.", "ContentView"
+
+view 0, 181 to 500, 199, "MessageView", "MainView"	// for the message display
+	draw set "bgcolor", r+20, g+20, b+20, "MessageView"
+	draw set "lowcolor", r+10, g+10, b+10, "MessageView"
+	draw set "highcolor", 255, 0, 0, "MessageView"
+	draw set "Swis721 BT, Roman, 12", "MessageView"
+
+view 0, 200 to 500, 250, "SwitchView", "MainView"	// for the buttons
+	draw set "bgcolor", r, g, b, "SwitchView"
+
+	//color the buttons
+	for cc = 0 to 25
+		draw set "highcolor", r+30-(2*cc), g+30-(2*cc), b+30-(2*cc), "SwitchView"
+		draw line 0, cc to 500, cc, "SwitchView"
+	next cc
+	for cc = 0 to 25
+		draw set "highcolor", r+30-(2*cc), g+30-(2*cc), b+30-(2*cc), "SwitchView"
+		draw line 0, 25+cc to 500, 25+cc, "SwitchView"
+	next cc
+
+	// draw lines between the buttons
+	draw set "highcolor", r-70, g-70, b-70, "SwitchView"
+		draw line 0, 0 to 500, 0, "SwitchView"
+		draw line 0, 25 to 500, 25, "SwitchView"
+		draw line 99, 0 to 99, 50, "SwitchView"
+		draw line 199, 0 to 199, 50, "SwitchView"
+		draw line 299, 0 to 299, 50, "SwitchView"
+		draw line 399, 0 to 399, 50, "SwitchView"
+	draw set "highcolor", r+35, g+35, b+35, "SwitchView"
+		draw line 0, 1 to 500, 1, "SwitchView"
+		draw line 0, 26 to 500, 26, "SwitchView"
+		draw line 100, 1 to 100, 50, "SwitchView"
+		draw line 200, 1 to 200, 50, "SwitchView"
+		draw line 300, 1 to 300, 50, "SwitchView"
+		draw line 400, 1 to 400, 50, "SwitchView"
+	draw set "highcolor", 0, 0, 0, "SwitchView"
+		draw text 10, 15, "Button", "SwitchView"
+		draw text 110, 15, "Menu", "SwitchView"
+		draw text 210, 15, "Listbox", "SwitchView"
+		draw text 310, 15, "Textcontrol", "SwitchView"
+		draw text 410, 15, "Checkbox", "SwitchView"
+		draw text 10, 40, "Radiobutton", "SwitchView"
+		draw text 110, 40, "Dropbox", "SwitchView"
+		draw text 210, 40, "Dropzone", "SwitchView"
+		draw text 310, 40, "Slider", "SwitchView"
+		draw text 410, 40, "Colorcontrol", "SwitchView"
+
+// main program loop
+Xmouse = 1000
+dim cmd$(1)
+dim mouse$(10)
+
+// NEU!
+if(ismousein("SwitchView")) then
+	outsideButton = false
+else
+	outsideButton = true
+fi
+
+inloop = true
+while (inloop)
+	msg$ = message$
+	if (split(msg$, cmd$(), ":|") > 2) item$ = cmd$(2)
+	mmsg$ = mouse message$("SwitchView")
+	n = split(mmsg$, mouse$(), ":")
+
+	if (msg$ <> "") then
+		draw flush "MessageView"
+		draw Text 10, 10, "Message: "+msg$, "MessageView"
+	fi
+
+	if (ismousein("SwitchView")) then
+		// NEU!
+		if(outsideButton) then
+			while(ismousein("SwitchView") and mouse$(3) = "1")
+				mmsg$ = mousemessage$("SwitchView")
+				n = split(mmsg$, mouse$(), ":")
+				sleep 0.1
+			wend
+		fi
+		if(ismousein("SwitchView")) then
+			outsideButton = false
+			Xmouse	= val(mouse$(1))
+			Ymouse	= val(mouse$(2))
+			BLmouse	= val(mouse$(3))
+		else
+			outsideButton = true
+		fi
+	else
+		outsideButton = true
+	fi
+
+	if (BLmouse = 0) Fbl = 0
+
+	if (Ymouse < 25 and BLmouse = 1 and Ymouse > 0 and Fbl = 0) then
+		if (Xmouse < 100) then
+			VButton(0)
+		fi
+
+		if (Xmouse > 100 and Xmouse < 200) then
+			VButton(1)
+		fi
+
+		if (Xmouse > 200 and Xmouse < 300) then
+			VButton(2)
+		fi
+
+		if (Xmouse > 300 and Xmouse < 400) then
+			VButton(3)
+		fi
+
+		if (Xmouse > 400 and Xmouse < 500) then
+			VButton(4)
+		fi
+		Fbl = 1
+	fi
+
+	if (Ymouse > 25 and BLmouse = 1 and Fbl = 0) then
+		if (Xmouse < 100) then
+			VButton(5)
+		fi
+
+		if (Xmouse > 100 and Xmouse < 200) then
+			VButton(6)
+		fi
+
+		if (Xmouse > 200 and Xmouse < 300) then
+			VButton(7)
+		fi
+
+		if (Xmouse > 300 and Xmouse < 400) then
+			VButton(8)
+		fi
+
+		if (Xmouse > 400 and Xmouse < 500) then
+			VButton(9)
+		fi
+		Fbl = 1
+	fi
+
+	switch msg$
+
+		case "MainView:_QuitRequested|"
+			inloop = false
+			break
+
+	end switch
+	sleep 0.01
+wend
+exit
+
+sub VButton(n)
+	draw flush "MessageView"
+	if(ck) then
+		view remove "CBView"
+		ck = false
+	endif
+	view remove "ContentView"
+	view 0, 0 to 500, 200, "ContentView", "MainView"
+		draw set "bgcolor", r+20, g+20, b+20, "ContentView"
+		draw set "lowcolor", r, g, b, "ContentView"
+		draw set "Swis721 BT, Bold, 16", "ContentView"
+
+	if (n = 0) then	// Button
+		draw text 10, 25, "BUTTON x1,y1 TO x2,y2, ID$, Label$, View$", "ContentView"
+		draw set "Swis721 BT, Roman, 12", "ContentView"
+		button 100, 50 to 400, 70, "Button_", "Testbutton", "ContentView"
+		draw text 60, 130, "button 100, 50 to 400, 70, \"Button_\", \"Testbutton\", \"MainView\"", "ContentView"
+	fi
+
+	if (n = 1) then	// Menu
+		draw text 10, 25, "MENU Head$, Menu$, Shortcut$, View$", "ContentView"
+		draw set "Swis721 BT, Roman, 12", "ContentView"
+		view 40, 50 to 460, 100, "MenuView", "ContentView"
+		draw text 60, 130, "view 40, 50 to 460, 100, \"MenuView\", \"MainView\"", "ContentView"
+		menu "File", "Open file", "", "MenuView"
+		menu "File", "Quit", "", "MenuView"
+		draw text 60, 145, "menu \"File\", \"Open file\", \"\", \"MenuView\"", "ContentView"
+		draw text 60, 160, "menu \"File\", \"Quit\", \"\", \"MenuView\"", "ContentView"
+	fi
+
+	if (n = 2) then	// Listbox
+		draw text 10, 25, "LISTBOX x1,y1 TO x2,y2, ID$, ScrollbarType, View$", "ContentView"
+		draw set "Swis721 BT, Roman, 12", "ContentView"
+		listbox 40, 50 to 460, 100, "ListBox_", 1, "ContentView"
+		draw text 60, 130, "listbox 40, 50 to 460, 100, \"ListBox_\", 1, \"MainView\"", "ContentView"
+		listbox add "ListBox_", "First entry"
+		listbox add "ListBox_", "Second entry"
+		draw text 60, 145, "listbox add \"ListBox_\", \"First entry\"", "ContentView"
+		draw text 60, 160, "listbox add \"ListBox_\", \"Second entry\"", "ContentView"
+	fi
+
+	if (n = 3) then	// Textcontrol
+		draw text 10, 25, "TEXTCONTROL x1,y1 TO x2,y2, ID$, Label$, Text$, View$", "ContentView"
+		draw set "Swis721 BT, Roman, 12", "ContentView"
+		textcontrol 100, 50 to 400, 70, "Textcontrol-ID", "Label", "Text", "ContentView"
+		draw text 60, 130, "textcontrol 100, 50 to 400, 70, \"Textcontrol-ID\", \"Label\", \"Text\", \"MainView\"", "ContentView"
+	fi
+
+	if (n = 4) then	// Checkbox
+		draw text 10, 25, "CHECKBOX x1,y1, ID$, Label$, IsActivated, View$", "ContentView"
+		draw set "Swis721 BT, Roman, 12", "ContentView"
+		view 100, 50 to 400, 100, "CBView", "ContentView"
+		draw text 60, 130, "view 100, 50 to 400, 100, \"CBView\", \"MainView\"", "ContentView"
+		checkbox 10, 8, "Checkbox1-ID", "Label1", 0, "CBView"
+		checkbox 10, 28, "Checkbox2-ID", "Label2", 1, "CBView"
+		draw text 60, 145, "checkbox 10, 8, \"Checkbox1-ID\", \"Label1\", 0, \"CBView\"", "ContentView"
+		draw text 60, 160, "checkbox 10, 28, \"Checkbox2-ID\", \"Label2\", 1, \"CBView\"", "ContentView"
+		ck = true
+	fi
+
+	if (n = 5) then	// Radiobutton
+		draw text 10, 25, "RADIOBUTTON x1,y1, ID$, Label$, IsActivated, View$", "ContentView"
+		draw set "Swis721 BT, Roman, 12", "ContentView"
+		view 100, 50 to 400, 100, "RBView", "ContentView"
+		draw text 60, 130, "view 100, 50 to 400, 100, \"RBView\", \"MainView\"", "ContentView"
+		radiobutton 10, 8, "Radiobutton1-ID", "Label1", 0, "RBView"
+		radiobutton 10, 28, "Radiobutton2-ID", "Label2", 1, "RBView"
+		draw text 60, 145, "radiobutton 10, 8, \"Radiobutton1-ID\", \"Label1\", 0, \"RBView\"", "ContentView"
+		draw text 60, 160, "radiobutton 10, 28, \"Radiobutton2-ID\", \"Label2\", 1, \"RBView\"", "ContentView"
+	fi
+
+	if (n = 6) then	// Dropbox
+		draw text 10, 25, "DROPBOX x1,y1 TO x2,y2, ID$, Label$, View$", "ContentView"
+		draw set "Swis721 BT, Roman, 12", "ContentView"
+		dropbox 40, 50 to 460, 100, "DropBox_", "Label", "ContentView"
+		draw text 60, 130, "dropbox 40, 50 to 460, 100, \"DropBox_\", \"Label\", \"MainView\"", "ContentView"
+		dropbox add "DropBox_", "First entry"
+		dropbox add "DropBox_", "Second entry"
+		draw text 60, 145, "dropbox add \"DropBox_\", \"First entry\"", "ContentView"
+		draw text 60, 160, "dropbox add \"DropBox_\", \"Second entry\"", "ContentView"
+	fi
+
+	if (n = 7) then	// Dropzone
+		draw text 10, 25, "VIEW DROPZONE View$", "ContentView"
+		draw set "Swis721 BT, Roman, 12", "ContentView"
+		view 100, 50 to 400, 100, "DropView", "ContentView"
+		draw text 60, 130, "view 100, 50 to 400, 100, \"DropView\", \"MainView\"", "ContentView"
+		view dropzone "DropView"
+		draw text 60, 145, "view dropzone \"DropView\"", "ContentView"
+	fi
+
+	if (n = 8) then	// Slider
+		draw text 10, 25, "SLIDER x1,y1 TO x2,y2, ID$, Label$, Min, Max, Option$, View$", "ContentView"
+		draw set "Swis721 BT, Roman, 12", "ContentView"
+		slider 100, 50 to 400, 70, "Slider-ID", "Label", 0, 255, "horizontal", "ContentView"
+		draw text 60, 130, "slider 100, 50 to 400, 70, \"slider-ID\", \"Label\", 0, 255, \"horizontal\", \"MainView\"", "ContentView"
+	fi
+
+	if (n = 9) then	// Colorcontrol
+		draw text 10, 25, "COLORCONTROL x,y, ID$, View$", "ContentView"
+		draw set "Swis721 BT, Roman, 12", "ContentView"
+		colorcontrol 100, 50, "ColCon-ID", "ContentView"
+		draw text 60, 130, "colorcontrol 100, 50, \"ColCon-ID\", \"MainView\"", "ContentView"
+	fi
+
+	draw text 10, 130, "Source:", "ContentView"
+
+	BLmouse = 0
+	return
+end sub

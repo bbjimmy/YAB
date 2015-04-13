@@ -1,0 +1,115 @@
+#!yab
+
+window open 200, 200 to 710, 600, "MainView" ,"YAB-Keyboard"
+window set "MainView", "flags", "not-h-resizable, not-v-resizable"
+
+view 10,10 to 500, 180, "TextView", "MainView"
+	draw set "bgcolor", 0, 50, 0, "TextView"
+	draw set "lowcolor", 0, 50, 0, "TextView"
+	draw set "highcolor", 245, 245, 245, "TextView"
+	draw set "Zurich, Bold, 20", "TextView"
+
+button 10, 200 to 50, 240, "Button:Q", "Q", "MainView"
+button 60, 200 to 100, 240, "Button:W", "W", "MainView"
+button 110, 200 to 150, 240, "Button:E", "E", "MainView"
+button 160, 200 to 200, 240, "Button:R", "R", "MainView"
+button 210, 200 to 250, 240, "Button:T", "T", "MainView"
+button 260, 200 to 300, 240, "Button:Z", "Z", "MainView"
+button 310, 200 to 350, 240, "Button:U", "U", "MainView"
+button 360, 200 to 400, 240, "Button:I", "I", "MainView"
+button 410, 200 to 450, 240, "Button:O", "O", "MainView"
+button 460, 200 to 500, 240, "Button:P", "P", "MainView"
+
+button 20, 250 to 60, 290, "Button:A", "A", "MainView"
+button 70, 250 to 110, 290, "Button:S", "S", "MainView"
+button 120, 250 to 160, 290, "Button:D", "D", "MainView"
+button 170, 250 to 210, 290, "Button:F", "F", "MainView"
+button 220, 250 to 260, 290, "Button:G", "G", "MainView"
+button 270, 250 to 310, 290, "Button:H", "H", "MainView"
+button 320, 250 to 360, 290, "Button:J", "J", "MainView"
+button 370, 250 to 410, 290, "Button:K", "K", "MainView"
+button 420, 250 to 460, 290, "Button:L", "L", "MainView"
+button 465, 250 to 500, 340, "Enter_", "Enter", "MainView"
+
+button 30, 300 to 70, 340, "Button:Y", "Y", "MainView"
+button 80, 300 to 120, 340, "Button:X", "X", "MainView"
+button 130, 300 to 170, 340, "Button:C", "C", "MainView"
+button 180, 300 to 220, 340, "Button:V", "V", "MainView"
+button 230, 300 to 270, 340, "Button:B", "B", "MainView"
+button 280, 300 to 320, 340, "Button:N", "N", "MainView"
+button 330, 300 to 370, 340, "Button:M", "M", "MainView"
+button 380, 300 to 415, 340, "Button:,", ",", "MainView"
+button 425, 300 to 460, 340, "Button:.", ".", "MainView"
+
+button 10, 350 to 60, 390, "About_", "About", "MainView"
+button 70, 350 to 430, 390, "Spacebar_", "", "MainView"
+button 440, 350 to 500, 390, "Clear_", "Clear all", "MainView"
+
+a = 10 : b = 25
+dim choice$(1)
+inloop = true
+while (inloop)
+	msg$ = message$
+	if (split(msg$, choice$(), ":|") >= 2) btn$ = choice$(2)
+	if (msg$ <> "") print msg$
+
+	switch msg$
+
+		case "MainView:_QuitRequested|"
+			inloop = false
+			break
+
+		case "Button:"+btn$+"|"
+			draw text a, b, btn$, "TextView"
+				if (btn$ = "J" ) then
+					a = a+10
+				elsif (btn$ = "I" or btn$ = "," or btn$ = ".") then
+					a = a+6
+				elsif (btn$ = "W") then
+					a = a+20
+				elsif (btn$ = "F" or btn$ = "T") then
+					a = a+12
+				elsif (btn$ = "M") then
+					a = a+18
+				elsif (btn$ = "N" or btn$ = "G" or btn$ = "Q" or btn$ = "O") then
+					a=a+15
+				else
+					a = a+14
+				fi
+			break
+
+		case "Enter_|"
+			a = 10 : b = b+25
+			break
+
+		case "Spacebar_|"
+			a = a+12
+			break
+
+		case "Clear_|"
+			draw flush "TextView"
+			a = 10 : b = 25
+			break
+
+		case "About_|"
+			ShowAbout()
+			break
+
+	end switch
+	sleep 0.01
+wend
+exit
+
+sub ShowAbout()
+	for i = 0 to 215
+		msg$ = message$
+		draw flush "TextView"
+		draw text 200, 190-i, "This is:", "TextView"
+		draw text 160, 215-i, "YAB - Keyboard", "TextView"
+		if (msg$ = "About_|") break
+		sleep 0.01
+	next i
+	a = 10 : b = 25
+	draw flush "TextView"
+	return
+end sub

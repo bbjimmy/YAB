@@ -1,0 +1,83 @@
+#!yab
+
+// MouseWorld - shows mousemessages
+// by DasJott
+
+window open 100, 100 to 500, 400, "MainView", "Mouse-World"
+	window set "MainView", "flags","not-zoomable, not-h-resizable, not-v-resizable"
+	draw set "Zurich, Bold, 20", "MainView"
+
+view 0, 20 to 100, 110, "MouseView", "MainView"
+	draw set "bgcolor", 255, 255, 255, "MouseView"
+	draw set "lowcolor", 255, 255, 255, "MouseView"
+	draw set "highcolor", 0, 0, 0, "MouseView"
+
+draw text 60, 150, "Press the Quit button to Quit!", "MainView"
+draw text 330, 290, "Haha!", "MainView"
+
+dim cmd$(1)
+dim mouse$(1)
+inloop = true
+while (inloop)
+	msg$ = message$
+	mmsg$ = mouse message$("MainView")
+
+	if (not mmsg$ = Fmmsg$) then
+		Fmmsg$ = mmsg$
+		n = split(mmsg$, mouse$(), ":")
+		Xmouse	= val(mouse$(1))
+		Ymouse	= val(mouse$(2))
+		BLmouse	= val(mouse$(3))
+		BCmouse	= val(mouse$(4))
+		BRmouse	= val(mouse$(5))
+		ShowMouseMessage()
+	fi
+
+	if (Xmouse > 324 and Ymouse > 264) then
+		HideQbutton()
+	else
+		if (Qbutton = false) ShowQbutton()
+	fi
+
+	switch msg$
+
+		case "MainView:_QuitRequested|"
+			inloop = false
+			break
+		
+	end switch
+	sleep 0.01
+wend
+window close "MainView"
+
+sub ShowMouseMessage()
+	draw flush "MouseView"
+	draw text 10, 10, "Mouse X:", "MouseView"
+	draw text 10, 25, "Mouse Y:", "MouseView"
+	draw text 10, 40, "Mouse buttons:", "MouseView"
+	draw text 20, 55, "Button 1:", "MouseView"
+	draw text 20, 70, "Button 2:", "MouseView"
+	draw text 20, 85, "Button 3:", "MouseView"
+
+	draw text 60, 10, str$(Xmouse), "MouseView"
+	draw text 60, 25, str$(Ymouse), "MouseView"
+	draw text 70, 55, str$(BLmouse), "MouseView"
+	draw text 70, 70, str$(BRmouse), "MouseView"
+	draw text 70, 85, str$(BCmouse), "MouseView"
+	return
+end sub
+
+sub HideQbutton()
+	if(Qbutton) then
+		view remove "ButtonView"
+	endif
+	Qbutton = false
+	return
+end sub
+
+sub ShowQbutton()
+	view 325, 265 to 395, 295, "ButtonView", "MainView"
+	button 5, 5 to 65, 25, "Quit_", "Quit", "ButtonView"
+	Qbutton = true
+	return
+end sub

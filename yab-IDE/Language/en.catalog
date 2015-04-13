@@ -1,0 +1,214 @@
+1	english	x-vnd.yab-IDE	1378724574
+File			File
+New...			New...
+Open...			Open...
+Close			Close
+Save			Save
+Save As...			Save As...
+Save As Template...			Save As Template...
+Page Setup...			Page Setup...
+Print...			Print...
+Quit			Quit
+Edit			Edit
+Undo			Undo
+Cut			Cut
+Copy			Copy
+Paste			Paste
+Select All			Select All
+Find			Find
+Find Again			Find Again
+Find and Replace			Find and Replace
+Program			Program
+Run			Run
+Run in Terminal			Run in Terminal
+Set Run Parameters...			Set Run Parameters...
+Build Factory...			Build Factory...
+Tools			Tools
+Pattern Editor...			Pattern Editor...
+Color Selection...			Color Selection...
+ASCII Table...			ASCII Table...
+View			View
+Next File			Next File
+Previous File			Previous File
+Full Screen			Full Screen
+Maximize Editor			Maximize Editor
+Auto Indent			Auto Indent
+Auto Completion			Auto Completion
+Refresh Colors			Refresh Colors
+Reformat Sourcecode			Reformat Sourcecode
+Undo Reformat			Undo Reformat
+Options...			Options...
+Introduction to the IDE...			Introduction to the IDE...
+yab Help...			yab Help...
+Yabasic Manual...			Yabasic Manual...
+Online Resources			Online Resources
+yab Homepage...			yab Homepage...
+yab Forums...			yab Forums...
+Yabasic Homepage...			Yabasic Homepage...
+Team Maui...			Team Maui...
+About...			About...
+New			New
+Open			Open
+Build Factory			Build Factory
+Pattern Editor			Pattern Editor
+Options			Options
+yab Help			yab Help
+Go to Line:			Go to Line:
+Go to Line			Go to Line
+ Files 			 Files 
+ Help 			 Help 
+Filename			Filename
+Command			Command
+yab Output			yab Output
+Immediate			Immediate
+Execute			Execute
+Find:			Find:
+Replace:			Replace:
+Case Sensitive			Case Sensitive
+Replace All			Replace All
+Suspecting user input, therefore starting in a terminal.			Suspecting user input, therefore starting in a terminal.
+Ok			Ok
+File: 			File: 
+ (not saved)   			 (not saved)   
+Line			Line
+Please wait...			Please wait...
+Loading Program			Loading Program
+Running			Running
+Running Program			Running Program
+Error! Program could not be killed.			Error! Program could not be killed.
+Oops			Oops
+Close terminal to break program			Close terminal to break program
+yab-IDE Set Run Parameters			yab-IDE Set Run Parameters
+Set Run Parameters			Set Run Parameters
+yab Parameters:			yab Parameters:
+Program Parameters:			Program Parameters:
+yab-IDE New Program			yab-IDE New Program
+New yab Program			New yab Program
+Please select one of the available templates for your program:			Please select one of the available templates for your program:
+Name:			Name:
+Browse...			Browse...
+Advanced Options			Advanced Options
+Remove Template			Remove Template
+Project Directory			Project Directory
+Could not open template: 			Could not open template: 
+Opening an empty file instead.			Opening an empty file instead.
+Really delete template			Really delete template
+Yes			Yes
+Cancel			Cancel
+This standard template can not be deleted!			This standard template can not be deleted!
+Template successfully removed.			Template successfully removed.
+Error while deleting template!			Error while deleting template!
+Empty			Empty
+Basic Template			Basic Template
+Editor Template			Editor Template
+Command Line Template			Command Line Template
+                             			                             
+Create an empty file.			Create an empty file.
+Create a new program with a bare			Create a new program with a bare
+window.			window.
+Create a new program with menus			Create a new program with menus
+and an editor.			and an editor.
+                            			                            
+Create a new command line program.			Create a new command line program.
+yab-IDE Save As Template			yab-IDE Save As Template
+Save As Template			Save As Template
+Save your code as a template for other programs:			Save your code as a template for other programs:
+Template Name			Template Name
+Description (not more than 30 characters per line)			Description (not more than 30 characters per line)
+Drop image here			Drop image here
+Could not load image!			Could not load image!
+Error while saving template!			Error while saving template!
+File could not be saved!			File could not be saved!
+Sorry, you can not open more than 			Sorry, you can not open more than 
+ files at once!\n\nPlease close one or more other files first.			 files at once!\n\nPlease close one or more other files first.
+File is already open.			File is already open.
+Error while loading file:\n\n			Error while loading file:\n\n
+File \"			File \"
+\" not saved!\n\nSave the file now?			\" not saved!\n\nSave the file now?
+Error while printing!			Error while printing!
+Some files are not saved!\n\nDo you really want to quit?			Some files are not saved!\n\nDo you really want to quit?
+Program is not saved.\n\nSave it now?			Program is not saved.\n\nSave it now?
+Save Always			Save Always
+Save Now			Save Now
+Reformating did not close all open loops and conditions.\nReformating currently does not support loops and conditions opened and closed by a colon (:).\nE.g. while(loop):wend\n\nYou can undo the reformating before doing any further changes.			Reformating did not close all open loops and conditions.\nReformating currently does not support loops and conditions opened and closed by a colon (:).\nE.g. while(loop):wend\n\nYou can undo the reformating before doing any further changes.
+Do not show this warning again			Do not show this warning again
+Changes made since reformating will be lost!			Changes made since reformating will be lost!
+The operation \"Replace All\" can not be reverted!\n\nDo you want to continue?			The operation \"Replace All\" can not be reverted!\n\nDo you want to continue?
+yab-IDE Build Factory			yab-IDE Build Factory
+Target file name:			Target file name:
+Use the Haiku tab view instead of the ZETA native tab view			Use the Haiku tab view instead of the ZETA native tab view
+Create Binary			Create Binary
+The compiler GCC was not found!\n\nPlease install the development tools from your ZETA CD.			The compiler GCC was not found!\n\nPlease install the development tools from your ZETA CD.
+The compiler GCC was not found!\n\nPlease install the development tools.			The compiler GCC was not found!\n\nPlease install the development tools.
+Visit Download Site			Visit Download Site
+Warning: Although you are using the BeOS yab, the resulting binary will be ZETA only!			Warning: Although you are using the BeOS yab, the resulting binary will be ZETA only!
+Build Factory Output\n\n			Build Factory Output\n\n
+Please wait, processing... (this may take a while)\n\n			Please wait, processing... (this may take a while)\n\n
+Build was successful			Build was successful
+Build failed!			Build failed!
+yab-IDE Pattern Editor			yab-IDE Pattern Editor
+Insert Pattern			Insert Pattern
+yab-IDE Color Selection			yab-IDE Color Selection
+Color Selection			Color Selection
+Default Colors:			Default Colors:
+Black			Black
+Darken 4			Darken 4
+Darken 3			Darken 3
+Darken 2			Darken 2
+Darken 1			Darken 1
+Default Background			Default Background
+Lighten 1			Lighten 1
+Lighten 2			Lighten 2
+White			White
+Red			Red
+Brown			Brown
+Yellow			Yellow
+Green			Green
+Cyan			Cyan
+Light Blue			Light Blue
+Blue			Blue
+Magenta			Magenta
+Light Magenta			Light Magenta
+Insert Color			Insert Color
+yab-IDE ASCII Table			yab-IDE ASCII Table
+ASCII Table			ASCII Table
+yab-IDE Options			yab-IDE Options
+Editor			Editor
+General			General
+Environment			Environment
+Directories			Directories
+Language			Language
+Number of spaces per tab:			Number of spaces per tab:
+Ask about saving before running a program			Ask about saving before running a program
+Show warning when reformating sourcecode did not close all loops and conditions			Show warning when reformating sourcecode did not close all loops and conditions
+Show warning before undo reformating			Show warning before undo reformating
+Show warning before applying Replace All			Show warning before applying Replace All
+Select font for editor:			Select font for editor:
+Font Family			Font Family
+Font Style			Font Style
+Font Size			Font Size
+My hovercraft is full of eels.			My hovercraft is full of eels.
+Factory Settings			Factory Settings
+Enable auto completion			Enable auto completion
+Number of characters for starting completion:			Number of characters for starting completion:
+New Entry:			New Entry:
+Add New Entry			Add New Entry
+Remove Entry			Remove Entry
+Note: You have to restart the IDE to update the			Note: You have to restart the IDE to update the
+autocompletion when removing entries.			autocompletion when removing entries.
+Note: Only change the directories, when you know what you are doing!			Note: Only change the directories, when you know what you are doing!
+Default yab Binary			Default yab Binary
+Default yab Directory			Default yab Directory
+Use the automatic localization			Use the automatic localization
+Supported Languages			Supported Languages
+Entry already exists.			Entry already exists.
+Restart yab-IDE to change localization			Restart yab-IDE to change localization
+Could not find yab 1.0 directory!\n\nPlease do a proper installation.			Could not find yab 1.0 directory!\n\nPlease do a proper installation.
+Could not find yab binary!\n\nPlease do a proper installation.			Could not find yab binary!\n\nPlease do a proper installation.
+New yab directory set to:\n\n			New yab directory set to:\n\n
+\n\nRestart the IDE using the new directory.			\n\nRestart the IDE using the new directory.
+Invalid directory:\n\n			Invalid directory:\n\n
+yab binary set to:\n\n			yab binary set to:\n\n
+Invalid file:\n\n			Invalid file:\n\n
+Export As HTML...			Export As HTML...
+Open Project Folder...			Open Project Folder...

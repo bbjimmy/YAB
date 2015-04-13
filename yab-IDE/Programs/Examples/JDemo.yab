@@ -1,0 +1,69 @@
+#!yab
+
+// JDemo - just a smiley
+// by DasJott
+
+window open 300,100 to 800,500,"mainview","Smiley - DEMO"
+window set "mainview", "flags","not-zoomable, not-h-resizable, not-v-resizable"
+draw set "bgcolor", 0,0,0,"mainview"  
+draw set "highcolor",255,255,0,"mainview"
+draw circle 250,200,180,"mainview"
+
+// Eyes
+draw set "highcolor",0,0,0,"mainview"
+draw circle 170,110,20,"mainview"
+view 310,90 to 350,130,"twinkleview","mainview"
+draw set "bgcolor",255,255,0,"twinkleview"
+draw set "highcolor",0,0,0,"twinkleview"
+draw circle 20,20,20,"twinkleview"
+
+// Smiling mouth
+view 140,220 to 360,320,"mouthview","mainview"
+draw set "bgcolor",255,255,0,"mouthview"
+draw set "highcolor",0,0,0,"mouthview"
+draw set 1, "HighSolidFill"
+draw circle 110,-11, 110,"mouthview"
+draw set 0, "HighSolidFill"
+
+button 450,370 to 490,390,"Exit","Quit","mainview"
+
+
+
+inloop = true
+while (inloop = true)
+	msg$ = message$	
+ 
+	if (t < 20) then
+		draw flush "twinkleview"
+		draw ellipse 20,20, 20, 20-t,"twinkleview"
+	fi
+
+	if (t > 20 and t < 41) then
+		draw flush "twinkleview"
+		draw ellipse 20,20, 20, t-20,"twinkleview"
+	fi
+
+	if (t = 100) t = 0
+	
+	t = t+1
+	n = n+1
+	
+	if(n = 200) then
+		draw flush "mouthview"
+		draw circle 110,-11, 110,"mouthview"
+		n = 0
+		sleep 1
+	fi
+	
+	if(n = 0) then	
+		draw flush "mouthview"
+		draw set 1, "HighSolidFill"
+		draw circle 110,-11, 110,"mouthview"
+		draw set 0, "HighSolidFill"
+	fi
+		
+    if (msg$ = "Exit|") inloop = false
+	if (msg$ = "mainview:_QuitRequested|") inloop = false
+wend
+
+window close "mainview"

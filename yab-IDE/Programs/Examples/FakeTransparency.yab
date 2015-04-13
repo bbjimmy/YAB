@@ -1,0 +1,58 @@
+#!yab
+
+SCREEN_W = peek("desktopwidth")
+SCREEN_H = peek("desktopheight")
+
+W = 400
+H = 200
+
+X = (SCREEN_W/2) - (W/2)
+Y = (SCREEN_H/2) - (H/2)
+
+THE_TEXT$ = "HELLO"
+
+screenshot 0, 0 to SCREEN_W-1, SCREEN_H-1, "BMP_screen_"
+
+window open -10-W, 0 to -10, H, "Main_", "PAPA"
+	window set "Main_", "look", "modal"
+	window set "Main_", "flags", "not-h-resizable, not-v-resizable, not-zoomable"
+
+canvas 0, 0 to W, H, "CV_main_", "Main_"
+if(peek$("os") = "Haiku") then
+        draw set "DejaVu Sans,Condensed Bold,122", "CV_main_"
+else
+	draw set "Swis721 BT, Bold, 122", "CV_main_"
+endif
+
+th = draw get "max-text-height", "CV_main_"
+tw = draw get "text-width", THE_TEXT$, "CV_main_"
+
+tx = (W/2)-(tw/2)
+ty = (H/3)*2
+
+draw bitmap -X, -Y, "BMP_screen_", "copy", "CV_main_"
+draw text tx, ty, THE_TEXT$, "CV_main_"
+
+window set "Main_", "moveto", X, Y
+
+dim m$(1)
+while (not instr(msg$, "Quit"))
+	msg$ = message$
+
+	if (X <> window get "Main_", "position-x") then
+		X = window get "Main_", "position-x"
+		Moved = true
+	fi
+	if (Y <> window get "Main_", "position-y") then
+		Y = window get "Main_", "position-y"
+		Moved = true
+	fi
+
+	if (Moved) then
+		draw bitmap -X, -Y, "BMP_screen_", "copy", "CV_main_"
+		draw text tx, ty, THE_TEXT$, "CV_main_"
+		Moved = false
+	fi
+
+wend
+exit

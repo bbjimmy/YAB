@@ -1,0 +1,50 @@
+doc Toolbar.yab is a library to easily create a toolbar.
+doc This is suitable for 16x16 icons
+
+// Create a new toolbar.
+// 
+// x1,y1 is the upper left starting point
+// x2 is the right border of the toolbar
+// note: the toolbar is always 30 pixels in height!
+// id$ is the toolbar ID
+// dir$ is the directory, where the icons can be found
+// view$ is the view on which the Toolbar is created
+// 
+// Note: this will change the layout of your view view$.
+export sub ToolbarCreate(x1,y1,x2, id$, dir$, view$)
+	layout "left, right", view$
+	view x1,y1 to x2,y1+30, id$, view$
+	layout "left,right", id$
+	draw set "bgcolor", 222,219,222, id$
+	view 0,30 to x2,30, id$+"line", id$
+	draw set "bgcolor", 185,185,185, id$+"line"
+	layout "none", id$
+	position = 10
+	directory$ = dir$
+	toolbarview$ = id$
+	return
+end sub
+
+// Add an icon to the toolbar.
+//
+// id$ is the ID of the icon; this ID is send as a message, when the icon is clicked on
+// pressed$ is the image of the pressed icon 
+// normal$ is the image of the normal icon 
+// disabled$ is the image of the disabled icon 
+export sub ToolbarAddIcon( id1$,id$, pressed$, normal$, disabled$)
+	button image position,7, id$, directory$+pressed$, directory$+normal$, directory$+disabled$, toolbarview$
+	tooltip id$, id$
+	position = position + 25
+	return
+end sub
+
+// Add a separator to the toolbar.
+export sub ToolbarAddSeparator()
+	draw set "highcolor", 198,198,198, toolbarview$
+	draw line position-2,5 to position-2,25,toolbarview$ 
+	draw set "highcolor", 152,152,152, toolbarview$
+	draw line position-1,5 to position-1,25, toolbarview$
+	position = position + 5
+	return
+end sub
+

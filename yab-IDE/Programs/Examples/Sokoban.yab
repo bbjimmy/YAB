@@ -1,0 +1,305 @@
+doc Simple game example
+doc based on the popular Sokoban
+doc graphics taken from Rocks'n'Diamonds
+
+
+// Initialize the window, load the sprites and put up the canvas
+window open 100,100 to 484,484, "Win", "Simple Sokoban Example"
+window set "Win", "flags", "not-zoomable, not-h-resizable, not-v-resizable"
+
+bitmap 32,32, "wall"
+err = draw image 0,0 to 31,31, "img/wall.png", "wall"
+bitmap 32,32, "front1"
+err = err + draw image 0,0 to 31,31, "img/front.png", "front1"
+bitmap 32,32, "bulb"
+err = err + draw image 0,0 to 31,31, "img/bulb.png", "bulb"
+bitmap 32,32, "target"
+err = err + draw image 0,0 to 31,31, "img/target.png", "target"
+bitmap 32,32, "final"
+err = err + draw image 0,0 to 31,31, "img/final.png", "final"
+bitmap 32,32, "background"
+draw set "highcolor", 0,0,0, "background"
+draw rect 0,0 to 31,31, "background"
+
+if(err>0) then
+	alert "Could not load images", "Ok", "stop"
+	window close "Win"
+	exit(1)
+endif
+
+option set "Win", "focus", true
+
+canvas 0,0 to 384,384, "Canvas", "Win"
+
+draw set "highcolor", 0,0,0, "Canvas"
+draw rect 0,0 to 384,384, "Canvas"
+
+// Read in the demo level and show it
+dim levelline$(12)
+for i=1 to 12 
+	read levelline$(i)
+	for j = 1 to 12
+		switch(mid$(levelline$(i), j, 1))
+			case " "
+				draw bitmap x,y, "background", "copy", "Canvas"
+				break
+			case "w"
+				draw bitmap x,y, "wall", "copy", "Canvas"
+				break
+			case "b"
+				draw bitmap x,y, "bulb", "copy", "Canvas"
+				break
+			case "t"
+				draw bitmap x,y, "target", "copy", "Canvas"
+				break
+			case "s"
+				draw bitmap x,y, "front1", "alpha", "Canvas"
+				mapx = j
+				mapy = i
+				mid$(levelline$(i), j, 1) = " "
+				break
+		end switch
+		x = x + 32
+	next j
+	x = 0
+	y = y + 32
+next i
+
+playerx = (mapx-1)*32
+playery = (mapy-1)*32
+
+// soundplay "rhythmloop.wav", true
+
+// handle the movements
+while(not quitting)
+	key$ = keyboard message$("Win")
+	switch(key$)
+		case "down"
+			if(instr(" t", mid$(levelline$(mapy+1), mapx, 1))) then
+				// soundplay "base.wav", false
+				WalkDown()
+			elseif(instr("bf", mid$(levelline$(mapy+1), mapx, 1)) and instr(" t", mid$(levelline$(mapy+2), mapx,1))) then
+				PushDown()
+			endif
+			sleep 0.10
+			break
+		case "up"
+			if(instr(" t", mid$(levelline$(mapy-1), mapx, 1))) then
+				// soundplay "base.wav", false
+				WalkUp()
+			elseif(instr("bf", mid$(levelline$(mapy-1), mapx, 1)) and instr(" t", mid$(levelline$(mapy-2), mapx,1))) then
+				PushUp()
+			endif
+			sleep 0.10
+			break
+		case "left"
+			if(instr(" t", mid$(levelline$(mapy), mapx-1, 1))) then
+				// soundplay "base.wav", false
+				WalkLeft()
+			elseif(instr("bf", mid$(levelline$(mapy), mapx-1, 1)) and instr(" t", mid$(levelline$(mapy), mapx-2,1))) then
+				PushLeft()
+			endif
+			sleep 0.10
+			break
+		case "right"
+			if(instr(" t", mid$(levelline$(mapy), mapx+1, 1))) then
+				// soundplay "base.wav", false
+				WalkRight()
+			elseif(instr("bf", mid$(levelline$(mapy), mapx+1, 1)) and instr(" t", mid$(levelline$(mapy), mapx+2,1))) then
+				PushRight()
+			endif
+			sleep 0.10
+			break
+		case "esc"
+			quitting = true
+			break
+	end switch
+	m$ = message$
+	if(m$ = "Win:_QuitRequested|" or m$ = "_QuitRequested") quitting = true
+wend
+
+window close "Win"
+
+sub WalkDown()
+	mapy = mapy + 1
+	playery = playery + 32
+	draw bitmap playerx, playery, "front1","alpha", "Canvas"
+	if(mid$(levelline$(mapy-1), mapx,1) = " ") then
+		draw bitmap playerx, playery-32, "background","copy", "Canvas"
+	elseif(mid$(levelline$(mapy-1), mapx,1) = "t") then
+		draw bitmap playerx, playery-32, "target","copy", "Canvas"
+	elseif(mid$(levelline$(mapy-1), mapx,1) = "f") then
+		draw bitmap playerx, playery-32, "final","copy", "Canvas"
+	endif
+	return
+end sub
+
+sub WalkUp()
+	mapy = mapy - 1
+	playery = playery - 32
+	draw bitmap playerx, playery, "front1","alpha", "Canvas"
+	if(mid$(levelline$(mapy+1), mapx,1) = " ") then
+		draw bitmap playerx, playery+32, "background","copy", "Canvas"
+	elseif(mid$(levelline$(mapy+1), mapx,1) = "t") then
+		draw bitmap playerx, playery+32, "target","copy", "Canvas"
+	elseif(mid$(levelline$(mapy+1), mapx,1) = "f") then
+		draw bitmap playerx, playery+32, "final","copy", "Canvas"
+	endif
+	return
+end sub
+
+sub WalkLeft()
+	mapx = mapx - 1
+	playerx = playerx - 32
+	draw bitmap playerx, playery, "front1","alpha", "Canvas"
+	if(mid$(levelline$(mapy), mapx+1,1) = " ") then
+		draw bitmap playerx+32, playery, "background","copy", "Canvas"
+	elseif(mid$(levelline$(mapy), mapx+1,1) = "t") then
+		draw bitmap playerx+32, playery, "target","copy", "Canvas"
+	elseif(mid$(levelline$(mapy), mapx+1,1) = "f") then
+		draw bitmap playerx+32, playery, "final","copy", "Canvas"
+	endif
+	return
+end sub
+
+sub WalkRight()
+	mapx = mapx + 1
+	playerx = playerx + 32
+	draw bitmap playerx, playery, "front1","alpha", "Canvas"
+	if(mid$(levelline$(mapy), mapx-1,1) = " ") then
+		draw bitmap playerx-32, playery, "background","copy", "Canvas"
+	elseif(mid$(levelline$(mapy), mapx-1,1) = "t") then
+		draw bitmap playerx-32, playery, "target","copy", "Canvas"
+	elseif(mid$(levelline$(mapy), mapx-1,1) = "f") then
+		draw bitmap playerx-32, playery, "final","copy", "Canvas"
+	endif
+	return
+end sub
+
+sub PushDown()
+	local t$
+
+	t$ = mid$(levelline$(mapy+1), mapx, 1)
+	if(t$ = "b") then
+		mid$(levelline$(mapy+1), mapx, 1) = " "
+		draw bitmap playerx,playery+32, "background", "copy", "Canvas"
+	else
+		mid$(levelline$(mapy+1), mapx, 1) = "t"
+		draw bitmap playerx,playery+32, "target", "copy", "Canvas"
+	endif
+	t$ = mid$(levelline$(mapy+2), mapx, 1)
+	if(t$ = " ") then
+		mid$(levelline$(mapy+2), mapx, 1) = "b"
+		draw bitmap playerx,playery+64, "bulb", "copy", "Canvas"
+		// soundplay "roehr.wav", false 
+	else
+		mid$(levelline$(mapy+2), mapx, 1) = "f"
+		draw bitmap playerx,playery+64, "final", "copy", "Canvas"
+		// soundplay "pong.wav", false
+	endif
+	WalkDown()
+	CheckFinished()
+	return
+end sub
+
+sub PushUp()
+	local t$
+
+	t$ = mid$(levelline$(mapy-1), mapx, 1)
+	if(t$ = "b") then
+		mid$(levelline$(mapy-1), mapx, 1) = " "
+		draw bitmap playerx,playery-32, "background", "copy", "Canvas"
+	else
+		mid$(levelline$(mapy-1), mapx, 1) = "t"
+		draw bitmap playerx,playery-32, "target", "copy", "Canvas"
+	endif
+	t$ = mid$(levelline$(mapy-2), mapx, 1)
+	if(t$ = " ") then
+		mid$(levelline$(mapy-2), mapx, 1) = "b"
+		draw bitmap playerx,playery-64, "bulb", "copy", "Canvas"
+		// soundplay "roehr.wav", false 
+	else
+		mid$(levelline$(mapy-2), mapx, 1) = "f"
+		draw bitmap playerx,playery-64, "final", "copy", "Canvas"
+		// soundplay "pong.wav", false
+	endif
+	WalkUp()
+	CheckFinished()
+	return
+end sub
+
+sub PushLeft()
+	local t$
+
+	t$ = mid$(levelline$(mapy), mapx-1, 1)
+	if(t$ = "b") then
+		mid$(levelline$(mapy), mapx-1, 1) = " "
+		draw bitmap playerx-32,playery, "background", "copy", "Canvas"
+	else
+		mid$(levelline$(mapy), mapx-1, 1) = "t"
+		draw bitmap playerx-32,playery, "target", "copy", "Canvas"
+	endif
+	t$ = mid$(levelline$(mapy), mapx-2, 1)
+	if(t$ = " ") then
+		mid$(levelline$(mapy), mapx-2, 1) = "b"
+		draw bitmap playerx-64,playery, "bulb", "copy", "Canvas"
+		// soundplay "roehr.wav", false
+	else
+		mid$(levelline$(mapy), mapx-2, 1) = "f"
+		draw bitmap playerx-64,playery, "final", "copy", "Canvas"
+		// soundplay "pong.wav", false
+	endif
+	WalkLeft()
+	CheckFinished()
+	return
+end sub
+
+sub PushRight()
+	local t$
+
+	t$ = mid$(levelline$(mapy), mapx+1, 1)
+	if(t$ = "b") then
+		mid$(levelline$(mapy), mapx+1, 1) = " "
+		draw bitmap playerx+32,playery, "background", "copy", "Canvas"
+	else
+		mid$(levelline$(mapy), mapx+1, 1) = "t"
+		draw bitmap playerx+32,playery, "target", "copy", "Canvas"
+	endif
+	t$ = mid$(levelline$(mapy), mapx+2, 1)
+	if(t$ = " ") then
+		mid$(levelline$(mapy), mapx+2, 1) = "b"
+		draw bitmap playerx+64,playery, "bulb", "copy", "Canvas"
+		// soundplay "roehr.wav", false 
+	else
+		mid$(levelline$(mapy), mapx+2, 1) = "f"
+		draw bitmap playerx+64,playery, "final", "copy", "Canvas"
+		// soundplay "pong.wav", false
+	endif
+	WalkRight()
+	CheckFinished()
+	return
+end sub
+
+sub CheckFinished()
+	local i
+	for i = 1 to 12
+		if(instr(levelline$(i), "b")) return
+	next i
+	// soundplay "halloffame.wav", false
+	alert "Solved! This was too easy ;)", "Ok", "info"
+	quitting = true
+	return
+end sub
+
+data "   ww       "
+data "wwwwww  www "
+data "wtt  w wwsww"
+data "wtt  www   w"
+data "wtt     bb w"
+data "wtt  w w b w"
+data "wttwww w b w"
+data "wwww b wb  w"
+data "   w  bw b w"
+data "   w b  b  w"
+data "   w  ww   w"
+data "   wwwwwwwww"

@@ -1,0 +1,64 @@
+#!yab
+
+window open 400,400 to 550,500, "MainView1", "ButtonWorld1"
+window open 600,400 to 750,500, "MainView2", "ButtonWorld2"
+
+mainview1 = true
+
+layout "left, right", "MainView1"
+button 30,10 to 120,30, "EmptyAlert_", "Empty Alert", "MainView1"
+layout "bottom, right", "MainView1"
+button 30,40 to 120,60, "InfoAlert_", "Info Alert", "MainView1"
+button 30,70 to 120,90, "IdeaAlert_", "Idea Alert", "MainView1"
+
+button 30,10 to 120,30, "WarningAlert_", "Warning Alert", "MainView2"
+button 30,40 to 120,60, "StopAlert_", "Stop Alert", "MainView2"
+button 30,70 to 120,90, "Quit_", "Quit", "MainView2"
+
+alert "ButtonWorld demonstrates how Buttons and Alerts can be used easily!", "Ok", "idea"
+
+inloop = true
+while(inloop)
+	msg$ = message$
+	switch msg$
+		case "EmptyAlert_|":
+			alert "This is an empty alert!", "Dooh", "none"
+			break
+
+		case "InfoAlert_|"
+			alert "This is an info alert!", "Dooh", "info"
+			break
+
+		case "IdeaAlert_|"	
+			alert "This is an idea alert!", "Dooh", "idea"
+			break
+
+		case "WarningAlert_|"
+			alert "This is a warning alert!", "Dooh", "warning"
+			break
+
+		case "StopAlert_|"
+			alert "This is a stop alert!", "Dooh", "stop"
+			break
+
+		case "Quit_|"
+			inloop = false
+			if (mainview1) window close "MainView1"
+			window close "MainView2"
+			break
+
+		case "MainView1:_QuitRequested|"
+			window close "MainView1"
+			mainview1 = false
+			break
+
+		case "MainView2:_QuitRequested|"
+			window close "MainView2"
+			break
+
+	end switch
+	
+	if(window count<1) inloop = false
+	
+wend
+

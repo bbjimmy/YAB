@@ -1,0 +1,49 @@
+#!yab
+
+doc Place a description of your
+doc program here.
+doc
+doc Author, date, license
+
+// set DEBUG = 1 to print out all messages on the console
+DEBUG = 0
+
+OpenWindow()
+
+// Main Message Loop
+dim msg$(1)
+while(not leavingLoop)
+	nCommands = token(message$, msg$(), "|")
+
+	for everyCommand = 1 to nCommands
+		if(DEBUG and msg$(everyCommand)<>"") print msg$(everyCommand)
+
+		switch(msg$(everyCommand))
+			case "_QuitRequested":
+			case "MainWindow:_QuitRequested":
+				leavingLoop = true
+				break
+			default:
+				break
+		end switch
+
+	next everyCommand
+
+wend
+
+CloseWindow()
+
+end
+
+
+// Setup the main window here
+sub OpenWindow()
+	window open 100,100 to 600,500, "MainWindow", "Main Window"
+	return
+end sub
+
+// Close down the main window
+sub CloseWindow()
+	window close "MainWindow"
+	return
+end sub

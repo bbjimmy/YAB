@@ -1,0 +1,43 @@
+#!yab
+
+dim Part$(1)
+window open 100, 100, 240, 300, "A", "Checkboxes"
+window set "A", "flags", "not-h-resizable, not-v-resizable, not-zoomable"
+
+// create the checkboxes
+// with layout for left top
+layout "left, top", "A"
+for NP = 1 to 5
+	Y = Y+25
+	checkbox 10, Y, "CheckMe:"+str$(NP), "OFF", 0, "A"
+next NP
+
+button 10, 170 to 130, 190, "Button_", "Check them", "A"
+
+while (not instr(msg$, "Quit"))
+	msg$ = message$
+	if (split(msg$, Part$(), ":|") < 3) dim Part$(3)
+
+	// if one of the checkboxes was used
+	if (msg$ = "CheckMe:"+Part$(2)+":"+Part$(3)+"|") then
+		option set "CheckMe:"+Part$(2), "label", Part$(3)
+	fi
+
+	// if the button was pressed
+	if (msg$ = "Button_|") then
+		if (check$ = "ON") then
+			check$ = "OFF"
+			option set "Button_", "label", "Check them"
+		else
+			check$ = "ON"
+			option set "Button_", "label", "Uncheck them"
+		fi
+		for NP = 1 to 5
+			checkbox set "CheckMe:"+str$(NP), (check$ = "ON")
+			option set "CheckMe:"+str$(NP), "label", check$
+//			sleep 0.05
+		next NP
+	fi
+
+wend
+exit

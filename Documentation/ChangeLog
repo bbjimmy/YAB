@@ -1,0 +1,44 @@
+yab Version 1.7.4.1 Changes from version 1.7
+-LOCALIZE doesn't work again due to changes in haiku.
+-TEXTCONTROL   added more options for set options.
+ yab Version 1.7 Changes from Version 1.6
+- COLUMNBOX updated to Haiku style (thanks Stargater!)
+- STATUSBAR didn't follow LAYOUT, fixed now
+- RESTORE Label$ allows for dynamic label strings
+- various ATTRIBUTE commands
+- Localization now works again, see Localizer how it is done
+- reorganized localization commands are now: 
+  LOCALIZE mime$, LOCALIZE STOP, LOCALIZE, TRANSLATE$ and MENU TRANSLATE$
+- SUBMENU SET "Remove" now implemented
+- yab cleaned up (a bit at least)
+- yab IDE cleaned up
+- BuildFactory cleaned up
+- yab-Commands documentation cleaned up
+
+yab Version 1.6 Changes from Version 1.5
+- removed all ZETA and BeOS dependencies
+- SPINCONTROL look updated to Haiku style
+- CALENDAR look updated to Haiku style and code refactored
+- TABVIEW look updated to Haiku style
+- TABVIEW now supports bottom tabs (like it did on ZETA)
+- Haiku native tooltips are now used; they still suck, but this finally 
+  resolves the race condition bug (this should also resolve the hanging
+  BuildFactory, thx to clasqm for reporting)
+- using "copy" for an empty selection in TEXTEDIT does not clear the 
+  clipboard anymore (thx to streakx for reporting)
+- Haiku forced a minimum button height, yab does not like force (thx to 
+  Lelldorin for reporting)
+- Title in BOXVIEW is now shown correctly (thx to Lelldorin for reporting)
+- Window flags don't reset anymore after calling WINDOW SET (thx to clasqm 
+  for reporting)
+
+Known problems:
+- Tooltips cannot be unset, they cannot change color, they steal focus (fixed on
+  new Haiku builds), they suck (blame the Haiku team ;))
+- Tooltips do not work for all Widgets
+- Spincontrol cannot move shift-tab backwards
+
+Other Fixes (1.6):
+- Scrolling in the yab IDE works again with new Haiku builds (the bug in Haiku
+  got fixed, thx to leszek for reporting, thx for zooey for fixing)
+

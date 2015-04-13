@@ -1,0 +1,138 @@
+#!yab
+
+doc This program modifies flex.c and main.c for the Buildfactory
+doc It accomplishes the seteps documented in HowToMakeABuildFactory.txt.
+doc The BuildFactory calls this program if flex.c is missing.
+doc
+doc by Jim Saxton, 2015, Artistic license
+
+system("flex -i -I -L -s -t yabasic.flex >flex.c")
+system("perl -i -n -e 'if (!/^\#include\s+<unistd.h>\s+$$/) {print if $$i;$$i++}' flex.c")
+system("bison  -d -l -t -v --output-file bison.c yabasic.bison ")
+system ("mv flex.c tmpflex.c")
+
+open #1, "tmpflex.c", "r"
+open #2, "outflex.c", "w"
+
+while (a$<>"#include <stdlib.h>")
+	line input #1 a$
+	print #2 a$
+wend
+
+print #2 "#include <zlib.h>"
+print #2 "#include "+chr$(34)+"program.h"+chr$(34)
+print #2 "static int isparsed = 0;"
+
+while (a$<>"#define YY_BUF_SIZE 16384")
+	line input #1 a$
+	if (a$<>"#define YY_BUF_SIZE 16384") print #2 a$
+wend
+
+print #2 "#define YY_BUF_SIZE PROGLEN"
+
+found=0
+
+while (found=0)
+	line input #1 a$
+	if (!instr(a$,"while ( (result = fread"))then
+		print #2 a$
+	else
+		found=1
+	endif
+wend
+ 
+print #2 "		while ( (result = zread(buf, 1, max_size, yyin))==0 && ferror(yyin)) "+chr$(92)
+found=0
+
+while (found=0) 
+	line input #1 a$
+	if (!instr(a$,"int ret_val;")) then
+		print #2 a$
+	else
+		found=1
+	endif
+wend
+
+print #2 a$
+print #2 "	if(isparsed) return EOB_ACT_END_OF_FILE;"
+
+while (! eof(#1))
+	line input #1 a$
+	print #2 a$
+wend
+
+print #2 "int zread(char* dest, size_t memb_size, size_t num_memb, FILE *file)"
+print #2 "{"
+print #2 "	long destlen = PROGLEN;"
+print #2 "	if(isparsed==1)"
+print #2 "		return 0;"
+print #2 "	isparsed = 1;"
+print #2 "	uncompress(dest,&destlen,myProg,sizeof(myProg));"
+print #2 "	return destlen;"
+print #2 "}"
+
+system("mv outflex.c flex.c")
+system("rm tmpflex.c") 
+
+close #1
+close #2
+
+// fix main.c
+
+system ("mv main.c tmpmain.c")
+
+open #1, "tmpmain.c", "r"
+open #2, "outmain.c", "w"
+
+found=0
+
+while (found = 0)
+	line input #1 a$
+	if  (not instr(a$, "int isbound(void)")) then
+		print #2 a$
+	else
+		found=1
+		print #2 a$
+	end if
+wend
+
+print #2 "{" 
+print #2 " 		FILE *interpreter;"
+print #2 " 		if (!interpreter_path || !interpreter_path[0]) {"
+print #2 "  			error(FATAL,"+chr$(34)+"interpreter_path is not set !"+chr$(34)+");"
+print #2 "  			return 0;"
+print #2 " 		}"
+print #2 " 		if (!(interpreter=fopen(interpreter_path,"+chr$(34)+"r"+chr$(34)+"))) {"
+print #2 "			sprintf(string,"+chr$(34)+"Couldn't open '%s' to check, if it is bound: %s"+chr$(34)+",interpreter_path,my_strerror(errno));"
+print #2 "			error(WARNING,string);"
+print #2 "			return 0;"
+print #2 "  		}"
+print #2 " 		return 1;"
+print #2 "}"
+print #2 ""
+print #2 ""
+
+found = 0
+
+while (found = 0)
+	line input #1 a$
+		if  (not instr(a$, "static int mybind(char *bound)")) then
+			found = 0
+		else
+			found = 1
+			print #2 a$
+		end if
+wend
+
+while (not eof(1))
+	line input #1 a$
+	print #2 a$
+wend
+
+close #1
+close #2
+system("mv outmain.c main.c")
+system("rm tmpmain.c")
+
+
+

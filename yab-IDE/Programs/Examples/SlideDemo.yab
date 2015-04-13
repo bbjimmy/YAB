@@ -1,0 +1,36 @@
+#!yab
+
+DOCU SlideDemo, Object scale per Slidebar
+DOCU by Stargater
+
+WINDOW OPEN 100,100 to 500,600, "MainView" ,"SlideDemo"
+WINDOW SET "MainView", "MaximumTo", 400,500
+
+VIEW 0,0 to 500,400, "CircleView", "MainView"
+DRAW SET "bgcolor",000,000,000,"CircleView"
+DRAW SET "lowcolor",140,140,240,"CircleView"
+
+SLIDER 20,430 to 380,430, "Slider", "Scale the Circle", 0, 190, "MainView"
+SLIDER LABEL "Slider", "0", "190"
+SLIDER COLOR "Slider", "barcolor", 140,140,240
+SLIDER SET "Slider", 20
+
+DRAW SET  0, "LowSolidFill"
+DRAW CIRCLE 200,200, 20, "CircleView"
+
+oldr=20
+
+while(not instr(message$, "_QuitRequested"))
+        r = SLIDER GET "Slider"
+	
+	if(oldr<>r) then
+		oldr = r
+		draw flush "CircleView"
+		DRAW CIRCLE 200,200, r, "CircleView"
+	endif
+
+wend
+	
+window close "MainView"
+
+

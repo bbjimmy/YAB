@@ -1,0 +1,30 @@
+#!yab
+
+window open 100,100 to 500,160, "Win", "Walk"
+window set "Win", "flags", "not-zoomable, not-h-resizable, not-v-resizable"
+
+bitmap 1152,256, "player"
+err = draw image 0,0 to 1152,256, "img/player.png", "player"
+for i=15 to 405 step 65
+	bitmap get i,196 to i+30,252, str$((i+50)/65), "player"
+next i
+
+canvas 0,0 to 400,400, "MyCanvas", "Win"
+
+while(not quitting)
+
+	for a = 0 to 400 step (30/7)
+		DRAW SET "highcolor",255,255,255,"MyCanvas"
+		draw rect 0,0 to a+29,55, "MyCanvas"
+		draw bitmap a,0, str$(mod(a/(30/7),6) +1),"copy", "MyCanvas"
+		sleep 00.2
+
+		m$ = message$
+		if(m$ = "Win:_QuitRequested|" or m$ = "_QuitRequested|") then
+			quitting = true
+			break
+		endif
+	next a
+	
+wend
+window close "Win"

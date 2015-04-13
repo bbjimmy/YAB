@@ -1,0 +1,26 @@
+#!yab
+
+DOCU ColorDemo, Color select and show
+DOCU by Stargater
+
+window open 100,100 to 420,420, "MainView", "ColorDemo"
+window set "MainView", "flags", "not-zoomable, not-h-resizable, not-v-resizable"
+view 20,20 to 300,220, "ViewColor", "MainView"
+r = 140  
+g = 140  
+b = 240
+draw set "bgcolor", r,g,b, "ViewColor"  
+
+colorcontrol 10,240, "Colorcontrol", "MainView"
+colorcontrol set "Colorcontrol", 140,140,240
+
+
+while(not instr(message$,"_QuitRequested"))
+		r = colorcontrol get "Colorcontrol", "red"
+		g = colorcontrol get "Colorcontrol", "green"
+		b = colorcontrol get "Colorcontrol", "blue"
+		draw set "bgcolor", r,g,b, "ViewColor" 
+wend
+
+window close "MainView"
+

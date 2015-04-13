@@ -1,0 +1,91 @@
+#!yab
+
+
+// This file uses the toolbar.yab library located in ~/config/settings/yab
+
+import Toolbar
+
+doc Place a description of your
+doc program here.
+doc
+doc Author, date, license
+
+// set DEBUG = 1 to print out all messages on the console
+DEBUG = 1
+
+OpenWindow()
+
+// Main Message Loop
+dim msg$(1)
+while(not leavingLoop)
+	nCommands = token(message$, msg$(), "|")
+
+	for everyCommand = 1 to nCommands
+		if(DEBUG and msg$(everyCommand)<>"") print msg$(everyCommand)
+
+		switch(msg$(everyCommand))
+			case "MainView:_QuitRequested":
+			case "_QuitRequested":
+			case translate$("MainView:File:Quit"):
+				leavingLoop = true
+				break
+			case "Help":
+			case translate$("MainView:Help:Help"):
+			alert "The Help button was pressed", "Cool !", "idea" 
+				break
+			default:
+				break
+		end switch
+
+	next everyCommand
+
+wend
+
+CloseWindow()
+
+end
+
+
+// Setup the main window here
+sub OpenWindow()
+	window open 100,100 to 500,300, "MainView", "Toolbar Template"
+	window set  "MainView","MinimumTo", 190,50	
+	menu "File", "New", "N", "MainView"
+	menu "File", "Open...", "O", "MainView"
+	menu "File", "Save", "S", "MainView"
+	menu "File", "Save As...", "", "MainView"
+	menu "File", "--", "", "MainView"
+	menu "File", "Quit", "Q", "MainView"
+	menu "Edit", "Cut", "X", "MainView"
+	menu "Edit", "Copy", "C", "MainView"
+	menu "Edit", "Paste", "V", "MainView" 	
+	menu "View", "Options...", "", "MainView" 
+	menu "Help", "Help", "H", "MainView"
+	menu "Help", "About", "A", "MainView"
+	
+//	Toolbar Template  uses /boot/home/yab_work/Programs/img for the image path.
+MainDir$="/boot/home/yab_work/Programs/"
+// 	Use your own path to your images.
+
+
+
+
+	ToolbarCreate(0,peek("menuheight"),400, "Toolbar", MainDir$+"img/", "MainView")
+	ToolbarAddIcon("ToolbarNew", "New", "newp.png", "newn.png", "newd.png")
+	ToolbarAddIcon("ToolbarOpen", "Open", "openp.png", "openn.png", "opend.png")
+	ToolbarAddIcon("ToolbarSave", "Save", "savep.png", "saven.png", "saved.png")
+	ToolbarAddSeparator()
+	ToolbarAddIcon("ToolbarCut", "Cut", "cutp.png", "cutn.png", "cutd.png")
+	ToolbarAddIcon("ToolbarCopy", "Copy", "copyp.png", "copyn.png", "copyd.png")
+	ToolbarAddIcon("ToolbarPaste", "Paste", "pastep.png", "pasten.png", "pasted.png")
+	ToolbarAddSeparator()
+	ToolbarAddIcon("ToolbarHelp", "Help", "helpp.png", "helpn.png", "helpd.png")
+
+	return
+end sub
+
+// Close down the main window
+sub CloseWindow()
+	window close "MainView"
+	return
+end sub

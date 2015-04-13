@@ -1,0 +1,81 @@
+#!yab
+
+
+window open 100,100 to 600,400, "Main", "Typewriter"
+window set "Main", "minimumto",100,100
+
+layout "all", "Main"
+view 10,10 to 490,280, "Type", "Main"
+option set "Type", "Focus", true
+
+oldx = 100
+oldy = 100
+oldw = 500
+oldh = 300
+
+offsetx = 5
+offsety = 15
+
+draw set "highcolor", 255,255,255, "Type"
+draw set "lowcolor", 0,100,0, "Type"
+draw set "bgcolor", 0,100,0, "Type"
+
+draw text 10,295, str$(oldx)+" "+str$(oldy)+" "+str$(oldw)+" "+str$(oldh), "Main"
+
+while(not instr(message$, "_QuitRequested|"))
+        x = window get "Main", "position-x"
+	if(oldx<>x) then
+		oldx = x
+		Update()
+	endif
+        y = window get "Main", "position-y"
+	if(oldy<>y) then
+		oldy = y
+		Update()
+	endif
+        w = window get "Main", "width"
+	if(oldw<>w) then
+		oldw = w
+		Update()
+	endif
+	h = window get "Main", "height"
+	if(oldh<>h) then
+		oldh = h
+		Update()
+	endif
+
+	// option set "Type", "focus", true
+	TypeKey("Type")
+wend
+exit
+
+sub TypeKey(view$)
+	local k$
+	local old$
+
+	k$ = keyboard message$(view$)
+	if(k$ = "") then
+		// sleep 0.001
+	else
+		if(k$ = "enter") then
+			offsety = offsety + 12
+			offsetx = 5
+		else
+			if(len(k$)=1) then
+				draw text offsetx,offsety, k$, "Type"
+				offsetx = offsetx + 10
+			endif
+		endif
+		old$ = k$
+		while(old$ = k$)
+			k$ = keyboard message$(view$)
+		wend
+	endif
+	return 
+end sub
+
+sub Update()
+	draw flush "Main"
+	draw text 10,h-5, str$(x)+" "+str$(y)+" "+str$(w)+" "+str$(h), "Main"
+	return
+end sub

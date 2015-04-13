@@ -1,0 +1,22 @@
+#!yab
+# mimetype "application/x-vnd.Pong.yab"
+
+doc See Ping.yab for more information.
+
+window open 400,100 to 600,300, "Pong", "Pong"
+
+dim msg$(1)
+while(not finished)
+	n = token(message$, msg$(), ":|")
+	for i = 1 to n 
+		if(instr(msg$(i), "Quit")) finished = true
+		if(instr(msg$(i), "_Scripting") and n>=i+2) then
+			x = val(msg$(i+1)) - 200
+			y = val(msg$(i+2))
+			draw flush "Pong"
+			draw circle x,y, 8, "Pong"
+		endif
+	next i
+wend
+
+window close "Pong"

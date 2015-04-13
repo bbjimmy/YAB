@@ -1,0 +1,3 @@
+//define BUILD_NCURSES
+#define BUILD_YABTEXT
+#define BUILD_GAMESOUND

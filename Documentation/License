@@ -1,0 +1,22 @@
+Licensing yab or your yab program
+
+yab is distributed under the Artistic License which is an
+approved open source license. Read the file ARTISTIC for
+details. 
+
+Basically the Artistic License allows you to:
+- bind your program to yab and release it under any license you wish; 
+especially you are allowed to sell your program commercially, when bound
+- compile your program with the BuildFactory and release it under any license you wish; 
+especially you are allowed to sell your program commercially
+- copy and distribute yab freely
+- copy or distribute yab as part of a distribution
+- modify yab
+- distribute a modified yab freely without releasing the source code
+
+For distributing a modified yab commercially, you should contact me first. 
+The following parts of yab are not allowed in commercially modified 
+versions without the permission of the authors:
+SplitPane
+
+Changes to CalanderControl have to be republished under GPL.

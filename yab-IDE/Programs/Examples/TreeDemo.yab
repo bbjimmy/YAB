@@ -1,0 +1,30 @@
+#!yab
+
+window open 100,100 to 500,300, "A", "TreeDemo"
+window set "A", "flags", "not-h-resizable, not-v-resizable"
+
+treebox 10,10 to 380,190, "Tree1", 1, "A"
+
+treebox add "Tree1", "Hello1"
+treebox add "Tree1", "Hello1", "Test1", 1
+treebox add "Tree1", "Test1", "foo", 0
+treebox add "Tree1", "Test1", "bar", 0
+treebox add "Tree1", "Hello2"
+treebox add "Tree1", "Hello3"
+treebox add "Tree1", "Hello3", "Test3",0
+treebox add "Tree1", "Test3", "gugst",0
+treebox add "Tree1", "gugst", "du",0
+treebox add "Tree1", "Hello4"
+
+print treebox get$ "Tree1", 1
+
+inloop = true
+
+while(inloop)
+	m$ = message$
+	if(m$<>"") print m$
+	if(instr(m$, "Quit")) inloop = false
+wend
+
+window close "A"
+exit

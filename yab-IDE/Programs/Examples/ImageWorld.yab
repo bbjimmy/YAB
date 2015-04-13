@@ -1,0 +1,32 @@
+#!yab
+
+window open 200,200 to 520,391, "MainView", "ImageWorld"
+button 50,163 to 270,183, "Ok_", "Ok", "MainView"
+
+err = draw image 0,0, "img/image.png", "MainView"
+
+if(err = 1) then
+	alert "Problem while loading image.png!", "Quit", "stop"
+	window close "MainView"
+	exit 1
+endif
+
+alert "This shows how to show Images in your windows.", "Ok", "idea"
+
+inloop = true
+while(inloop)
+	msg$ = message$
+
+	switch msg$
+		case "Ok_|":
+		case "MainView:_QuitRequested|":
+			inloop = false
+			break
+		
+	end switch
+	
+wend
+
+exit
+
+

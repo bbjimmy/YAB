@@ -1,0 +1,64 @@
+-- English -- Englisch --  -- German below -- Deutsch unten --
+
+Some rules you have to know:
+
+Names of sub functions are only to be used once. This is for all affected files.
+If there are subs with the same name, only the first one will be taken over while
+the second will simply be ignored!
+
+
+In libraries only subs and export subs are to be entered. Additional code not within
+a sub or export sub are senseless later on, because libraries are simply added at the
+end of the main file, so that one big file is generated.
+So such additional lines are between the subs and are never read.
+
+All libraries that are imported with import are recognized. Also libraries that were
+imported from within libraries.
+
+Libraries have to be placed either in the folder of the main file or in the yab lib
+folder "/boot/home/config/settings/yab"!
+
+The BuildFactory is to be used as follows:
+
+yab BuildFactory Outputfile Inputfile.yab < applicationsig >
+
+from within the folder of the BuildFactory. The Outputfile is also placed there at the end.
+The Inputfile has to have its relative or complete path included of course.
+
+The file which contains the total of the code is also stored in the folder of the BuildFactory,
+for the case the created binary gives out error messages with line number. Those are of course
+regarded to this certain file.
+
+
+-- German -- Deutsch --
+
+Ein paar Regeln, die man befolgen muss:
+
+Namen für sub-Funktionen dürfen nur einmal vergeben werden. Das gilt für 
+den Umfang aller Dateien. Sollten zwei subs mit gleichem Namen vorkommen, 
+wird nur das erste eingebaut, während das zweite einfach ignoriert wird!
+
+In libraries dürfen nur subs und export subs vorkommen. Zusätzliche 
+Funktionen, die nicht in einer Sub-Funktion stehen machen später keinen 
+Sinn, dadurch dass die libs einfach hinten an die Hauptdatei angefügt 
+werden, so dass eine einzige Datei entsteht.
+Also sind zusätzliche Funktionen zwischen den subs und werden nie gelesen.
+
+Alle libraries, die mit import importiert werden, werden beachtet. Auch 
+Libraries, die aus Libraries heraus importiert werden.
+
+Libraries haben entweder in dem Verzeichnis der Hauptdatei oder in dem 
+yab-lib-Ordner "/boot/home/config/settings/yab/" zu liegen!
+
+Aufgerufen muss die BuildFactory wie folgt:
+
+yab BuildFactory.yab OutputFile InputFile.yab < applicationsig >
+
+aus dem Verzeichnis der BuildFactory heraus. Dort landet auch das 
+OutputFile. Zu dem InputFile.yab muss natürlich ein relativer oder 
+vollständiger Pfad angegeben werden.
+
+Die Datei, in dem der gesamte Source zusammengefasst ist, wird ebenfalls in 
+dem Verzeichnis der BuildFactory abgelegt, für den Fall, dass das erzeugte 
+Binary Fehler mit Zeilenangabe ausgibt. Diese beziehen sich dann natürlich 
+auf jene Datei.

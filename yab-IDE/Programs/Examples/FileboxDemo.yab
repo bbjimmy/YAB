@@ -1,0 +1,46 @@
+import Filebox
+
+
+dir$ = "/boot/home/"
+
+window open 100,100 to 500,500, "Demo","Demo"
+Filebox(10,10,350,390,"Filebox", 1, "Demo")
+FileboxDirectory("Filebox", dir$, false)
+button 360,10,390,30, "DirUp", "..", "Demo"
+
+dim msg$(1)
+inloop = true
+while(inloop)
+        n = split(message$, msg$(), "|")
+	for i=1 to n
+		// Quit
+		if(msg$(i) = "Demo:_QuitRequested") inloop = false
+
+		// Button pressed and we are not in the root directory
+		if(msg$(i) = "DirUp" and dir$<>"/") then
+			t = len(dir$)-1
+			while(mid$(dir$,t,1)<>"/") 
+				t = t - 1
+			wend
+			dir$ = left$(dir$,t)
+			FileboxDirectory("Filebox", dir$, false)
+		endif
+
+		// An item is invoked
+		if(instr(msg$(i),"Filebox:_Invoke:")) then
+			position = val(right$(msg$(i),len(msg$(i))-16))
+
+			// if the item is a directory, then update the filebox else print the filename
+			if(FileboxIsDirectory("Filebox", position)) then
+				dir$ = dir$ + FileboxName$("Filebox", position) + "/"
+				FileboxDirectory("Filebox", dir$, false)
+			else
+				print FileboxName$("Filebox", position)
+			endif
+		endif
+	next i
+	
+        sleep 0.01
+wend
+
+window close "Demo"

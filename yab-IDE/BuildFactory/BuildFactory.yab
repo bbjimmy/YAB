@@ -1,0 +1,488 @@
+#!yab
+
+//////////////////////////////////////
+// BuildFactory v 2.4
+//////////////////////////////////////
+
+// find out in which directory we are
+if (peek("isbound")) then
+	This_dir$ = peek$("directory")+"/"
+else
+	This_dir$ = trim$(system$("pwd"))+"/"
+fi
+
+if (system("test -e \""+This_dir$+"yab\"")) then
+	YAB$ = "yab"
+else
+	YAB$ = This_dir$+"yab"
+fi
+
+/////////////////////////////////////////////////////////////
+// if yab gives us its version, we know that it exists.
+// Otherwise we tell the user to make sure that there is one
+/////////////////////////////////////////////////////////////
+if (system(YAB$+" -version")) then
+	print "Please make sure you have a yab binary in"
+	print "\t"+left$(This_dir$, len(This_dir$)-1)
+	print "or"
+	print "\t/home/config/bin"
+	print "or"
+	print "\t/system/bin\n"
+	exit 1
+fi
+
+// set some global variables here
+AppName$	= "BuildFactory"
+VERSION$	= " 2.4.1"
+TMP_folder$	= "/boot/var/tmp/BUILD_FACTORY_TMP/"
+Lib_path$	= "/boot/home/config/settings/yab/"
+
+dim Library$(1)
+dim Is_in_lib_path(1)
+dim Found_sub$(1)
+
+/////////////////////////////////////////////////////////////
+// Program starts here
+//
+
+if (not open(1,"flex.c"))  then
+system("yab flex-bison.yab") // make flex.c and modify it for BuildFactory
+else
+close #1
+endif
+
+if (peek("argument") < 2) then
+	UsageAdvise(1)
+fi
+
+// in- and outputfiles
+Output_file$	= peek$("argument")
+Input_file$		= peek$("argument")
+appsig$         = peek$("argument")
+run_from_ide$		= peek$("argument")
+if appsig$="" appsig$="application/x-vnd.yab-app"
+SetAppSig(appsig$)
+
+Input_dir$		= left$(Input_file$, rinstr(Input_file$, "/"))
+Library$(0)		= right$(Input_file$, len(Input_file$)-rinstr(Input_file$, "/"))
+
+if (trim$(Input_dir$) = "") Input_dir$ = This_dir$
+
+// create the temp folder
+if (system("test -d \""+TMP_folder$+"\"")) then
+	if (system("mkdir -p \""+TMP_folder$+"\"")) then
+		print "-- Error while creating temp folder!"
+		UsageAdvise(1)
+	fi
+fi
+
+// We clean up all the files including the libs, if existing
+for NL = 0 to num_lib
+	if (Is_in_lib_path(NL)) then
+		lib$ = Lib_path$+Library$(NL)
+	else
+		lib$ = Input_dir$+Library$(NL)
+	fi
+	num_lib = CleanUpCode(lib$)
+next NL
+
+// writing all the libs into the mainfile
+// because the BuildFactory can not handle libs
+err = JoinFiles(Output_file$+"_bf.yab")
+
+// here it comes - the BuildFactory
+BuildFactory(Output_file$+"_bf.yab")
+
+// cleaning up
+RmErr = RemoveTemp()
+system ("RdefApply parts/YAB.bf.rdef "+Output_file$)
+system ("addattr -t mime BEOS:APP_SIG "+appsig$+" "+Output_file$)
+system ("addattr -t mime BEOS:TYPE  application/x-vnd.be-elfexecutable "+Output_file$)
+
+
+// check if the BuildFactory was envoked by the yab-ide.
+// if so, copy the output file to the inmputfile's directory and open the directory.
+// the IDE will delete the output file from the BuildFactory directory.
+
+
+if run_from_ide$ = "yab-ide" then
+	system ("cp "+Output_file$+" "+Input_dir$)
+	system ("open "+Input_dir$) 
+endif
+
+print "--------"
+print "-- Info:"
+print "\tNumber of libs:\t\t", num_lib
+print "\tNumber of subs:\t\t", num_sub
+print "\tNumber of lines:\t", num_line
+
+exit
+
+//
+// programm ends here
+/////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////
+// joining all files to one
+///////////////////////////////////////////
+sub JoinFiles(the_file$)
+	local in_file, out_file
+
+	out_file = OpenWriteFile(the_file$)
+	for NL = 0 to num_lib
+		// contents of each file is written to our joined temp file
+		in_file = OpenReadFile(TMP_folder$+Library$(NL))
+		while (not eof(in_file))
+			print #out_file LineInput$(in_file)
+			num_line = num_line + 1
+		wend
+		close in_file
+	next NL
+	close out_file
+
+	return
+end sub
+
+///////////////////////////////////////////
+// here we are cleaning up the files
+///////////////////////////////////////////
+sub CleanUpCode(the_file$)
+	local the_filename$, out_file$
+	local in_file, out_file
+	local Current_line$
+
+	the_filename$	= right$(the_file$, len(the_file$)-rinstr(the_file$, "/"))
+	out_file$		= TMP_folder$+the_filename$
+
+	out_file		= OpenWriteFile(out_file$)
+	in_file			= OpenReadFile(the_file$)
+
+	if (min(out_file, in_file) = 0) return -1
+
+	print "\t-- removing not needed stuff ..."
+	while (not eof(in_file))
+		Current_line$ = LineInput$(in_file)
+
+		if (double_sub) then
+			if (upper$(left$(Current_line$, 7)) = "END SUB") double_sub = false
+			continue
+		fi
+
+		// remove empty lines and commented lines and stuff
+		if (Current_line$ = "")				continue
+		if (left$(Current_line$, 2) = "//")	continue
+		if (left$(Current_line$, 1) = "#")	continue
+		if (upper$(left$(Current_line$, 11)) = "EXPORT SUB ") then
+			Current_line$ = trim$(right$(Current_line$, len(Current_line$)-6))
+		fi
+		Current_line$ = CheckOnLineComments$(Current_line$)
+		if (upper$(left$(Current_line$, 4)) = "SUB ") then
+			curr_sub$ = right$(Current_line$, len(Current_line$)-4)
+			curr_sub$ = left$(curr_sub$, instr(curr_sub$, "("))
+			for NS = 0 to num_sub
+				if (Found_sub$(NS) = curr_sub$) then
+					double_sub = true
+					break
+				fi
+			next NS
+
+			if (double_sub) then
+				continue
+			else
+				num_sub = num_sub + 1
+				dim Found_sub$(num_sub+1)
+				Found_sub$(num_sub) = curr_sub$
+			fi
+		fi
+		if (upper$(left$(Current_line$, 6)) = "IMPORT") then
+			found_lib = FindLibraries(Current_line$)
+			continue
+		fi
+		if (upper$(Current_line$) = "ENDIF") Current_line$ = "fi"
+
+		print #out_file Current_line$
+	wend
+
+	close in_file
+	close out_file
+
+	return found_lib
+end sub
+
+////////////////////////////////////////////
+// search for comments behind a needed line
+// if found, remove it. Exept there is a "
+////////////////////////////////////////////
+sub CheckOnLineComments$(the_line$)
+	D = instr(the_line$, "//")
+
+	if (D) then
+		local is_comment
+		local A : local B
+		local C : local E
+
+		for B = 1 to len(the_line$)
+			A = asc(mid$(the_line$, B, 1))
+			if (B > D) then
+				if (A = 34 and is_comment) then
+					C = true
+					break
+				fi
+			else
+				E = asc(mid$(the_line$, B+1, 1))
+				if (E = 34 and not A = 92) then
+					if (is_comment) then
+						is_comment = false
+					else
+						is_comment = true
+					fi
+				fi
+			fi
+		next B
+
+		if (not C) the_line$ = left$(the_line$, D-1)
+	fi
+
+	return trim$(the_line$)
+end sub
+
+/////////////////////////////////////////////////
+// search for libraries, to prepare them as well
+/////////////////////////////////////////////////
+sub FindLibraries(the_line$)
+	local Library$
+
+	Library$ = right$(the_line$, len(the_line$)-7)
+	
+	if (upper$(right$(Library$, 4)) <> ".YAB") then
+		Library$ = Library$+".yab"
+	fi
+
+	num_lib = num_lib + 1
+	dim Library$(num_lib+1)
+	dim Is_in_lib_path(num_lib+1)
+
+	if (system("test -e \""+Input_dir$+Library$+"\"")) then
+		if (system("test -e \""+Lib_path$+Library$+"\"")) then
+			print "-- Could not find lib\n\t"+Library$
+			num_lib = num_lib - 1
+			return num_lib
+		else
+			Is_in_lib_path(num_lib) = true
+		fi
+	fi
+
+	Library$(num_lib) = Library$
+
+	print "-- Found lib: "+Library$
+	return num_lib
+end sub
+
+/////////////////////////////////////////////////////////////
+// open the inputfile for reading
+/////////////////////////////////////////////////////////////
+sub OpenReadFile(the_file$)
+	local READ_FILE
+	READ_FILE	= 22
+
+	if (not open(#READ_FILE,the_file$,"r")) then
+		print "-- Could not open "+the_file$
+		print "-- for reading!"
+		exit
+	fi
+
+	return READ_FILE
+end sub
+
+/////////////////////////////////////////////////////////////
+// open the outputfile for writing
+/////////////////////////////////////////////////////////////
+sub OpenWriteFile(the_file$)
+	local WRITE_FILE
+	WRITE_FILE	= 23
+
+	if (not open(#WRITE_FILE,the_file$,"w")) then
+		print "-- Could not open "+the_file$
+		print "-- for writing!"
+		exit
+	fi
+
+	return WRITE_FILE
+end sub
+
+/////////////////////////////////////////
+// read in one line from the given file
+/////////////////////////////////////////
+sub LineInput$(n)
+	local tmp : local tmp$
+	while (tmp <> 10)
+		tmp = peek(n)
+		if (tmp < 0) continue
+		tmp$ = tmp$ + chr$(tmp)
+	wend
+
+	return trim$(tmp$)
+end sub
+
+/////////////////////////////////////////////////////////////
+// Remove our tempfolder
+/////////////////////////////////////////////////////////////
+sub RemoveTemp()
+	if (not system("test -d \""+TMP_folder$+"\"")) then
+		RmErr = system("rm -rf \""+TMP_folder$+"\"")
+	fi
+
+	return RmErr
+end sub
+
+/////////////////////////////////////////////////////////////
+// tell the user how to use this app
+/////////////////////////////////////////////////////////////
+sub UsageAdvise(n)
+	print "\n"+AppName$+VERSION$
+	print "Usage:"
+	print "\t"+AppName$+" outputfile inputfile < applicationsignature >\n"
+	print "\tFilenames may have no spaces!\n"
+	print "\tapplicationsignature default is: application/x-vnd.yab-app\n"
+	RemoveTemp()
+
+	exit n
+end sub
+
+/////////////////////////////////////////////////////////////
+// set the application signature in YabMain.cpp
+/////////////////////////////////////////////////////////////
+sub SetAppSig(sig$)
+	app_sig$="\n\tBString tmp(\""+sig$+"\");\n"
+	open #1, This_dir$+"parts/YabMain.cpp.appsig","w"
+	print #1 app_sig$
+	close #1
+	cmd$="cat "+This_dir$+"parts/YabMain.cpp.start "+This_dir$+"parts/YabMain.cpp.appsig "+This_dir$+"parts/YabMain.cpp.end > "+This_dir$+"YabMain.cpp"
+	system(cmd$)
+
+end sub
+
+////////////////////////////////////////
+////////////////////////////////////////
+// the BuildFactory starts here
+////////////////////////////////////////
+////////////////////////////////////////
+sub BuildFactory(f$)
+	handle = open(f$, "r")
+	if(not handle) then
+		print "Error: Could not open file "+f$
+		exit(1)
+	endif
+	
+	print "Reading file "+f$+"..."
+	print
+	
+	while(not eof(handle))
+		numRead = numRead + 1
+		dim line$(numRead)
+		line$(numRead) = GetLine$(handle)
+	wend
+	close(handle)
+	
+	print "Dumping file..."
+	print
+	DumpProg(f$)
+	
+	// times have changed :)
+	hasZeta = false
+
+	print "This yab version was compiled on "+peek$("os")+"."
+	realOS$ = upper$(system$("uname -o"))
+	realOS$ = left$(realOS$, len(realOS$)-1)
+	print "This system is running "+realOS$
+	
+	print "Writing Automakefile and global.h..."
+	print
+	
+	system("cp AutoHeader.mak Automakefile")
+	
+	handle = open("Automakefile", "a")
+	if(not handle) then
+		print "Error: Could not write file Automakefile"
+		exit(1)
+	endif
+	
+	print #handle "TARGET = "+left$(f$, len(f$)-7)
+	
+	close(handle)
+	
+	system("cat AutoFooter.mak >> Automakefile")
+	
+	print "Starting make (ignore warnings)..."
+	print
+	system("make -f Automakefile clean")
+	system("make -f Automakefile")
+	system("make -f Automakefile clean")
+	system("rm -f program.h Automakefile "+f$)
+	print
+	print "Finished"
+	print
+
+	return
+end sub
+
+sub GetFirstCommand$(line$)
+	local t$: local ret$
+	local i
+
+	t$ = ltrim$(line$)
+	for i=1 to len(t$)
+		if(mid$(t$,i,1) = " " or mid$(t$,i,1) = "\t" or mid$(t$,i,1) = "\n" or mid$(t$,i,1) = "(") break
+		ret$ = ret$ + mid$(t$,i,1)
+	next i
+	return ret$
+end sub
+
+sub DumpProg(fileName$)
+	local handle
+	local t$
+	local i
+
+	if(val(system$("wc -c "+fileName$)) < 100) then
+		print "WARNING: File too small, filling up program with comments"
+		handle = open(fileName$, "a")
+		if(handle) then
+			print #handle "rem ~~ This comment was added by the ~~"
+			print #handle "rem ~~ BuildFactory because your program ~~"
+			print #handle "rem ~~ was too small. ~~"
+			close(handle)
+		else
+			print "ERROR: Could not add comments, is "+fileName$+" write-protected?"
+			exit(1)
+		endif
+	endif
+
+	system("yab-compress "+fileName$)
+	handle = open("program.h", "a")
+	if(handle) then
+		print #handle "#define PROGLEN ";
+		t$ = system$("wc -c "+fileName$)
+		i = 1
+		while(mid$(t$,i,1) = " ")
+			i = i + 1
+		wend
+		if(i>1) t$ = right$(t$,len(t$)-i+1)
+		t$ = left$(t$, instr(t$, " ")-1)
+		print #handle t$
+		close(handle)
+	endif
+	return
+end sub
+
+sub GetLine$(handle)
+	local tmp$
+	local retString$
+
+	while(tmp$<>chr$(10) and tmp$<>chr$(13) and not eof(handle))
+		tmp$ = chr$(peek(handle))
+		retString$ = retString$ + tmp$
+	wend
+
+	return retString$
+end sub
+

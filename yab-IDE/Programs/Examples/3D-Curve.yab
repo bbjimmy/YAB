@@ -1,0 +1,60 @@
+doc Draw some nice 3D curves
+doc Original by Martin Lehmann for QBasic
+doc
+doc change the function func for different curves
+doc try smaller values of i for a lower resolution
+doc try z = 1 for less dots
+doc
+doc Note: this demo shows one thing: yab is slow :)
+doc The cleanup of the drawing takes alot of time too,
+doc you can simply break the program if you don't want to wait
+doc
+
+window open 100,100 to 739,579, "Win", "3D Curve"
+
+bitmap 640,480, "DoubleBuffer"
+canvas 0,0 to 639,479, "MyCanvas", "Win"
+
+i = 128  // resolution
+z = 0.5  // dot frequency
+xk = 40
+yk = 30
+
+draw set "highcolor", 0,0,0, "DoubleBuffer"
+draw rect 0,0 to 639,479, "DoubleBuffer"
+draw bitmap 0,0, "DoubleBuffer", "copy",  "MyCanvas"
+
+for t = -144 to 144 step(288/i)
+	if(t=0) t=0.1
+	r = int(0.5 + sqrt(20736 - t^2))
+	for j = -r to r step z
+		p = func(sqrt(j^2 + t^2) * 0.0327) * 20
+		x = int(1.7 * (j + (t/2.25) + 160)) + xk
+		y = int(1.8 * (199 - (p - t/2.25 + 90))) + yk
+		draw set "highcolor", 255-r,j+r,255-p, "DoubleBuffer"
+		draw line x,y to x,y, "DoubleBuffer"
+		draw set "highcolor", 0,0,0, "DoubleBuffer"
+		draw line x,y+1 to x,480, "DoubleBuffer"
+	next j
+	draw bitmap 0,0, "DoubleBuffer", "copy",  "MyCanvas"
+next t
+
+while(not instr(message$, "Quit"))
+wend
+
+window close "Win"
+
+// Choose one of the functions below, comment out all others
+sub func(n)
+	return cos(n) + cos(2*n) +cos(5*n)
+//	return -abs(1/n)
+//	return -abs(1/(n + j))
+//	return sin(n) + sin(2*n) +sin(5*n)
+//	return cos(sin(n))
+//	return cos(2*n) + cos((n+j)/16)
+//	return sqrt(abs(0.5*(16 - n^2))) + 1/(n*4)
+//	return cos(4*n) + 20/(n^2 + 3)
+//	return cos(1/n) + cos(2/n) + cos(5/n) - 3
+//	return cos(sin(j/n))
+//	return 1/sqrt(n) - 3
+end sub

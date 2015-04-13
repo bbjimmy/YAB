@@ -1,0 +1,34 @@
+#!yab
+
+doc RdefApply 
+doc adds icon, application signature and version info attributes from an rdef file.
+doc
+doc Copyright © 2015 Jim Saxton, Fat Elk Software
+
+if (peek("argument") >= 2) then
+	filename$=peek$("argument")
+	Outfilename$=peek$("argument")
+	make$=peek$("argument")
+	make=0
+	if (make$="M") make=1
+	readicon()
+else
+	print"RdefApply" 
+ 	print "Adds icon, application signature and version info attributes from an rdef file.
+ 	"
+	print "usage:"
+	print "RdefApply <RdefFilename> <OutputFilename> <M>"
+	print "if M is used, OutoutFilename is created if it does not exist
+or the creation date is set if it does exist."
+endif	
+
+sub readicon()
+
+	if (not open(1,filename$)) print "Could not open file'"+filename$+"' for reading":exit
+
+if (make=1) system("touch "+Outfilename$)
+close #1
+system("rc -o "+filename$+".rsrc "+filename$)
+system("resattr -O -o "+Outfilename$+" "+filename$+".rsrc")
+end sub
+

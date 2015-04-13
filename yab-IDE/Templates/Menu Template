@@ -1,0 +1,69 @@
+#!yab
+
+doc Place a description of your
+doc program here.
+doc
+doc Author, date, license
+
+// set DEBUG = 1 to print out all messages on the console
+DEBUG = 0
+
+OpenWindow()
+
+// Main Message Loop
+dim msg$(1)
+while(not leavingLoop)
+	nCommands = token(message$, msg$(), "|")
+
+	for everyCommand = 1 to nCommands
+		if(DEBUG and msg$(everyCommand)<>"") print msg$(everyCommand)
+
+		switch(msg$(everyCommand))
+			case "_QuitRequested":
+			case "MainView:_QuitRequested":
+			case translate$("MainView:File:Quit"):
+				leavingLoop = true
+				break
+			case translate$("MainView:Help:Help"):
+				alert "The Help button was pressed", "Cool !", "idea" 
+				break
+			default:
+				break
+		end switch
+
+	next everyCommand
+
+wend
+
+CloseWindow()
+
+end
+
+
+// Setup the main window here
+sub OpenWindow()
+	window open 100,100 to 600,500, "MainView", "Menu Template"
+	
+	menu "File", "New", "N", "MainView"
+	menu "File", "Open...", "O", "MainView"
+	menu "File", "Save", "S", "MainView"
+	menu "File", "Save As...", "", "MainView"
+	menu "File", "--", "", "MainView"
+	menu "File", "Quit", "Q", "MainView"
+	menu "Edit", "Cut", "X", "MainView"
+	menu "Edit", "Copy", "C", "MainView"
+	menu "Edit", "Paste", "V", "MainView" 	
+	menu "View", "Options...", "", "MainView" 
+	menu "Help", "Help", "H", "MainView"
+	menu "Help", "About", "A", "MainView"
+ 
+
+	
+	return
+end sub
+
+// Close down the main window
+sub CloseWindow()
+	window close "MainView"
+	return
+end sub

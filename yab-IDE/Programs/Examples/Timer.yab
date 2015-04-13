@@ -1,0 +1,17 @@
+#!yab
+
+doc Place a description of your
+doc program here.
+doc
+doc Author, date, license
+
+
+
+print date$
+
+print time$
+print mid$(date$,3,10)+" "+time$
+
+dim fields$(6) 
+a=split(date$,fields$(),"-") 
+print fields$(2),"-",fields$(3),"-",fields$(4) 

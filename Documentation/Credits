@@ -1,0 +1,30 @@
+Credits 
+
+yab is yabasic for Haiku done by Jan Bungeroth (jan@be-logos.org).
+
+yab would not be possible without a lot of support. Thanks go to (in no particular order):
+
+Source Code:
+Marc-Oliver Ihm (yabasic)
+Alex Sarikov (CalendarControl)
+William Kakes (URLView)
+YNOP (SplitPane)
+DarkWyrm (Spinner)
+Brent Miszalski (TexView)
+Michael Lloyd Lee (AutoTextView)
+Marco Nelissen (BubbleHelper)
+Marc Flerackers and Stephan Assmus (Haiku TabView)
+Axel Dörfler (Haiku tooltips)
+
+Alpha and Beta Testing and Feature Nagging:
+Michel Clasquin
+bbjimmy
+Lelldorin
+lorglas
+Ralf Schuelke
+DasJott
+Lukas Linemayr
+and others
+
+Translation:
+Begasus for the Dutch yab-IDE locale

@@ -1,0 +1,444 @@
+#!yab
+
+// Set Backgroundcolors as variables.
+bgr = 216 : bgg = 216 : bgb = 226
+
+window open 100, 100 to 610, 400, "MainView" ,"GUI - World"
+	window set "MainView", "flags", "not-h-resizable"
+	draw set "bgcolor", bgr, bgg, bgb, "MainView"
+	draw set "lowcolor", bgr, bgg, bgb, "MainView"
+	draw set "highcolor", 0, 0, 0, "MainView"
+	draw set "Zurich, Bold, 16", "MainView"
+	draw text 10, 20, "GUI - World", "MainView"
+
+listbox 200, 5 to 505, 235, "SourceView", 1, "MainView"
+
+view 5, 241 to 505, 265, "LineView", "MainView"
+	draw set "bgcolor", bgr-16, bgg-16, bgb-16, "LineView"
+	draw set "lowcolor", bgr-16, bgg-16, bgb-16, "LineView"
+	draw set "highcolor", 155, 0, 0, "LineView"
+	draw set "Zurich, Bold, 14", "LineView"
+
+view 0, 270 to 510, 300, "ButtonView", "MainView"
+	draw set "bgcolor", bgr, bgg, bgb, "ButtonView"
+
+button 10, 0 to 70, 20, "Quit_", "Quit", "ButtonView"
+button 205, 0 to 500, 20, "Step_", "Next step", "ButtonView"
+
+layout "left, top", "MainView"
+view 5, 25 to 190, 240, "StatusView", "MainView"
+	draw set "bgcolor", bgr, bgg, bgb, "StatusView"
+	draw set "Zurich, Roman, 10", "StatusView"
+
+NextStep(0)
+option set "Step_", "focus", true
+
+dim choice$(1)
+inloop = true
+while (inloop)
+	msg$ = message$
+	if (split(msg$, choice$(), ":|") > 2) btn$ = choice$(3)
+	if (msg$ <> "") print msg$
+
+	switch msg$
+
+		case "Step_|"
+			stp = stp+1
+			NextStep(stp)
+			L = 0
+			option set "Step_", "focus", true
+			break
+
+		case "SourceView:_Invoke:"+btn$+"|"
+			if (L = 0) stp = stp-1
+			L = 1
+			NextStep(val(btn$))
+			break
+
+		case "Quit_|":
+		case "MainView:_QuitRequested|":
+			inloop = false
+			break
+
+	end switch
+	sleep 0.01
+wend
+exit
+
+sub NextStep(n)
+	draw flush "StatusView"
+	m = n
+	if (n = 0) then
+		draw text 5, 20, "With GUI-World you can", "StatusView"
+		draw text 5, 35, "create a window with a few", "StatusView"
+		draw text 5, 50, "contents, as examples.", "StatusView"
+		draw text 5, 75, "The currently executed line will be", "StatusView"
+		draw text 5, 90, "shown down above the buttons.", "StatusView"
+		draw text 5, 115, "The complete source will be", "StatusView"
+		draw text 5, 130, "collected in the right list.", "StatusView"
+		draw text 5, 200, "Click on 'Next step' to start ...", "StatusView"
+		ShowLine("Welcome to GUI-World!")
+	fi	
+
+	if (n = 1) then
+		draw text 5, 20, "At first, we need to create the window.", "StatusView"
+		draw text 5, 35, "We will create a window", "StatusView"
+		draw text 5, 60, "with a size of 400, 300 (x, y)", "StatusView"
+		draw text 5, 75, "at the position 200x200", "StatusView"
+		draw text 5, 90, "of your monitor.", "StatusView"
+		draw text 5, 110, "The name of the window is ''New App''.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("window open 200, 200 to 600, 500, ''View1'', ''New App''")
+	fi
+
+	if (n = 2) then
+		if (L = 0) window open 200, 450 to 600, 750, "View1", "New App"
+		if (L = 0) listbox add "SourceView", "window open 200, 200 to 600, 500, ''View1'', ''New App''"
+		
+		draw text 5, 20, "The window should be opened now.", "StatusView"
+		draw text 5, 45, "It has no function yet,", "StatusView"
+		draw text 5, 60, "so we'll change that.", "StatusView"
+		draw text 5, 85, "But first let us define the", "StatusView"
+		draw text 5, 100, "background color of the window.", "StatusView"
+		draw text 5, 125, "We'll choose white for background.", "StatusView"
+		draw text 5, 140, "Red 255 + Green 255 + Green 255", "StatusView"
+		draw text 5, 155, " = white.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("draw set ''bgcolor'', 255, 255, 255, ''View1''")
+	fi
+
+	if (n = 3) then
+		if (L = 0) draw set "bgcolor", 255, 255, 255, "View1"
+		if (L = 0) listbox add "SourceView", "draw set ''bgcolor'', 255, 255, 255, ''View1''"
+		if (L = 0) listbox add "SourceView", ""
+		
+		draw text 5, 20, "Ok, white. But still no function!!", "StatusView"
+		draw text 5, 45, "We can now drop in some widgets,", "StatusView"
+		draw text 5, 60, "such as buttons, checkboxes, etc.", "StatusView"
+		draw text 5, 85, "Let's start with a simple button.", "StatusView"
+		draw text 5, 100, "The button will be named 'Quit'", "StatusView"
+		draw text 5, 115, "and will appear down-right.", "StatusView"
+		draw text 5, 140, "Its ID is 'Button1' so it would return", "StatusView"
+		draw text 5, 155, "'Button1' if is pressed.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("button 330, 270 to 390, 270, ''Button1'', ''Quit'', ''View1''")
+	fi
+
+	if (n = 4) then
+		if (L = 0) button 330, 270 to 390, 270, "Button1", "Quit", "View1"
+		if (L = 0) listbox add "SourceView", "button 330, 270 to 390, 270, ''Button1'', ''Quit'', ''View1''"
+		if (L = 0) listbox add "SourceView", ""
+		
+		draw text 5, 20, "Creating views.", "StatusView"
+		draw text 5, 45, "For further widgets, we should create", "StatusView"
+		draw text 5, 60, "extra views inside the View1", "StatusView"
+		draw text 5, 85, "The name of the view is 'View2'", "StatusView"
+		draw text 5, 100, "and we want it in the upper-left corner", "StatusView"
+		draw text 5, 115, "inside the Window (View1).", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("view 5, 5 to 150, 60, ''View2'', ''View1''")
+	fi		
+
+	if (n = 5) then
+		if (L = 0) view 5, 5 to 150, 60, "View2", "View1"
+		if (L = 0) listbox add "SourceView", "view 5, 5 to 150, 60, ''View2'', ''View1''"
+		
+		draw text 5, 60, "We'd like to change the background", "StatusView"
+		draw text 5, 75, "color of that new view...", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("draw set ''bgcolor'', 216, 230, 250, ''View2''")
+	fi
+
+	if (n = 6) then
+		if (L = 0) draw set "bgcolor", 216, 230, 250, "View2"
+		if (L = 0) listbox add "SourceView", "    draw set ''bgcolor'', 216, 230, 250, ''View2''"
+		if (L = 0) listbox add "SourceView", ""
+		
+		draw text 5, 20, "Radiobuttons.", "StatusView"
+		draw text 5, 45, "Now we drop a radiobutton", "StatusView"
+		draw text 5, 60, "in the new view.", "StatusView"
+		draw text 5, 85, "Note that we have to use the", "StatusView"
+		draw text 5, 100, "coordinates of 'View2' for everything", "StatusView"
+		draw text 5, 115, "we want to put into it!", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("radiobutton 5, 10, ''rb1'', ''Radiobutton 1'', 0, ''View2''")
+	fi
+
+	if (n = 7) then
+		draw text 5, 20, "Our radiobutton should", "StatusView"
+		draw text 15, 45, "appear at 5, 10 on 'View2',", "StatusView"
+		draw text 15, 60, "be named 'RadioButton 1'", "StatusView"
+		draw text 15, 75, "have the ID 'rb1'", "StatusView"
+		draw text 15, 90, "not be activated (activated = 0)", "StatusView"
+		draw text 5, 115, "It will return the ID and if", "StatusView"
+		draw text 5, 130, "not activated = 0", "StatusView"
+		draw text 5, 145, "activated = 1", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+	fi
+
+	if (n = 8) then
+		if (L = 0) radiobutton 5, 10, "rb1", "Radiobutton 1", 0, "View2"
+		if (L = 0) listbox add "SourceView", "radiobutton 5, 10, ''rb1'', ''Radiobutton 1'', 0, ''View2''"
+		
+		draw text 5, 20, "What about another one?", "StatusView"
+		draw text 5, 45, "This time activated.", "StatusView"
+		draw text 5, 60, "Because they are on the same view,", "StatusView"
+		draw text 5, 85, "you can switch between them.", "StatusView"
+		draw text 5, 100, "Just try it out...", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on...", "StatusView"
+		ShowLine("radiobutton 5, 30, ''rb2'', ''Radiobutton 2'', 1, ''View2''")
+	fi
+
+	if (n = 9) then
+		if (L = 0) radiobutton 5, 30, "rb2", "Radiobutton 2", 1, "View2"
+		if (L = 0) listbox add "SourceView", "radiobutton 5, 30, ''rb2'', ''Radiobutton 2'', 1, ''View2''"
+		if (L = 0) listbox add "SourceView", ""
+
+		draw text 5, 20, "Checkbuttons.", "StatusView"
+		draw text 5, 45, "Let's make checkbuttons!", "StatusView"
+		draw text 5, 60, "This time placed on 'View1' again.", "StatusView"
+		draw text 5, 85, "It is named 'Checkbox 1',", "StatusView"
+		draw text 5, 100, "has the ID 'cb1' and is", "StatusView"
+		draw text 5, 115, "not activated.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("checkbox 10, 70, ''cb1'', ''Checkbox 1'', 0, ''View1''")
+	fi
+
+	if (n = 10) then
+		if (L = 0) checkbox 10, 70, "cb1", "Checkbox 1", 0, "View1"
+		if (L = 0) listbox add "SourceView", "checkbox 10, 60, ''cb1'', ''Checkbox 1'', 0, ''View1''"
+		
+		draw text 5, 20, "And another one for switching...", "StatusView"
+		draw text 5, 45, "This time activated.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("checkbox 10, 90, ''cb2'', ''Checkbox 2'', 1, ''View1''")
+	fi
+
+	if (n = 11) then
+		if (L = 0) checkbox 10, 90, "cb2", "Checkbox 2", 1, "View1"
+		if (L = 0) listbox add "SourceView", "checkbox 10, 60, ''cb2'', ''Checkbox 2'', 1, ''View1''"
+		if (L = 0) listbox add "SourceView", ""
+		
+		draw text 5, 20, "Textcontrol - Input from the user.", "StatusView"
+		draw text 5, 45, "This shows a text inputfield with a", "StatusView"
+		draw text 5, 60, "short text before it.", "StatusView"
+		draw text 5, 85, "It has the ID 'tc1' and returns it, if", "StatusView"
+		draw text 5, 100, "a user pressed enter after typing", "StatusView"
+		draw text 5, 115, "in the textfield.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("textcontrol 10, 120 to 180, 130, ''tc1'', ''Tell me:'', ''Text...'', ''View1''")
+	fi
+
+	if (n = 12) then
+		if (L = 0) textcontrol 10, 120 to 180, 130, "tc1", "Tell me:", "Text...", "View1"
+		if (L = 0) listbox add "SourceView", "textcontrol 10, 120 to 180, 130, ''tc1'', ''Tell me:'', ''Text...'', ''View1''"
+		
+		draw text 5, 20, "And now a listbox.", "StatusView"
+		draw text 5, 45, "It's a list, where dropboxs can be added to.", "StatusView"
+		draw text 5, 60, "It has the ID 'list1' and returns it,", "StatusView"
+		draw text 5, 85, "followed by the chosen dropbox.", "StatusView"
+		draw text 5, 100, "The '1' in here affects the scrollbars", "StatusView"
+		draw text 15, 115, "0 = no scrollbar", "StatusView"
+		draw text 15, 130, "1 = vertikal scrollbar", "StatusView"
+		draw text 15, 145, "2 = horizontal scrollbar", "StatusView"
+		draw text 15, 160, "3 = both scrollbars", "StatusView"
+		draw text 5, 185, "We'll take just the vertikal one.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("listbox 200, 10 to 380, 260, ''list1'', 1, ''View1''")
+	fi
+
+	if (n = 13) then
+		if (L = 0) listbox 200,10 to 380,260,"list1",1, "View1"
+		if (L = 0) listbox add "SourceView", "listbox 200, 10 to 380, 260, ''list1'', 1, ''View1''"
+		
+		draw text 5, 20, "Add items to the list.", "StatusView"
+		draw text 5, 45, "Now let's put some items into it.", "StatusView"
+		draw text 5, 60, "We will add 3 entries in the list.", "StatusView"
+		draw text 5, 85, "Look on the line and then watch out", "StatusView"
+		draw text 5, 100, "what happens.", "StatusView"
+		draw text 5, 125, "At first we enter 'Hello World'.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("listbox add ''list1'', ''Hello world!'''")
+	fi
+
+	if (n = 14) then
+		if (L = 0) listbox add "list1", "Hello world!"
+		if (L = 0) listbox add "SourceView", "listbox add ''list1'', ''Hello world!''"
+
+		draw text 5, 20, "Just another entry.", "StatusView"
+		draw text 5, 60, "Now we enter 'How are you?'.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("listbox add ''list1'', ''How are you?''")
+	fi
+
+	if (n = 15) then
+		if (L = 0) listbox add "list1", "How are you?"
+		if (L = 0) listbox add "SourceView", "listbox add ''list1'', ''How are you?''"
+		
+		draw text 5, 20, "The third and last entry.", "StatusView"
+		draw text 5, 45, "Last but not least, we enter", "StatusView"
+		draw text 5, 60, "'I am fine' to the listbox.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		if (L = 0) ShowLine("listbox add ''list1'', ''I am fine!''")
+	fi
+
+	if (n = 16) then
+		if (L = 0) listbox add "list1", "I am fine!"
+		if (L = 0) listbox add "SourceView", "''dropbox add ''list1'', ''I am fine!''"
+		if (L = 0) listbox add "SourceView", ""
+		
+		draw text 5, 20, "Selfexplaining...", "StatusView"
+		draw text 5, 45, "You see everything what differs them", "StatusView"
+		draw text 5, 60, "is the text for the entry.", "StatusView"
+		draw text 5, 85, "So it is important, where you place", "StatusView"
+		draw text 5, 100, "the entries in the sourcecode.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("...")
+	fi
+
+	if (n = 17) then
+		if (L = 0) draw set "highcolor", 0, 0, 0, "View1"
+		if (L = 0) listbox add "SourceView", "draw set ''highcolor'', 0, 0, 0, ''View1''"
+
+		draw text 5, 20, "Change highcolor.", "StatusView"
+		draw text 5, 45, "If you'd like to draw something", "StatusView"
+		draw text 5, 60, "e.g. a rectangle, you should control", "StatusView"
+		draw text 5, 75, "the background color of the view", "StatusView"
+		draw text 5, 90, "which shall appear in.", "StatusView"
+		draw text 5, 115, "We chose black (0, 0, 0).", "StatusView"
+		draw text 5, 130, "(see sourcecode)", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("draw set ''highcolor'', 0, 0, 0, ''View1''")
+	fi
+
+	if (n = 18) then
+		draw text 5, 20, "Now we set the color, we can draw.", "StatusView"
+		draw text 5, 45, "A rectangle will now be drawn", "StatusView"
+		draw text 5, 60, " with the previously chosen color", "StatusView"
+		draw text 5, 75, "in the window.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("draw rect 10, 150 to 180, 190, ''View1''")
+	fi
+
+	if (n = 19) then
+		if (L = 0) draw rect 10, 150 to 180, 190, "View1"
+		if (L = 0) listbox add "SourceView", "draw rect 10, 150 to 180, 190, ''View1''"
+		if (L = 0) listbox add "SourceView", ""
+
+		draw text 5, 20, "Draw text on the rectangle.", "StatusView"
+		draw text 5, 45, "Now we'll do some writing but", "StatusView"
+		draw text 5, 60, "first we should control the color.", "StatusView"
+		draw text 5, 85, "The highcolor is the color the", "StatusView"
+		draw text 5, 100, "text will be in.", "StatusView"
+		draw text 5, 125, "We chose red here.", "StatusView"
+		draw text 5, 205, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("draw set ''highcolor'', 255, 0, 0, ''View1''")
+	fi
+
+	if (n = 20) then
+		if (L = 0) draw set "highcolor", 255, 0, 0, "View1"
+		if (L = 0) draw set "lowcolor", 0, 0, 0, "View1"
+		if (L = 0) listbox add "SourceView", "draw set ''highcolor'', 255, 0, 0, ''View1''"
+
+		draw text 5, 20, "Font -type and -size.", "StatusView"
+		draw text 5, 45, "Next we have to define the", "StatusView"
+		draw text 5, 60, "fonttype and its size.", "StatusView"
+		draw text 5, 85, "You can see the font-idents best", "StatusView"
+		draw text 5, 100, "in GoBe productive or something", "StatusView"
+		draw text 5, 115, "like that.", "StatusView"
+		draw text 5, 200, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("draw set ''Zurich, Bold, 24'', ''View1''")
+	fi
+
+	if (n = 21) then
+		if (L = 0) draw set "Zurich, Bold, 24", "View1"
+		if (L = 0) listbox add "SourceView", "draw set ''Zurich, Bold, 24'', ''View1''"
+
+		draw text 5, 20, "Let's go writing.", "StatusView"
+		draw text 5, 45, "The text shall appear in red", "StatusView"
+		draw text 5, 60, "right on the rectangle.", "StatusView"
+		draw text 5, 85, "We will write the word", "StatusView"
+		draw text 5, 100, "'easy", "StatusView"
+		draw text 5, 115, "", "StatusView"
+		draw text 5, 200, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("draw text 40, 180, ''easy'', ''View1''")
+	fi
+
+	if (n = 22) then
+		if (L = 0) draw text 40, 180, "easy", "View1"
+		if (L = 0) listbox add "SourceView", "draw text 40, 180, ''easy'', ''View1''"
+
+		draw text 5, 20, "Dropboxes.", "StatusView"
+		draw text 5, 45, "If you want to provide the user a selection", "StatusView"
+		draw text 5, 60, "on a small room, take a dropbox!", "StatusView"
+		draw text 5, 85, "This dropbox has the ID ''db1'' and returns", "StatusView"
+		draw text 5, 100, "it, if there are entries in it, together with", "StatusView"
+		draw text 5, 115, "that entry.", "StatusView"
+		draw text 5, 200, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("dropbox 10, 200 to 180, 220, ''db1'', ''Choose'', ''View1''")
+	fi
+
+	if (n = 23) then
+		if (L = 0) dropbox 10, 200 to 180, 220, "db1", "Choose", "View1"
+		if (L = 0) listbox add "SourceView", "dropbox 10, 200 to 180, 220, ''db1'', ''Choose'', ''View1''"
+
+		draw text 5, 20, "Add items to the dropbox.", "StatusView"
+		draw text 5, 45, "Adding items to a dropbox is the same", "StatusView"
+		draw text 5, 60, "procedure as for listboxes.", "StatusView"
+		draw text 5, 85, "We give the ID of the dropbox", "StatusView"
+		draw text 5, 100, "which is 'db1' and the name, the", "StatusView"
+		draw text 5, 115, "dropbox should have, followed by the", "StatusView"
+		draw text 5, 130, "view the dropbox is on.", "StatusView"
+		draw text 5, 155, "We'll make three entries again and", "StatusView"
+		draw text 5, 170, "start with that line below. ", "StatusView"
+		draw text 5, 200, "Click on 'Next step' to go on ...", "StatusView"
+		ShowLine("dropbox add ''db1'', ''yab interpreter''")
+	fi
+
+	if (n = 24) then
+		if (L = 0) dropbox add "db1", "yab interpreter"
+		if (L = 0) listbox add "SourceView", "dropbox add ''db1'', ''yab interpreter''"
+		ShowLine("dropbox add ''db1'', ''yet another''")
+		sleep 0.5
+		if (L = 0) dropbox add "db1", "yet another"
+		if (L = 0) listbox add "SourceView", "dropbox add ''db1'', ''yet another''"
+		ShowLine("dropbox add ''db1'', ''basic''")
+		sleep 0.5
+		if (L = 0) dropbox add "db1", "basic"
+		if (L = 0) listbox add "SourceView", "dropbox add ''db1'', ''basic''"
+
+		draw text 5, 20, "That's it for today, man!", "StatusView"
+		draw text 5, 45, "More help do you get from the file", "StatusView"
+		draw text 5, 60, "DONE_AND_TODO", "StatusView"
+		draw text 5, 85, "", "StatusView"
+		draw text 5, 100, "To be continued...", "StatusView"
+		draw text 5, 115, "", "StatusView"
+		draw text 5, 200, "Click on 'Next step' to go insane...", "StatusView"
+		ShowLine("Nothing more to tell ...")
+	fi
+
+	if (n = 25) then
+
+
+		draw text 5, 20, "That's it for today, man!", "StatusView"
+		draw text 5, 45, "More help do you get from the file", "StatusView"
+		draw text 5, 60, "DONE_AND_TODO", "StatusView"
+		draw text 5, 85, "", "StatusView"
+		draw text 5, 100, "To be continued...", "StatusView"
+		draw text 5, 115, "", "StatusView"
+		draw text 5, 200, "Click on 'Next step' to go insane...", "StatusView"
+		ShowLine("Nothing more to tell ...")
+
+		stp = stp-1
+	fi
+
+	return
+end sub
+
+sub ShowLine(CurrLine$)
+
+	draw flush "LineView"
+	draw text 10, 17, CurrLine$, "LineView"
+	
+	return
+end sub

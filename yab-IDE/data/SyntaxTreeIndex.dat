@@ -1,0 +1,620 @@
+&Arithmetic
+7337
+&
+7339
+abs()
+7345
+acos()
+7712
+and()
+8211
+asin()
+9001
+atan()
+9510
+bin$()
+10409
+cos()
+11015
+dec()
+11280
+eor()
+11799
+euler
+12576
+exp()
+12982
+frac()
+13604
+int()
+14285
+log()
+14685
+max()
+15344
+min()
+16136
+mod()
+16551
+or()
+17264
+pi
+18057
+ran()
+18513
+sig()
+19356
+sin()
+20000
+sqr()
+20525
+sqrt()
+20896
+tan()
+21248
+xor()
+21611
+** or ^
+22644
+&
+23461
+and
+23465
+break
+23915
+case
+24610
+continue
+25107
+default
+25776
+do
+26896
+else
+27440
+elsif
+27979
+end
+29449
+endif
+30141
+false
+30787
+fi
+31354
+for
+31668
+gosub
+32630
+goto
+33500
+if
+34350
+label
+36136
+loop
+37125
+next
+37612
+not
+38171
+on gosub
+38823
+on goto
+40158
+on interrupt
+41582
+logical or
+42868
+pause
+43271
+repeat
+44499
+return
+45186
+sleep
+46885
+step
+47260
+switch
+47800
+then
+49116
+true
+49924
+until
+50360
+wait
+50967
+wend
+51341
+while
+51839
+:
+52495
+&
+53132
+arraydim()
+53143
+arraysize()
+54033
+data
+56606
+dim
+57558
+read
+59075
+redim
+59718
+restore
+60157
+&
+61226
+asc()
+61232
+chr$()
+62055
+glob()
+62917
+abc matches a* 
+63878
+
+64066
+hex$()
+64075
+instr()
+64565
+left$()
+65579
+len()
+66880
+lower$()
+67254
+ltrim$()
+67662
+rtrim$()
+68314
+mid$()
+68962
+right$()
+70230
+split()
+71549
+Please enter a line: a 
+74186
+
+74680
+str$()
+74706
+string |  Result for converting 1000*pi |      Description
+76112
+
+79509
+token()
+79811
+Please enter a line: a 
+82334
+
+82732
+trim$()
+82759
+upper$()
+83372
+val()
+84020
+&
+84734
+at()
+84739
+clear screen
+86030
+close
+86746
+color
+87217
+colour
+88331
+eof
+88478
+getscreen$()
+89069
+inkey$
+90217
+input
+91436
+Please enter the name of a file to read: test.yab 
+92830
+
+92967
+line input
+93002
+open
+93844
+print
+96665
+putscreen
+99902
+reverse
+100797
+screen
+101576
+seek()
+101806
+tell
+103368
+using
+104029
+#
+105070
+at()
+106443
+;
+107722
+&
+108368
+end sub
+108376
+export
+108808
+import foo 
+109855
+
+110153
+Calling subroutine foo.bar (okay) ... 
+110254
+
+110568
+import
+111103
+rem  Make the subroutine x easily available outside this library 
+112034
+
+112210
+0 
+112259
+
+112417
+local
+112702
+numparams
+114162
+return
+115613
+static
+117315
+1 1 
+118117
+
+118140
+sub
+118335
+&
+120614
+bind()
+120621
+clipboard copy
+121393
+clipboard paste$
+122095
+compile
+122717
+date$
+123273
+doc
+124998
+docu$
+126153
+error
+126975
+---Error in t.yab, line 2: Oh no ... 
+127618
+
+127674
+execute$()
+127688
+print foo$(a$,b$) 
+128723
+
+128736
+execute()
+128776
+exit
+129181
+iscomputeron
+129575
+pause
+129963
+peek
+131190
+peek$
+136253
+3a 
+139214
+
+139235
+poke
+139270
+rem
+140508
+sleep
+141622
+system$()
+141981
+system()
+142570
+thread get
+143193
+thread remove
+144542
+time$
+145465
+to 
+146634
+//
+147188
+:
+147692
+&Drawing
+148325
+&
+148327
+draw circle
+148339
+draw curve
+148998
+draw dot
+149983
+draw ellipse
+150564
+draw flush
+151303
+draw get
+152433
+draw get$
+154379
+draw image
+155792
+draw line
+157698
+draw rect
+158270
+draw set
+158926
+draw text
+162295
+&
+163465
+ismousein()
+163477
+keyboard message$()
+164199
+message$
+166088
+message send
+168421
+_Scripting:...|
+169326
+
+169339
+mouse message$()
+169566
+mousemove$
+171590
+MOUSE SET Option$
+172254
+shortcut
+172760
+"S" for the shift key
+173560
+
+173712
+"O" for ALT-O
+173862
+
+173927
+ALT-X
+174351
+
+174394
+&Printing
+175345
+&
+175347
+printer
+175355
+printer setup
+177728
+&
+178752
+menu
+178757
+Menu$ = "--"
+179225
+then the menu item will be a separator line.
+179282
+"S" for the shift key
+179755
+These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
+180004
+"O" for ALT-O
+180055
+
+180120
+For the menu Head$ "File":
+180918
+
+181168
+menu set
+182260
+Option$ = "Disable" -- grey out the item so it cannot be selected anymore
+183063
+
+183212
+popupmenu
+184323
+submenu
+185971
+Menu$ = "--"
+186555
+then the submenu item will be a separator line.
+186615
+"S" for the shift key
+187091
+These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
+187340
+"O" for ALT-O
+187391
+
+187456
+submenu set
+190342
+Option$ = "Disable" -- grey out the item so it cannot be selected anymore
+191218
+
+191367
+&
+192114
+boxview
+192122
+stackview
+193545
+stackview get
+195659
+stackview set
+195950
+&
+196407
+button
+196414
+button image
+197729
+calendar
+199470
+calendar get$
+201137
+calendar set
+201630
+checkbox
+202055
+checkbox image
+203312
+checkbox set
+205539
+colorcontrol
+205838
+colorcontrol get
+207860
+colorcontrol set
+208468
+columnbox
+208804
+columnbox add
+214014
+columnbox clear
+215195
+columnbox color
+215563
+columnbox column
+216608
+columnbox count
+217767
+columnbox get
+218205
+columnbox get$
+218740
+columnbox remove
+219283
+columnbox select
+219640
+listbox
+220095
+listbox add
+223060
+listbox clear
+223538
+listbox count
+223833
+listbox get
+224229
+listbox get$
+224716
+listbox remove
+225134
+listbox select
+225473
+listbox sort
+226118
+radiobutton
+226830
+radiobutton set
+228564
+statusbar
+228970
+statusbar set
+230439
+text
+230937
+text set
+232125
+textedit
+233243
+textedit add
+233536
+textedit clear
+233748
+textedit color
+234090
+textedit get
+234392
+textedit get$
+234747
+textedit set
+235021
+tooltip
+237966
+tooltip color
+239646
+&Localization
+240934
+&
+240936
+localize
+240945
+# A comment starts with a #
+242509
+
+242633
+translate$()
+244199
+&Sound
+244952
+&
+244954
+beep
+244959
+bell
+245193
+sound play
+245556
+sound stop
+246481
+sound wait
+246855
+&Window
+247260
+&
+247262
+alert
+247268
+filepanel
+249046
+window open
+252336
+window close
+255051
+window count
+255543
+window get
+256170
+window set
+257891

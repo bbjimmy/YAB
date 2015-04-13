@@ -1,0 +1,18 @@
+#!yab
+sleep .01
+window open 100,100 to 400, 200, "WView", "EvenMoreControls"
+layout "none", "WView"
+colorcontrol 10,10, "CC", "WView"
+colorcontrol set "CC", 213,123,43
+
+textcontrol 10,70 to 150,90, "TC", "Enter Password:","","WView"
+textcontrol set "TC",1
+
+inloop = true
+while(inloop)
+	msg$ = message$
+	if(msg$<>"") print msg$
+	if(instr(msg$,"Quit")) inloop = false
+wend
+
+window close "WView"

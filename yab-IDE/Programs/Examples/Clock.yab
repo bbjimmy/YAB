@@ -1,0 +1,34 @@
+#!yab
+
+window open 100,100 to 200,150, "MainView", "Clock"  
+window set "MainView", "flags", "Not-Zoomable"
+window set "MainView", "minimumto", 100,50
+window set "MainView", "maximumto", 100,50
+layout "left, top, right", "MainView"
+view 0,0 to 100,50, "clockview", "MainView"
+
+inloop = true
+while(inloop)
+	msg$ = message$
+	if(msg$<>"") print msg$
+	if(instr(msg$,"_QuitRequested")) inloop = false
+	if(instr(msg$,"Quit")) inloop = false
+	draw_time_and_date()
+sleep 0.01
+wend
+
+window close "MainView"
+exit
+
+sub time_and_date()
+	zeit$ = left$(time$,2) + ":" + mid$(time$,4,2) + ":" + mid$(time$,7,2)
+	datum$ = mid$(date$,14,3) + ", " + mid$(date$,6,2) + "." + mid$(date$,3,2) + "." + mid$(date$,11,2)
+end sub	
+
+sub draw_time_and_date()
+	time_and_date()
+	draw flush "clockview"
+	draw text 10,20, datum$ ,"clockview"
+	draw text 10,35, zeit$ + "         ","clockview"
+	wait 0.25
+end sub

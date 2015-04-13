@@ -1,0 +1,12 @@
+ToDo
+
+Features:
+- LPT and COM signal send/receive, specific request by lorglas
+- Layout
+
+Bugs:
+- drop file bug ide
+- strings cannot handle chr$(0)
+- TEXTEDIT selection somehow buggy, seems to be a Haiku issue
+- SOUND commands don't work because of a missing API call in Haiku
+- printing seems to be broken (further testing needed)

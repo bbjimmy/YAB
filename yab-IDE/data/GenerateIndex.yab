@@ -1,0 +1,19 @@
+f1 = open("data/Help_En.dat", "r")
+f2 = open("data/Help_En_Index.dat", "w")
+
+while(instr(a$, "& infotext") = 0)
+	line input #f1 a$
+wend
+
+while(not eof(f1))
+	line input #f1 a$
+	print #f2 a$
+	print #f2 tell(#f1)
+	while(left$(a$,1)<>"&" or left$(a$,10)="&exverbatim")
+		line input #f1 a$
+		print a$
+	wend
+wend
+
+close(f2)
+close(f1)

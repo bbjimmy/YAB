@@ -1,0 +1,197 @@
+#!yab
+
+window open 100,100 to 700,500, "MainView", "DrawWorld"
+
+// MainView
+draw set "highcolor", 0,0,0, "MainView"
+draw set "lowcolor", 235,235,235, "MainView"
+draw set "bgcolor", 235,235,235, "MainView"
+
+draw set 0, "HighSolidFill"
+if(peek$("os") = "Haiku") then
+        draw set "DejaVu Sans,Condensed Bold,48", "MainView"
+else
+	draw set "Zurich,Bold,48", "MainView"
+endif
+draw text 175,50, "DrawWorld", "MainView"
+
+button 510,370 to 590,390, "NextButton", "Next", "MainView"
+
+// Our drawing pad
+view 100,60 to 500,390, "DrawView", "MainView"
+draw set "highcolor", 0,0,0, "DrawView"
+draw set "lowcolor", 255,255,255, "DrawView"
+draw set "bgcolor", 255,255,255, "DrawView"
+
+// Dot and line
+draw set "Zurich,Bold,18", "DrawView"
+draw text 135,20, "Dot and Line", "DrawView"
+
+xold = 40
+yold = 260
+for a=10 to 720 step 10
+	x = 10+a*180/360
+	y = 230+60*sin(a*pi/180) 
+	draw line xold,yold to x,y, "DrawView"
+	xold = x + 30
+	yold = y + 30
+next a 
+
+for a = 0 to 720 step 10
+	x = 10+a*180/360
+	y = 100+60*sin(a*pi/180) 
+	draw dot x,y, "DrawView"
+next a 
+
+while(not instr(msg$,"NextButton"))
+	msg$ = message$
+	if(instr(msg$, "Quit")) then
+		window close "MainView"
+		end
+	endif
+	sleep 0.1
+wend
+msg$ = ""
+
+draw rect 0,0 to 400,330, "DrawView"
+draw flush "DrawView"
+draw set 1, "HighSolidFill"
+
+// Circle and ellipse
+draw set "Zurich,Bold,18", "DrawView"
+draw text 135,20, "Circle and Ellipse", "DrawView"
+
+// draw set 1, "LowSolidFill"
+draw circle 70,70, 36, "DrawView"
+draw set "highcolor", 0,0,245, "DrawView"
+draw dot 70,70, "DrawView"
+draw line 72,70 to 105,70, "DrawView"
+draw line 105,70 to 100,65, "DrawView"
+draw line 105,70 to 100,75, "DrawView"
+draw text 85,68, "r", "DrawView"
+
+draw set "highcolor", 0,0,0, "DrawView"
+draw ellipse 210,70, 72, 36, "DrawView"
+draw set "highcolor", 0,0,245, "DrawView"
+draw dot 210,70, "DrawView"
+draw line 212,70 to 282,70, "DrawView"
+draw line 282,70 to 277,65, "DrawView"
+draw line 282,70 to 277,75, "DrawView"
+draw line 210,68 to 210,34, "DrawView"
+draw line 210,34 to 215,39, "DrawView"
+draw line 210,34 to 205,39, "DrawView"
+draw text 235,68, "rx", "DrawView"
+draw text 192,57, "ry", "DrawView"
+
+for i = 0 to 255 step 5
+	draw set "highcolor", i,0,0, "DrawView"
+	draw ellipse i+90, 230, 72-i/5, 36+i/5, "DrawView"
+next i
+draw set "highcolor", 0,0,0, "DrawView"
+
+
+while(not instr(msg$,"NextButton"))
+	msg$ = message$
+	if(instr(msg$, "Quit")) then
+		window close "MainView"
+		end
+	endif
+	sleep 0.1
+wend
+msg$ = ""
+
+draw rect 0,0 to 400,330, "DrawView"
+draw flush "DrawView"
+draw set "lowcolor", 255,255,255, "DrawView"
+draw set 1, "HighSolidFill"
+
+// Bezier curve
+draw set "Zurich,Bold,18", "DrawView"
+draw text 135,20, "Bezier Curve", "DrawView"
+
+draw set "highcolor", 50,50,250, "DrawView"
+draw circle 30,100, 3, "DrawView"
+draw circle 70,60, 3, "DrawView"
+draw circle 100,40, 3, "DrawView"
+draw circle 140,90, 3, "DrawView"
+draw line 30,100 to 70,60, "DrawView"
+draw line 70,60 to 100,40, "DrawView"
+draw line 100,40 to 140,90, "DrawView"
+draw set "highcolor", 0,0,0, "DrawView"
+draw curve 30,100, 70,60, 100,40, 140,90, "DrawView"
+
+draw set "highcolor", 50,50,250, "DrawView"
+draw circle 170,100, 3, "DrawView"
+draw circle 190,40, 3, "DrawView"
+draw circle 250,40, 3, "DrawView"
+draw circle 265,90, 3, "DrawView"
+draw line 170,100 to 190,40, "DrawView"
+draw line 190,40 to 250,40, "DrawView"
+draw line 250,40 to 265,90, "DrawView"
+draw set "highcolor", 0,0,0, "DrawView"
+draw curve 170,100, 190,40, 250,40, 265,90, "DrawView"
+
+draw set "highcolor", 50,50,250, "DrawView"
+draw circle 350,40, 3, "DrawView"
+draw circle 300,10, 3, "DrawView"
+draw circle 290,200, 3, "DrawView"
+draw circle 350,140, 3, "DrawView"
+draw line 350,40 to 300,10, "DrawView"
+draw line 300,10 to 290,200, "DrawView"
+draw line 290,200 to 350,140, "DrawView"
+draw set "highcolor", 0,0,0, "DrawView"
+draw set 0, "HighSolidFill"
+draw curve 350,40, 300,10, 290,200, 350,140, "DrawView"
+
+draw set 1, "HighSolidFill"
+draw curve 10,300, 120,100, 170,100, 390,300, "DrawView"
+
+while(not instr(msg$,"NextButton"))
+	msg$ = message$
+	if(instr(msg$, "Quit")) then
+		window close "MainView"
+		end
+	endif
+	sleep 0.1
+wend
+msg$ = ""
+
+draw rect 0,0 to 400,330, "DrawView"
+draw flush "DrawView"
+
+// Pattern
+draw set "Zurich,Bold,18", "DrawView"
+draw text 165,20, "Pattern", "DrawView"
+
+draw text 47,40, "HighSolidFill", "DrawView"
+draw text 247,40, "LowSolidFill", "DrawView"
+draw text 43,190, "CheckeredFill", "DrawView"
+draw text 247,190, "Userdefined", "DrawView"
+draw set "highcolor", 50,50,250, "DrawView"
+draw set "lowcolor", 250,50,50, "DrawView"
+draw set 0, "HighSolidFill"
+draw rect 40,50 to 160,130, "DrawView"
+draw set 0, "LowSolidFill"
+draw rect 240,50 to 360,130, "DrawView"
+draw set 0, "CheckeredFill"
+draw rect 40,200 to 160,280, "DrawView"
+pattern$ = "255239171199001199171239"
+draw set 0, pattern$
+draw rect 240,200 to 360,280, "DrawView"
+draw set 0, "255255255255255255255255"
+draw rect 40,50 to 160,130, "DrawView"
+
+draw set "highcolor", 0,0,0, "DrawView"
+draw set "lowcolor", 255,255,255, "DrawView"
+
+while(not instr(msg$,"NextButton"))
+	msg$ = message$
+	if(instr(msg$, "Quit")) then
+		window close "MainView"
+		end
+	endif
+	sleep 0.1
+wend
+
+window close "MainView"
+
