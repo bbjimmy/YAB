@@ -8,7 +8,7 @@ doc
 doc The yab-IDE provides you with an integrated development suite for yab
 doc Enjoy.
 path()
-versionnumber$="2.2.4"
+versionnumber$="2.2.4.2"
 
 settingsRCSOff = true
 globalConfigDir$ = trim$(system$("finddir B_USER_SETTINGS_DIRECTORY"))+"/yab-ide/"

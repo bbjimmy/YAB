@@ -5,7 +5,7 @@
 // #define LIBBSVG 
 #define BUILD_TIME __DATE__
 /* Version number of package */
-#define VERSION "1.7.4.3"
+#define VERSION "1.7.4.4"
 /* architecture of build machine */
 #define UNIX_ARCHITECTURE "BePC-Haiku"
 

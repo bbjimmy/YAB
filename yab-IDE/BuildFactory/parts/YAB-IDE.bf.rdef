@@ -29,7 +29,7 @@ resource app_version {
 	minor  = 4,
 
 	variety = B_APPV_FINAL,
-	internal = 1,
+	internal = 2,
 
 	short_info = "yab IDE",
 	long_info = "An integrated development environment for yab."
