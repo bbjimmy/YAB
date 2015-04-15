@@ -15,5 +15,12 @@ run `fixattributes.sh` in `src`.
 
 type `gcc -o yab-compress yab-compress.c -lz` in `/yab-IDE/BuildFactory`.
 
+Upgrading
+---------------------
+ Delete ~/yab_work/BuildFactory
+
+This will insure that the BuildFactory is refreshed with the current version. 
+
 LICENSE: Artistic License -- Create your own stand-alone binaries with yab under any license you want.  
 AUTHOR: jan__64
+

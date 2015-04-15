@@ -8482,7 +8482,14 @@ void YabInterface::BitmapGet(double w, const char* id, const char* path)
 
 	BNode *fNode = new BNode(path);
 	BNodeInfo fInfo(fNode);
-	fInfo.GetTrackerIcon( iBitmap, B_LARGE_ICON );
+	int i;
+	i=int(w);
+	icon_size ics;
+	ics=(icon_size)i;
+	
+	fInfo.GetTrackerIcon( iBitmap, ics );
+	
+	
 
 	fBitmap->Lock();
 	bview->DrawBitmap( iBitmap, iFrame );

@@ -18,6 +18,7 @@ ATTRIBUTE CLEAR Name$, Filename$
 Value$ = ATTRIBUTE GET$ Name$, Filename$
   Get the string value of the attribute Name$ for file Filename$.
 	Returns "true" or "false" for "Bool" type attributes.
+	If Name$="", returns a list of attribute names and their types separated by " | ". returns "Unsupported" for types that are not valid for yab. 
 Value = ATTRIBUTE GET Name$, Filename$
   Get the number value of the attribute Name$ for file Filename$.
 
@@ -33,7 +34,7 @@ color = BITMAP COLOR x,y, ID$, ColorPart$
 BITMAP GET x1, y1 to x2, y2, Target_bitmap$, Source_bitmap$
   Copies specified area of Source_bitmap$ to Target_bitmap$.
 BITMAP GET IconSize, Bitmap$, File$
-  Copies the icon, shown in Tracker, of File$ in the specified IconSize onto Bitmap$.
+  Copies the icon, shown in Tracker, of File$ in the specified IconSize onto Bitmap$. The icon will be resized to IconSize, and properly scaled if it is an hvicon.
 BITMAP GET ID$, Option$, Path$
   copies an icon to a bitmap
   An Option can be:
@@ -59,6 +60,9 @@ BOXVIEW x1,y1 TO x2,y2, ID$, Label$, LineType, View$
   LineType = 0 means no border
   LineType = 1 means simple line border
   LineType = 2 means fancy line border
+BOXVIEW SET  ID$, Option$, Value$
+ Option$="Label" Value$=new label
+ Option$="Line" Value$= "0" / "1" / "2"
 BUTTON x1,y1 TO x2,y2, ID$, Label$, View$
   Sets a button at position (x1,y1) to (x2,y2) with label Label$ on the view View$
 BUTTON IMAGE x,y, ID$, EnabledPressed$, EnabledNormal$, Disabled$, View$
@@ -616,7 +620,7 @@ TEXTCONTROL SET TextControl$, IsPassword
   IsPassword = true Hide typing
 TEXTCONTROL SET TextControl$, Option$, Value$
  Option$="align" Value$= "left" / "right" / "center"
-  *** note *** Haiku has issues aligh right. There are open tickets. 
+  *** note *** Haiku has issues align right. There are open tickets. 
    Option$="exclude", Value$=characters to disallow.
  Option$="include", Value$=characters to allow.
  Option$="length", Value$=str$(number) of characters allowed.
@@ -673,6 +677,7 @@ TEXTEDIT SET TextEdit$, Option$, Value
   Option$ = "autocomplete-start"
   Option$ = "has-autocompletion"
   Option$= "align", left/center/right
+  Option$= "focus", true/false
   Default options are:
     autoindent = false
     wordwrap = true
@@ -811,10 +816,7 @@ WINDOW SET Window$, Option$, Value$
   Causes the window to appear on only the current workspace.
   "Workspace", "n"  (where n is a number >= 1)
   Causes the window to appear on workspace number n
-WINDOW SET Window$, Option$, r,g,b
-  "BGColor", r,g,b   (216,216,216 default)
-  "HighColor", r,g,b   (0,0,0 default)
-  "LowColor", r,g,b   (216,216,216 default)
+
 WINDOW SET Window$, Option$, x,y
   "ResizeTo", x,y
   "MoveTo", x,y
