@@ -98,7 +98,7 @@ RmErr = RemoveTemp()
 system ("RdefApply parts/YAB.bf.rdef "+Output_file$)
 system ("addattr -t mime BEOS:APP_SIG "+appsig$+" "+Output_file$)
 system ("addattr -t mime BEOS:TYPE  application/x-vnd.be-elfexecutable "+Output_file$)
-
+system ("chmod a+x "+Output_file$)
 
 // check if the BuildFactory was envoked by the yab-ide.
 // if so, copy the output file to the inmputfile's directory and open the directory.
