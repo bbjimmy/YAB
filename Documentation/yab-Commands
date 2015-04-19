@@ -19,6 +19,7 @@ Value$ = ATTRIBUTE GET$ Name$, Filename$
   Get the string value of the attribute Name$ for file Filename$.
 	Returns "true" or "false" for "Bool" type attributes.
 	If Name$="", returns a list of attribute names and their types separated by " | ". returns "Unsupported" for types that are not valid for yab. 
+	it name$ and filenbame$ both = "", returns the current program path and filename
 Value = ATTRIBUTE GET Name$, Filename$
   Get the number value of the attribute Name$ for file Filename$.
 
@@ -458,6 +459,7 @@ Directory$ = PEEK$("directory")
   else
 	Directory$ = system$("pwd")
   endif
+	see also ATTRIBUTE GET$
 TrackerItem$ = PEEK$("refsreceived")
   Returns TrackerItem which you used 'open with...' your application on.
 Selected$ = POPUPMENU x,y, MenuItems$, View$

@@ -1664,7 +1664,9 @@ static double peek(char *dest, YabInterface *yab) /* peek into internals */
   else if (!strcmp(dest,"version")) return strtod(VERSION,NULL);
   else if (!strcmp(dest,"error")) return errorcode;
   else if (!strcmp(dest,"read_controls")) return read_controls;
-  else if (!strcmp(dest,"isbound")) return is_bound; 
+  else if (!strcmp(dest,"isbound")) return is_bound;
+  
+   
   else if (dest[0]=='#') {
     error(ERROR,"don't use quotes when peeking into a file");
     return 0;
@@ -1691,6 +1693,7 @@ static int peekfile(int stream) /* read a byte from stream */
 static char *peek2(char *dest,struct command *curr) /* peek into internals */
 {
   char *s;
+  
 		
   for(s=dest;*s;s++) *s=tolower((int)*s);
   if (!strcmp(dest,"infolevel")) {

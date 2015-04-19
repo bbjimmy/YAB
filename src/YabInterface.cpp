@@ -9216,8 +9216,13 @@ const char* YabInterface::AttributeGet1(const char* name, const char* filename)
 {
 	BString tempname(name);
 	BNode node(filename);
-	if(node.InitCheck() != B_OK)
-		ErrorGen("Attribute file not found!");
+	if(node.InitCheck() != B_OK){
+		if (tempname.Length() >0)
+			ErrorGen("Attribute file not found!");
+		BString appdir = mainFileName;
+		return appdir;
+	}	
+			
 	if (tempname.Length() >0)
 	{
 	attr_info attr;
@@ -9289,6 +9294,7 @@ const char* YabInterface::AttributeGet1(const char* name, const char* filename)
 				
 			List << buf << sp << Attrtype  << sp;	
 		}
+		
 		
 		
 	return List.String();

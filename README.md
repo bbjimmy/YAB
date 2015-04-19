@@ -24,3 +24,4 @@ This will insure that the BuildFactory is refreshed with the current version.
 LICENSE: Artistic License -- Create your own stand-alone binaries with yab under any license you want.  
 AUTHOR: jan__64
 
+yab homepage: http://yab.orgfree.com/
