@@ -8,7 +8,7 @@ doc
 doc The yab-IDE provides you with an integrated development suite for yab
 doc Enjoy.
 path()
-versionnumber$="2.2.4.2"
+versionnumber$="2.2.4.3"
 
 settingsRCSOff = true
 globalConfigDir$ = trim$(system$("finddir B_USER_SETTINGS_DIRECTORY"))+"/yab-ide/"
@@ -625,8 +625,14 @@ while(inloop)
 			case MyTranslate$("MainView:Help:Online resources:Yabasic homepage...")
                                 system("open http://www.yabasic.de &")
                                 break 
+			case MyTranslate$("MainView:Help:Online resources:Yab homepage...")
+                                system("open http://yab.orgfree.com &")
+                                break 
 			case MyTranslate$("MainView:Help:Online resources:Haikuware yab forum...")
                                 system("open http://haikuware.com/forum/yab &")
+                                break 
+			case MyTranslate$("MainView:Help:Online resources:Yab forum...")
+                                system("open http://yab-talk.forumotion.com &")
                                 break 
 			case MyTranslate$("MainView:Help:About...")
 				AboutWindow()
@@ -1050,8 +1056,12 @@ sub OpenMainWindow()
 	menu "Help", "Online resources", "", "MainView"
 	submenu "Help", "Online resources", "German BeUsergroup...", "", "MainView"
 	submenu "Help", "Online resources", "BeSly database...", "", "MainView"
+	submenu "Help", "Online resources", "Yab homepage...", "", "MainView"
+	submenu "Help", "Online resources", "Yab forum...", "", "MainView"
 	submenu "Help", "Online resources", "Yabasic homepage...", "", "MainView"
 	submenu "Help", "Online resources", "Haikuware yab forum...", "", "MainView"
+	
+
 	menu "Help", "--", "", "MainView"
 	menu "Help", "About...", "", "MainView"
 
