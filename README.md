@@ -25,3 +25,5 @@ LICENSE: Artistic License -- Create your own stand-alone binaries with yab under
 AUTHOR: jan__64
 
 yab homepage: http://yab.orgfree.com/
+
+yab forum: http://yab-talk.forumotion.com/

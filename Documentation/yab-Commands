@@ -18,8 +18,9 @@ ATTRIBUTE CLEAR Name$, Filename$
 Value$ = ATTRIBUTE GET$ Name$, Filename$
   Get the string value of the attribute Name$ for file Filename$.
 	Returns "true" or "false" for "Bool" type attributes.
-	If Name$="", returns a list of attribute names and their types separated by " | ". returns "Unsupported" for types that are not valid for yab. 
-	it name$ and filenbame$ both = "", returns the current program path and filename
+	If Name$="", returns a list of attribute names and their types separated
+       by " | ". returns "Unsupported" for types that are not valid for yab. 
+	If Name$ and Filename$ both = "", returns the current program directory.
 Value = ATTRIBUTE GET Name$, Filename$
   Get the number value of the attribute Name$ for file Filename$.
 

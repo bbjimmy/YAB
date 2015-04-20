@@ -9220,6 +9220,8 @@ const char* YabInterface::AttributeGet1(const char* name, const char* filename)
 		if (tempname.Length() >0)
 			ErrorGen("Attribute file not found!");
 		BString appdir = mainFileName;
+		int32 i = appdir.FindLast("/");
+		appdir.Truncate(i);
 		return appdir;
 	}	
 			
