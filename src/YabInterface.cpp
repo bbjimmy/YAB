@@ -331,7 +331,7 @@ bool YabInterface::ExitRequested()
 		 // printf("QUITDEBUG: 3\n");
 
 
-	// BMessenger(be_app).SendMessage(new BMessage(B_QUIT_REQUESTED));
+	BMessenger(be_app).SendMessage(new BMessage(B_QUIT_REQUESTED));
 	Quit();
 		  // printf("QUITDEBUG: Quit\n");
 		 // printf("QUITDEBUG: wait\n");
@@ -369,6 +369,7 @@ void YabInterface::OpenWindow(const BRect frame, const char* id, const char* tit
 
 int YabInterface::CloseWindow(const char* view)
 {
+	
 	int tmp = 0;
 	YabView *myView = cast_as((BView*)viewList->GetView(view), YabView);
 	if(myView)
@@ -450,7 +451,7 @@ int YabInterface::CloseWindow(const char* view)
 	}
 	else
 		Error(view, "VIEW");
-
+	
 	return tmp;
 }
 
@@ -9389,12 +9390,12 @@ void YabInterface::MouseSet(const char* opt)
 
 const char* YabInterface::GetMessageString()
 {
-	snooze(20000);
-	BString tmp("");
+	snooze(85000);
+	BString tmp;
 	if(exiting)
 	{
 		tmp += "_QuitRequested|";
-		exiting = false;
+		//exiting = false;
 	}
 	tmp += localMessage;
 	localMessage = "";
