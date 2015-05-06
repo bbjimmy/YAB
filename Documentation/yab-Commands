@@ -123,6 +123,7 @@ COLUMNBOX COLUMN ColumnBox$, Name$, Position, MaxWidth, MinWidth, Width, Option$
 COLUMNBOX ADD ColumnBox$, Column, Row, Height, Item$
   If Item$ = "__Icon__="+FileName$ then the image file FileName$ will be shown,
   if Item$ = "__Path__="+FileName$ then the large Trackericon of the file FileName$ will be shown
+ if Item$ = "__SmIC__="+FileName$ then the small Trackericon of the file FileName$ will be shown
   if Item$ = "__Mime__="+Signature$ then the small icon of the mime type Signature$ will be shown
 COLUMNBOX SELECT ColumnBox$, Row
   Selects Row of ColumnBox$.

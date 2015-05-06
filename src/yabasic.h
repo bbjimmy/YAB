@@ -287,7 +287,7 @@ enum endreasons { /* ways to end the program */
 };
 
 enum streammodes { /* ways to access a stream */
-  smCLOSED=0,smREAD=1,smWRITE=2,smPRINT=4
+  smCLOSED=0,smREAD=1,smWRITE=2,smPRINT=4,smREADWRITE=3
 };
 
 enum functions { /* functions in yabasic (sorted by number of arguments) */

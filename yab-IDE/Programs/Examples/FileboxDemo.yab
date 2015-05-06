@@ -1,9 +1,12 @@
+#!yab
+
+
 import Filebox
 
 
 dir$ = "/boot/home/"
 
-window open 100,100 to 500,500, "Demo","Demo"
+window open 100,100 to 500,500, "Demo",dir$
 Filebox(10,10,350,390,"Filebox", 1, "Demo")
 FileboxDirectory("Filebox", dir$, false)
 button 360,10,390,30, "DirUp", "..", "Demo"
@@ -13,6 +16,7 @@ inloop = true
 while(inloop)
         n = split(message$, msg$(), "|")
 	for i=1 to n
+		print msg$(i)
 		// Quit
 		if(msg$(i) = "Demo:_QuitRequested") inloop = false
 
@@ -23,7 +27,9 @@ while(inloop)
 				t = t - 1
 			wend
 			dir$ = left$(dir$,t)
+			WINDOW SET "Demo", "Title", dir$
 			FileboxDirectory("Filebox", dir$, false)
+			
 		endif
 
 		// An item is invoked
@@ -31,11 +37,12 @@ while(inloop)
 			position = val(right$(msg$(i),len(msg$(i))-16))
 
 			// if the item is a directory, then update the filebox else print the filename
-			if(FileboxIsDirectory("Filebox", position)) then
+			if(FileboxIsDirectory("Filebox", position,dir$)) then
 				dir$ = dir$ + FileboxName$("Filebox", position) + "/"
+				WINDOW SET "Demo", "Title", dir$
 				FileboxDirectory("Filebox", dir$, false)
 			else
-				print FileboxName$("Filebox", position)
+				print dir$+FileboxName$("Filebox", position)
 			endif
 		endif
 	next i

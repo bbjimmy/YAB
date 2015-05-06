@@ -1,0 +1,62 @@
+import fileblock
+
+x=openfile("/boot/home/test.file", 150,3)
+if x < 1 error "cannot open file"
+
+
+ok=Field(x,1,"name",50)
+ok=ok+Field(x,2,"address",50)
+ok=ok+Field(x,3,"phonenumber",50)
+if (!ok = 3 ) error "bad field"
+// werite some blocks
+for z=1 to 20
+	lset(x,"name", "Some dude")
+	lset(x,"address", "Some address")
+	rset(x,"phonenumber","123-456-7890")
+	y=write_block(-1, x) // -1  appends the data to the file.
+next
+// over-write a block with new data
+lset(x,"name", "Some other dude")
+lset(x,"address", "Some kewl address")
+rset(x,"phonenumber","098-765-4321")
+write_block(6, x)
+
+// read back the over-written block
+read_block(6, x)
+
+// get the data from the read operation
+name$=readfield$(x, "name")
+address$=readfield$(x, "address")
+phone$=readfield$(x, "phonenumber")
+// show the data
+print name$
+print address$
+print trim$(phone$)
+
+// over write the block again
+lset(x,"name", "")
+lset(x,"address", "")
+rset(x,"phonenumber","")
+write_block(6, x)
+
+//read back the over-written block
+
+recno = read_block(6, x) // returns the read block that will next be read if called with -1 recordnumber
+name$=readfield$(x, "name")
+address$=readfield$(x, "address")
+phone$=readfield$(x, "phonenumber")
+print name$
+print address$
+print phone$
+print recno
+
+//read the next block
+
+recno = read_block(-1, x)
+name$=readfield$(x, "name")
+address$=readfield$(x, "address")
+phone$=readfield$(x, "phonenumber")
+print name$
+print address$
+print phone$
+print recno

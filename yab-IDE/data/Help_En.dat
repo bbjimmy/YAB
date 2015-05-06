@@ -3436,6 +3436,7 @@ open -- open a file
 
 Synopsis: 
 open a,"file","r" 
+open a, "File", "r+"
 open #a,"file","w" 
 open "file" for reading as a 
 open "file" for writing as #a 
@@ -3450,7 +3451,11 @@ The open-command opens a file for reading or writing for printing text. open com
 For historical reasons the filenumber can be preceded by a hash ('#'). Note, that specifying a filenumber is optional; if it is omitted, the open-function will return a filenumber, which should then be stored in a variable for later reference. This filenumber can be a simple number or an arbitrary complex arithmetic expression, in which case braces might be necessary to save yab from getting confused.
 
 filename -- In the synopsis above this is "file". This string specifies the name of the file to open (note the important caveat on specifying these filenames).
-accessmode -- In the synopsis this is "r", "w", for reading or for writing. This string or clause specifies the mode in which the file is opened; it may be one of: "r"Open the file for reading (may also be written as for reading). If the file does not exist, the command will fail. This mode is the default, i.e. if no mode is specified with the open-command, the file will be opened with this mode.
+accessmode -- In the synopsis this is "r", "w", for reading or for writing. This string or clause specifies the mode in which the file is opened; it may be one of: "r" Open the file for reading (may also be written as for reading). If the file does not exist, the command will fail. This mode is the default, i.e. if no mode is specified with the open-command, the file will be opened with this mode.
+
+"r" -- Open the file for reading (may also be written as for reading). If the file does not exist, the command will fail.
+
+"r+" -- Open the file for reading and writing. If the file does not exist, it will be created. Writing is limited to poke, print #a will not work in this mode.
 
 "w" -- Open the file for writing (may also be written as for writing). If the file does not exist, it will be created.
 

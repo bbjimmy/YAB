@@ -47,7 +47,7 @@ GPP_OPT = $(DBG) $(OPT) -I. -DHAVE_CONFIG -DUNIX $(HAIKUOPT)
 ## Libraries
 ##
 ##LIBPATH = -L/boot/home/config/lib
-LIBPATHS = $(shell findpaths B_FIND_PATH_LIB_DIRECTORY)
+LIBPATHS = $(shell findpaths -a `getarch` B_FIND_PATH_LIB_DIRECTORY)
 LIBPATH=$(addprefix -L,$(LIBPATHS))
 ##LIBPATH = -L`finddir B_SYSTEM_LIB_DIRECTORY` ##/boot/system/lib    
 LIB = -lbe -lroot -ltranslation -ltracker -lmedia  

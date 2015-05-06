@@ -626,17 +626,17 @@ void myopen(struct command *cmd) /* open specified file for given name */
   char *name=NULL;
   char *mode=NULL;
   char **pmode;
-  static char *valid_modes[]={"r","w","a","rb","wb","ab",""};
-  static int smodes[]={smREAD,smWRITE,smWRITE,smREAD,smWRITE,smWRITE};
+  static char *valid_modes[]={"r+","r","w","a","rb","wb","ab",""};
+  static int smodes[]={smREADWRITE,smREAD,smWRITE,smWRITE,smREAD,smWRITE,smWRITE,smREAD};
   int smode;
+  
   struct stackentry *p;
   int has_mode,has_stream,printer=0;
-
   /* decode cmd->tag */
   has_stream=cmd->tag&OPEN_HAS_STREAM;
   has_mode=cmd->tag&OPEN_HAS_MODE;
   /* printer=cmd->tag&OPEN_PRINTER;*/
-
+	
   if (has_mode)
     mode=my_strdup(pop(stSTRING)->pointer);
   else 
@@ -817,7 +817,7 @@ void myseek(struct command *cmd) /* reposition file pointer */
   }
   my_free(mode);
   if (abs(s)==STDIO_STREAM || badstream(s,0)) return;
-  if (!(stream_modes[s] & (smREAD | smWRITE))) {
+  if (!(stream_modes[s] & (smREAD | smWRITE | smREADWRITE))) {
     sprintf(errorstring,"stream %d not open",s);
     errorcode=11;
     return;
@@ -906,7 +906,7 @@ int checkstream(void)  /* test if currst is still valid */
   input=(currstr>0);
 
   if (!stdio) {
-    if (input && !(stream_modes[abs(currstr)] & smREAD)) {
+    if (input && !(stream_modes[abs(currstr)] & smREAD| smREADWRITE)) {
       sprintf(string,"stream %d not open for reading",abs(currstr));
       error(ERROR,string);
       return FALSE;

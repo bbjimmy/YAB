@@ -707,7 +707,7 @@ void function(struct command *current,YabInterface* yab) /* performs a function 
   case fTELL:
     i=(int)(a1->value);
     if (badstream(i,0)) return;
-    if (!(stream_modes[i] & (smREAD | smWRITE))) {
+    if (!(stream_modes[i] & (smREAD | smWRITE| smREADWRITE))) {
       sprintf(string,"stream %d not opened",i);
       error(ERROR,string);
       value=0;
@@ -1681,7 +1681,7 @@ static double peek(char *dest, YabInterface *yab) /* peek into internals */
 static int peekfile(int stream) /* read a byte from stream */
 {
   if (stream && badstream(stream,0)) return 0;
-  if (stream && !(stream_modes[stream] & smREAD)) {
+  if (stream && !(stream_modes[stream] & smREAD | smREADWRITE)) {
     sprintf(string,"stream %d not open for reading",stream);
     error(ERROR,string);
     return 0;

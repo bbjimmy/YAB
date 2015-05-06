@@ -277,14 +277,45 @@ void BYabField::SetString(const char* val, int height)
 		fString.CopyInto(myPath, 9, fString.Length()-9);
 #ifdef ZETA
 		fBitmap = new BBitmap(BRect(0, 0, 15, 15), B_RGBA32);
-		BEntry fEntry = BEntry( myPath.String() );
+		BEntry fEntry = BEntry(myPath.String());
 		BBitmap icon = &GetTrackerIcon(fEntry, 16);
 		*fBitmap = icon;
 #else
-		fBitmap = new BBitmap(BRect(0, 0, 31, 31), B_RGBA32);
+		fBitmap = new BBitmap(BRect(0, 0,31, 31), B_RGBA32);
 		BNode *fNode = new BNode(myPath.String());
 		BNodeInfo fInfo(fNode);
-		fInfo.GetTrackerIcon(fBitmap, B_LARGE_ICON);
+		int i;
+		i=32;
+		icon_size ics;
+		ics=(icon_size)i;
+	
+		fInfo.GetTrackerIcon( fBitmap, ics );
+		//fInfo.GetTrackerIcon(fBitmap, B_MINI_ICON);
+		delete fNode;
+#endif
+	}
+	
+	
+	else if( ! fString.FindFirst("__SmIC__=") )
+	{
+		BString myPath;
+		fString.CopyInto(myPath, 9, fString.Length()-9);
+#ifdef ZETA
+		fBitmap = new BBitmap(BRect(0, 0, 15, 15), B_RGBA32);
+		BEntry fEntry = BEntry(myPath.String());
+		BBitmap icon = &GetTrackerIcon(fEntry, 16);
+		*fBitmap = icon;
+#else
+		fBitmap = new BBitmap(BRect(0, 0, 15, 15), B_RGBA32);
+		BNode *fNode = new BNode(myPath.String());
+		BNodeInfo fInfo(fNode);
+		int i;
+		i=16;
+		icon_size ics;
+		ics=(icon_size)i;
+	
+		fInfo.GetTrackerIcon( fBitmap, ics );
+		//fInfo.GetTrackerIcon(fBitmap, B_MINI_ICON);
 		delete fNode;
 #endif
 	}

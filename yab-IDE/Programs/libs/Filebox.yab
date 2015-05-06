@@ -26,10 +26,12 @@ export sub FileboxName$(ID$, position)
 end sub
 
 // return true, if the row position is a directory
-export sub FileboxIsDirectory(ID$, position)
+export sub FileboxIsDirectory(ID$, position,dir$)
 	local t$
-	t$ = columnbox get$ ID$, 1, position
-	if(t$ = "__Mime__=application/x-vnd.Be-directory") return true
+	t$ = columnbox get$ ID$, 2, position
+	print "t$ "+t$
+	//if(t$ =  "__Path__="+path$+Name$"__Mime__=application/x-vnd.Be-directory") return true
+	if(system("test -d \""+ dir$+t$+"\"") = 0) system("addattr -t mime BEOS:TYPE application/x-vnd.Be-directory \""+dir$+t$+"\"") : return true
 	return false
 end sub
 
@@ -50,48 +52,65 @@ export sub FileboxDirectory(ID$, dir$, showDot)
 
 	columnbox clear ID$
 	if(showDot) then
-		t$ = system$("ls --format=single-column --color=none -a "+dir$+" |sort -f")
+		t$ = system$("ls --format=single-column --color=none -aF \""+dir$+"\" |sort -f")
 	else
-		t$ = system$("ls --format=single-column --color=none "+dir$+" |sort -f")
+		t$ = system$("ls --format=single-column --color=none -F \""+dir$+"\" |sort -f")
 	endif
 
 	dim splitdir$(1)
 
 	n = split(t$, splitdir$(), "\n")
 	for i=1 to n-1
-               if(system("test -d \""+ dir$+splitdir$(i)+"\"") = 0) then
+				
+				//print dir$+splitdir$(i)
+				
+				
+				//print dir$+splitdir$(i)
+				if  (right$(splitdir$(i),1)="/") then
+	
+               //if(system("test -d \""+ dir$+splitdir$(i)+"\"") = 0) then
                         // comment the if clause out if you want to have the direcotries "." and ".." listed
-                        if(splitdir$(i)<>"." and splitdir$(i)<>"..") then
-                                arraysizeDir = arraysizeDir + 1
-                                dim directories$(arraysizeDir)
-                                directories$(arraysizeDir-1) = splitdir$(i)
-                        endif
+                       // if(splitdir$(i)<>"." and splitdir$(i)<>"..") then
+                        	arraysizeDir = arraysizeDir + 1
+                            dim directories$(arraysizeDir)
+                            splitdir$(i) = left$(splitdir$(i),len( splitdir$(i))-1)
+                            directories$(arraysizeDir-1) = splitdir$(i)
+                        //endif
                 // handle files
+               
                 else
+                
+                
                         arraysizeFiles = arraysizeFiles + 1
                         dim files$(arraysizeFiles)
                         files$(arraysizeFiles-1) = splitdir$(i)
                 endif 
 	next i
 	for i=0 to arraysizeDir-1
-		FileboxAdd(ID$, directories$(i), true)
+		FileboxAdd(ID$, directories$(i), true,dir$)
 	next i
 	for i=0 to arraysizeFiles-1
-		FileboxAdd(ID$, files$(i), false)
+		FileboxAdd(ID$, files$(i), false,dir$)
 	next i
 	return
 end sub
 
-sub FileboxAdd(ID$, Name$, IsFolder)
+sub FileboxAdd(ID$, Name$, IsFolder, path$)
 	local maxpos
 
 	maxpos = (columnbox count ID$) + 1
-
+	a$=""
+		
 	if(IsFolder) then
-		columnbox add ID$, 1, maxpos, 18, "__Mime__=application/x-vnd.Be-directory"
+		columnbox add ID$, 1, maxpos, 18, "__SmIC__="+path$+Name$
 	else
-		columnbox add ID$, 1, maxpos, 18, "__Mime__=application/octet-stream"
+		columnbox add ID$, 1, maxpos, 18, "__SmIC__="+path$+Name$
+	
+	//else	
+		//columnbox add ID$, 1, maxpos, 18, "__Mime__=application/octet-stream"
 	endif
 	columnbox add ID$, 2, maxpos, 20, Name$
+	columnbox select ID$, 1
+	columnbox select ID$, 0
 	return
 end sub
