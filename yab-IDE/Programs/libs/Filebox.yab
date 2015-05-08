@@ -83,7 +83,13 @@ export sub FileboxDirectory(ID$, dir$, showDot)
                 
                         arraysizeFiles = arraysizeFiles + 1
                         dim files$(arraysizeFiles)
-                        files$(arraysizeFiles-1) = splitdir$(i)
+                        if right$(splitdir$(i),1)="*" then
+                        	files$(arraysizeFiles-1) = left$(splitdir$(i), len(splitdir$(i)) -1)
+                        elseif right$(splitdir$(i),1)="@" then
+                        	files$(arraysizeFiles-1) = left$(splitdir$(i), len(splitdir$(i)) -1)
+                        else	
+                        	files$(arraysizeFiles-1) = splitdir$(i)
+                        endif
                 endif 
 	next i
 	for i=0 to arraysizeDir-1
