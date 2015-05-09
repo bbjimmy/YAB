@@ -1,3 +1,9 @@
+#!yab
+
+dir$=attribute get$ "",""
+dir$=dir$+"/"
+
+
 doc Simple game example
 doc based on the popular Sokoban
 doc graphics taken from Rocks'n'Diamonds
@@ -8,15 +14,15 @@ window open 100,100 to 484,484, "Win", "Simple Sokoban Example"
 window set "Win", "flags", "not-zoomable, not-h-resizable, not-v-resizable"
 
 bitmap 32,32, "wall"
-err = draw image 0,0 to 31,31, "img/wall.png", "wall"
+err = draw image 0,0 to 31,31, dir$+"img/wall.png", "wall"
 bitmap 32,32, "front1"
-err = err + draw image 0,0 to 31,31, "img/front.png", "front1"
+err = err + draw image 0,0 to 31,31, dir$+"img/front.png", "front1"
 bitmap 32,32, "bulb"
-err = err + draw image 0,0 to 31,31, "img/bulb.png", "bulb"
+err = err + draw image 0,0 to 31,31, dir$+"img/bulb.png", "bulb"
 bitmap 32,32, "target"
-err = err + draw image 0,0 to 31,31, "img/target.png", "target"
+err = err + draw image 0,0 to 31,31, dir$+"img/target.png", "target"
 bitmap 32,32, "final"
-err = err + draw image 0,0 to 31,31, "img/final.png", "final"
+err = err + draw image 0,0 to 31,31, dir$+"img/final.png", "final"
 bitmap 32,32, "background"
 draw set "highcolor", 0,0,0, "background"
 draw rect 0,0 to 31,31, "background"

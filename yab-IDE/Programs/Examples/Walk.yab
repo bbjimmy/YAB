@@ -1,10 +1,11 @@
 #!yab
-
+dir$=attribute get$ "" , ""
+dir$=dir$+"/"
 window open 100,100 to 500,160, "Win", "Walk"
 window set "Win", "flags", "not-zoomable, not-h-resizable, not-v-resizable"
 
 bitmap 1152,256, "player"
-err = draw image 0,0 to 1152,256, "img/player.png", "player"
+err = draw image 0,0 to 1152,256, dir$+"img/player.png", "player"
 for i=15 to 405 step 65
 	bitmap get i,196 to i+30,252, str$((i+50)/65), "player"
 next i

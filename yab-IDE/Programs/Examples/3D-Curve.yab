@@ -1,3 +1,4 @@
+#!yab
 doc Draw some nice 3D curves
 doc Original by Martin Lehmann for QBasic
 doc
@@ -46,12 +47,12 @@ window close "Win"
 
 // Choose one of the functions below, comment out all others
 sub func(n)
-	return cos(n) + cos(2*n) +cos(5*n)
+//	return cos(n) + cos(2*n) +cos(5*n)
 //	return -abs(1/n)
 //	return -abs(1/(n + j))
 //	return sin(n) + sin(2*n) +sin(5*n)
 //	return cos(sin(n))
-//	return cos(2*n) + cos((n+j)/16)
+	return cos(2*n) + cos((n+j)/16)
 //	return sqrt(abs(0.5*(16 - n^2))) + 1/(n*4)
 //	return cos(4*n) + 20/(n^2 + 3)
 //	return cos(1/n) + cos(2/n) + cos(5/n) - 3

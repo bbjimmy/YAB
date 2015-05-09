@@ -19,8 +19,8 @@ bitmap get "BMP_icon", "mime32", "application/x-vnd.Be-MAIL"
 draw bitmap 10, 90, "BMP_icon", "alpha", "Main"
 bitmap remove "BMP_icon"
 
-draw text 70,150, "bitmap get 32, \"BMP_icon\", \"" + systempath$ + "\"", "Main"
-bitmap get 32, "BMP_icon", systempath$
+draw text 70,150, "bitmap get 62, \"BMP_icon\", \"" + systempath$ + "\"", "Main"
+bitmap get 62, "BMP_icon", systempath$
 draw bitmap 10, 130, "BMP_icon", "alpha", "Main"
 bitmap remove "BMP_icon"
 

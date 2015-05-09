@@ -1,9 +1,10 @@
 #!yab
-
+dir$=attribute get$ "", ""
+dir$=dir$+"/"
 window open 200,200 to 520,391, "MainView", "ImageWorld"
 button 50,163 to 270,183, "Ok_", "Ok", "MainView"
 
-err = draw image 0,0, "img/image.png", "MainView"
+err = draw image 0,0, dir$+"img/image.png", "MainView"
 
 if(err = 1) then
 	alert "Problem while loading image.png!", "Quit", "stop"

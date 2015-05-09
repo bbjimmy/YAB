@@ -1,3 +1,7 @@
+#!yab
+dir$ = attribute get$ "", ""
+dir$=dir$+"/" 
+
 // This example demonstrates all widgets
 
 // open the window
@@ -26,7 +30,7 @@ button 10,10 to 100,30, "Button", "Button", "Box1"
 tooltip "Button", "BUTTON"
 
 // button image
-button image 10,40, "ButtonImage", "img/button_pressed.png", "img/button_norm.png", "", "Box1"
+button image 10,40, "ButtonImage", dir$+"img/button_pressed.png", dir$+"img/button_norm.png", "", "Box1"
 tooltip "ButtonImage", "BUTTON IMAGE"
 
 // checkbox
@@ -34,7 +38,7 @@ checkbox 10,70, "Check", "Checkbox", true, "Box1"
 tooltip "Check", "CHECKBOX"
 
 // checkbox image
-checkbox image 10,92, "CheckImage", "img/checkbutton_enabledOn.png", "img/checkbutton_enabledOff.png", "", "", true, "Box1"
+checkbox image 10,92, "CheckImage", dir$+"img/checkbutton_enabledOn.png", dir$+"img/checkbutton_enabledOff.png", "", "", true, "Box1"
 tooltip "CheckImage", "CHECKBOX IMAGE"
 
 // radiobutton
@@ -59,9 +63,11 @@ tooltip "List", "LISTBOX"
 columnbox 130,10 to 270,150, "Column", 1, "", "Box1"
 columnbox column "Column", " ", 1, 30,30,30, "align-center"
 columnbox column "Column", "Column", 2, 90,90,90, "align-center"
-columnbox add "Column", 1,1, 20, "__Icon__=img/yab.png"
+columnbox add "Column", 1,1, 20, "__Mime__=application/x-vnd.yab-app"
+columnbox add "Column", 1,2, 20, "__Mime__=application/x-vnd.Be-elfexecutable"
 columnbox add "Column", 2,1, 20, "Foo"
 columnbox add "Column", 2,2, 20, "Bar"
+columnbox add "Column", 2,3, 20, "Baz"
 tooltip "Column", "COLUMNBOX"
 
 // treebox
@@ -76,7 +82,7 @@ text 300,10, "Text", "Text (cannot be flushed)", "Box1"
 tooltip "Text", "TEXT"
 
 // texturl
-texturl 300,30, "TextURL", "Team MAUI", "http://www.team-maui.de", "Box1"
+texturl 300,30, "TextURL", "Team MAUI", "http://www.team-maui.org", "Box1"
 tooltip "TextURL", "TEXTURL"
 
 // textcontrol
