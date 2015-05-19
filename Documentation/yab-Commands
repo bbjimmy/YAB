@@ -33,8 +33,8 @@ BITMAP Width, Height, ID$
 color = BITMAP COLOR x,y, ID$, ColorPart$
   ColorPart$ = "red" or "green" or "blue"
   Returns the color of the pixel at position (x,y) of the bitmap ID$
-BITMAP GET x1, y1 to x2, y2, Target_bitmap$, Source_bitmap$
-  Copies specified area of Source_bitmap$ to Target_bitmap$.
+BITMAP GET x1, y1 to x2, y2, Target_bitmap$, Source_view$
+  Copies specified area of Source_view$ to Target_bitmap$.
 BITMAP GET IconSize, Bitmap$, File$
   Copies the icon, shown in Tracker, of File$ in the specified IconSize onto Bitmap$. The icon will be resized to IconSize, and properly scaled if it is an hvicon.
 BITMAP GET ID$, Option$, Path$
