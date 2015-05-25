@@ -1,7 +1,7 @@
 #!yab
 
 doc Author: Jan Bungeroth
-doc Thanks to: Genki, Lelldorin, lorglas, Stargater, DasJott
+doc Thanks to: Genki, Lelldorin, lorglas, Stargater, DasJott, bbjimmy
 doc (c) 2006-2015 in terms of the Artistic License
 
 doc
@@ -628,12 +628,12 @@ while(inloop)
 			case MyTranslate$("MainView:Help:Online resources:Yab homepage...")
                                 system("open http://yab.orgfree.com &")
                                 break 
-			case MyTranslate$("MainView:Help:Online resources:Haikuware yab forum...")
-                                system("open http://haikuware.com/forum/yab &")
-                                break 
 			case MyTranslate$("MainView:Help:Online resources:Yab forum...")
                                 system("open http://yab-talk.forumotion.com &")
                                 break 
+            case MyTranslate$("MainView:Help:Online resources:Team Maui...")
+                                system("open http://www.team-maui.org &")
+                                break                     
 			case MyTranslate$("MainView:Help:About...")
 				AboutWindow()
 				break
@@ -1054,12 +1054,13 @@ sub OpenMainWindow()
 	menu "Help", "Yabasic manual...", "M", "MainView"
 	menu "Help", "--", "", "MainView"
 	menu "Help", "Online resources", "", "MainView"
-	submenu "Help", "Online resources", "German BeUsergroup...", "", "MainView"
 	submenu "Help", "Online resources", "BeSly database...", "", "MainView"
+	submenu "Help", "Online resources", "German BeUsergroup...", "", "MainView"
+	submenu "Help", "Online resources", "Team Maui...", "", "MainView"
 	submenu "Help", "Online resources", "Yab homepage...", "", "MainView"
 	submenu "Help", "Online resources", "Yab forum...", "", "MainView"
 	submenu "Help", "Online resources", "Yabasic homepage...", "", "MainView"
-	submenu "Help", "Online resources", "Haikuware yab forum...", "", "MainView"
+	
 	
 
 	menu "Help", "--", "", "MainView"
@@ -1242,7 +1243,7 @@ sub OpenMainWindow()
 	view (settingsWidth-settingsVSplitDivider-12-41-4)/2-150,(settingsHSplitDivider-1)/2-190 to (settingsWidth-settingsVSplitDivider-12-41-4)/2+150,(settingsHSplitDivider-1)/2+190, "Logo", "Stack"+str$(MAXFILES+2)
 	draw set "bgcolor", 255,255,255, "Stack"+str$(MAXFILES+2)
 	draw set "bgcolor", 255,255,255, "Logo"
-	err = draw image 0,0 to 350,-1, ideDir$+"img/logo.png", "Logo"
+	err = draw image 0,0 to 300,-1, ideDir$+"img/logo.png", "Logo"
 	stackview set "Stack", MAXFILES+2
 	stackview set "Lines", MAXFILES+2
 	layout "standard", "Stack"+str$(MAXFILES+2)
@@ -1994,8 +1995,10 @@ sub AboutWindow()
 
 	width = draw get "text-width", "(c) 2006-2015 in terms of the Artistic License", "AboutWindow"
 	draw text 198-width/2, 260, "(c) 2006-2015 in terms of the Artistic License", "AboutWindow"
+	width= draw get "text-width", "Ported to Haiku PM by bbjimmy","AboutWindow"
+	draw text 200-width/2, 240, "Ported to Haiku PM by bbjimmy","AboutWindow"
 	width = draw get "text-width", "Coded by Jan, graphics by Genki, thanks to BeSly", "AboutWindow"
-	draw text 200-width/2, 240, "Coded by Jan, graphics by Genki, thanks to BeSly", "AboutWindow"
+	draw text 200-width/2, 220, "Coded by Jan, graphics by Genki, thanks to BeSly", "AboutWindow"
 
 	if(peek$("os") = "Haiku") then
 		draw set "DejaVu Sans, Bold, 18", "AboutWindow"
@@ -2012,7 +2015,7 @@ sub AboutWindow()
 	width = draw get "text-width", "Version "+versionnumber$, "AboutWindow"
 	draw text 200-width/2, 40, "Version "+versionnumber$, "AboutWindow"
 
-	t = draw image 100,50 to 300,-1, ideDir$+"img/yablogo.png", "AboutWindow"
+	t = draw image 120,40 to 280,-1, ideDir$+"img/yablogo.png", "AboutWindow"
 
 	button 100,265 to 300,290, "AboutButton", "Close", "AboutWindow"
 	option set "AboutButton", "focus", true
@@ -3808,21 +3811,8 @@ sub SaveSettings()
 end sub
 
 sub path()
-if (!peek("isbound")) then
-path$=system$("ps")
-x=instr(path$,"/yab-IDE.yab")
-path$=left$(path$,x)
-for x=len(path$)-1 to 1 step -1
-	if (instr(path$," ",x) and catch=0) catch=x+1
-next
-path$=right$(path$,len(path$)-catch)
-path$=trim$(path$)
-path$="/"+path$
-else
-path$=trim$(peek$("directory") )
+path$=attribute get$ "" , "" 
 path$=path$+"/"
-end if
-
 end sub
 
 
