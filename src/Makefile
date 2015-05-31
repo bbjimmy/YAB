@@ -70,7 +70,7 @@ YAB_OBJECTS = YabInterface.o YabWindow.o YabView.o YabBitmapView.o YabText.o Yab
 ##
 yab: libyab.so YabMain.o main.o bison.o flex.o RdefApply YAB.rdef
 	$(GPP) $(GPP_OPT) -o $@ YabMain.o main.o bison.o flex.o $(LIBPATH) libyab.so $(LIB)
-	$@ RdefApply YAB.rdef $@
+	LIBRARY_PATH=$$LIBRARY_PATH:. $@ RdefApply YAB.rdef $@
 	addattr -t mime BEOS:TYPE application/x-vnd.be-elfexecutable $@
 
 libyab.so: $(YAB_OBJECTS)
