@@ -42,12 +42,14 @@ GCC = gcc
 GCC_OPT = $(DBG) $(OPT) -I. -I/boot/home/config/include/ -I/boot/home/config/include/ncurses/ -DHAVE_CONFIG -DUNIX $(HAIKUOPT)
 GPP = g++
 GPP_OPT = $(DBG) $(OPT) -I. -DHAVE_CONFIG -DUNIX $(HAIKUOPT)
+LD = ld
+LD_OPT = -shared
 
 ##
 ## Libraries
 ##
 ##LIBPATH = -L/boot/home/config/lib
-LIBPATHS = $(shell findpaths -a `getarch` B_FIND_PATH_LIB_DIRECTORY)
+LIBPATHS = $(shell findpaths -a `getarch` B_FIND_PATH_LIB_DIRECTORY) .
 LIBPATH=$(addprefix -L,$(LIBPATHS))
 ##LIBPATH = -L`finddir B_SYSTEM_LIB_DIRECTORY` ##/boot/system/lib    
 LIB = -lbe -lroot -ltranslation -ltracker -lmedia  
@@ -56,18 +58,24 @@ LIB = -lbe -lroot -ltranslation -ltracker -lmedia
 FLEXFLAGS = -i -I -L -s
 
 ## flags for bison (-t -v for debugging)
-BISONFLAGS = -d -l -t -v  
+BISONFLAGS = -d -l -t -v
+
+YAB_OBJECTS = YabInterface.o YabWindow.o YabView.o YabBitmapView.o YabText.o YabFilePanel.o YabFilePanelLooper.o YabList.o \
+	function.o io.o graphic.o symbol.o bison.o \
+	$(COLUMN) column/YabColumnType.o column/ColorTools.o \
+	YabStackView.o SplitPane.o URLView.o YabControlLook.o $(HAIKUTAB) Spinner.o $(TABLIB) CalendarControl.o
 
 ##
 ## Compile and link
 ##
-yab: YabMain.o YabInterface.o YabWindow.o YabView.o YabBitmapView.o YabFilePanel.o YabFilePanelLooper.o YabList.o \
-	YabText.o flex.o bison.o symbol.o function.o graphic.o io.o main.o $(COLUMN) column/YabColumnType.o column/ColorTools.o YabStackView.o SplitPane.o URLView.o YabControlLook.o \
-	$(HAIKUTAB) Spinner.o column/ColumnListView.o CalendarControl.o
-	$(GPP) $(GPP_OPT) -o yab YabMain.o YabInterface.o YabWindow.o YabView.o YabBitmapView.o YabText.o YabFilePanel.o \
-		YabFilePanelLooper.o YabList.o main.o function.o io.o graphic.o symbol.o bison.o flex.o  $(COLUMN) column/YabColumnType.o column/ColorTools.o \
-		YabStackView.o SplitPane.o URLView.o YabControlLook.o $(HAIKUTAB) Spinner.o $(TABLIB) CalendarControl.o \
-		$(LIBPATH) $(LIB)
+yab: libyab.so YabMain.o main.o bison.o flex.o RdefApply YAB.rdef
+	$(GPP) $(GPP_OPT) -o $@ YabMain.o main.o bison.o flex.o $(LIBPATH) libyab.so $(LIB)
+	$@ RdefApply YAB.rdef $@
+	addattr -t mime BEOS:TYPE application/x-vnd.be-elfexecutable $@
+
+libyab.so: $(YAB_OBJECTS)
+	$(LD) $(LD_OPT) -o $@ $+ $(LIBPATH) $(LIB)
+
 YabMain.o: YabMain.cpp 
 	$(GPP) $(GPP_OPT) -c YabMain.cpp -o YabMain.o
 YabInterface.o: YabInterface.cpp YabInterface.h YabMenu.h
@@ -126,4 +134,15 @@ YabControlLook.o: YabControlLook.h YabControlLook.cpp
 	$(GPP) $(GPP_OPT) -c YabControlLook.cpp -o YabControlLook.o
 
 clean:
-	rm -f core *.o column/*.o flex.* bison.* yab yabasic.output
+	rm -f core *.o column/*.o flex.* bison.* yab yabasic.output libyab.so
+
+install: yab libyab.so
+	mkdir -p /boot/system/non-packaged/bin
+	mkdir -p /boot/system/non-packaged/lib
+	mkdir -p /boot/system/non-packaged/develop/headers/yab/column
+	mkdir -p /boot/system/non-packaged/develop/lib
+	cp -f yab /boot/system/non-packaged/bin/
+	cp -f libyab.so /boot/system/non-packaged/lib/
+	cp -f libyab.so /boot/system/non-packaged/develop/lib
+	cp -f *.h /boot/system/non-packaged/develop/headers/yab/
+	cp -f column/*.h /boot/system/non-packaged/develop/headers/yab/column/

@@ -11,9 +11,7 @@ yab-IDE is a powerful development environment, which of course is programmed in 
 
 Compiling
 ---------------------
-run `make` in `src`.
-
-run `fixattributes.sh` in `src`.
+run `make install` in `src`.
 
 type `gcc -o yab-compress yab-compress.c -lz` in `/yab-IDE/BuildFactory`.
 
