@@ -3,12 +3,13 @@
 doc This program modifies flex.c and main.c for the Buildfactory
 doc It accomplishes the seteps documented in HowToMakeABuildFactory.txt.
 doc The BuildFactory calls this program if flex.c is missing.
+doc Note that bison.h comes with the yab devel package, so we
+doc don't need to generate it ourselves anymore.
 doc
 doc by Jim Saxton, 2015, Artistic license
 
 system("flex -i -I -L -s -t yabasic.flex >flex.c")
 system("perl -i -n -e 'if (!/^\#include\s+<unistd.h>\s+$$/) {print if $$i;$$i++}' flex.c")
-system("bison  -d -l -t -v --output-file bison.c yabasic.bison ")
 system ("mv flex.c tmpflex.c")
 
 open #1, "tmpflex.c", "r"
