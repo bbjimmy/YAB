@@ -26,10 +26,10 @@ resource app_signature "application/x-vnd.yab-IDE";
 resource app_version {
 	major  = 2,
 	middle = 2,
-	minor  = 4,
+	minor  = 5,
 
 	variety = B_APPV_FINAL,
-	internal = 2,
+	internal = 0,
 
 	short_info = "yab IDE",
 	long_info = "An integrated development environment for yab."

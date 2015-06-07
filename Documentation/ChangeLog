@@ -1,6 +1,16 @@
+yab Version 1.7.5
+-libyab.so --- smaller binaries
+
+yab Version 1.7.4.5 Changes from 1.7.4.1
+-use standard flex for BuildFactory
+-ATTRIBUTE SET and ATTRIBUTE GET$ re-worked to work better
+-open a, "File", "r+"
+-TEXTEDIT SET Option$= "align", left/center/right
+
 yab Version 1.7.4.1 Changes from version 1.7
 -LOCALIZE doesn't work again due to changes in haiku.
 -TEXTCONTROL   added more options for set options.
+
  yab Version 1.7 Changes from Version 1.6
 - COLUMNBOX updated to Haiku style (thanks Stargater!)
 - STATUSBAR didn't follow LAYOUT, fixed now
