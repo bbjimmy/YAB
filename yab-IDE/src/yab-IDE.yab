@@ -629,7 +629,7 @@ while(inloop)
                                 system("open http://yab.orgfree.com &")
                                 break 
 			case MyTranslate$("MainView:Help:Online resources:Yab forum...")
-                                system("open http://yab-talk.forumotion.com &")
+                                system("open http://yab.orgfree.com/forum/ &")
                                 break 
             case MyTranslate$("MainView:Help:Online resources:Team Maui...")
                                 system("open http://www.team-maui.org &")
@@ -1980,6 +1980,9 @@ sub AboutWindow()
 	local y
 	local width
 	local t
+	local a$
+	
+	
 
 	x = peek("desktopwidth")/2 - 200
 	y = peek("desktopheight")/2 - 200
@@ -1992,6 +1995,15 @@ sub AboutWindow()
 
 	draw set "bgcolor", 255,255,255, "AboutWindow"
 	draw set "lowcolor", 255,255,255, "AboutWindow"
+	a$=system$("yab -v >& "+globalConfigDir$+"yabver" )
+	t=open(globalConfigDir$+"yabver")
+	line input #i a$
+	close #t
+	t=instr(a$,chr$(44))
+	a$=left$(a$,t-1)
+	a$="Running "+a$
+	width=draw get "text-width", a$, "AboutWindow"
+	draw text 200-width/2, 200,a$,"AboutWindow"
 
 	width = draw get "text-width", "(c) 2006-2015 in terms of the Artistic License", "AboutWindow"
 	draw text 198-width/2, 260, "(c) 2006-2015 in terms of the Artistic License", "AboutWindow"
@@ -2007,11 +2019,11 @@ sub AboutWindow()
 	endif
 	width = draw get "text-width", "yab-IDE", "AboutWindow"
 	draw text 200-width/2, 25, "yab-IDE", "AboutWindow"
-	if(peek$("os") = "Haiku") then
+	//if(peek$("os") = "Haiku") then
 		draw set "DejaVu Sans, Bold, 10", "AboutWindow"
-	else
-		draw set "Swis721 BT, Bold, 10", "AboutWindow"
-	endif
+	//else
+	//	draw set "Swis721 BT, Bold, 10", "AboutWindow"
+	//endif
 	width = draw get "text-width", "Version "+versionnumber$, "AboutWindow"
 	draw text 200-width/2, 40, "Version "+versionnumber$, "AboutWindow"
 
