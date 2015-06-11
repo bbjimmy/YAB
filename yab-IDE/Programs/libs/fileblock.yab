@@ -154,6 +154,20 @@ rec=rec+1
 return rec
 end sub
 
+export sub lof(filehandle)
+// returns the number of blocks in the file.
+local x
+filename$=f$(filehandle,0,0)
+x=open(filename$) 
+seek #x, 0, "end"
+ret=tell(#x)
+if ret=0 return ret
+
+ret= ret/(f(filehandle,51)+1)
+ret=int(ret)
+return ret
+end sub
+
 
 sub blank$(num)
 local s$

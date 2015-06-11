@@ -2,8 +2,8 @@ The files in this folder are yab libraries, to use them, copy to your project fo
 
  ~/config/settings/yab
 
-then use the include statement in your project. 
+then use the import statement in your project. 
 
 Example:
 
-include Toolbar
+import Toolbar
