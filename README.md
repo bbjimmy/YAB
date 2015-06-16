@@ -26,4 +26,4 @@ AUTHOR: jan__64
 
 yab homepage: http://yab.orgfree.com/
 
-yab forum: http://yab-talk.forumotion.com/
+yab forum:  http://yab.orgfree.com/forum/

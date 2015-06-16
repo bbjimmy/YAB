@@ -233,6 +233,7 @@ Scrollbar:scrollbar set
 Scrollbar:scrollbar get
 Scrollbar:scrollbar
 Views:layout
+Views:canvas
 Views:boxview
 Graphical User Interface:Printing
 Printing:printer setup
@@ -268,10 +269,11 @@ Drawing:draw circle
 Drawing:draw bitmap
 Graphical User Interface:Bitmaps
 Bitmaps:screenshot
-Bitmaps:canvas
 Bitmaps:bitmap save
-Bitmaps:bitmap remove 
+Bitmaps:bitmap remove
+Bitmaps:bitmap image
 Bitmaps:bitmap get
+Bitmaps:bitmap color
 Bitmaps:bitmap
 &Localization:translate$()
 &Localization:localize
@@ -334,6 +336,11 @@ System:compile
 System:clipboard copy
 System:clipboard paste$
 System:bind()
+System:Attributes
+Attributes:attribute clear
+Attributes:attribute get
+Attributes:attribute get$
+Attributes:attribute set
 & 
 & Information texts (info texts for short) are separated by
 & comment lines. The file must end with a comment line!
@@ -4227,6 +4234,129 @@ This example is not the recommended way to compute prime numbers. However it giv
 Related: local, static, peek
 
 &System
+&Attributes
+&
+attribute clear
+
+Name:
+attribute clear -- Deletes an attrinbute from a file.
+
+Synopsis:
+attribute clear Name$, Filename$
+
+Description:
+
+Delete the attribute Name$ from file Filename$.
+
+Related: attribute set, attribute get, attribute get$
+&
+attribute get
+
+Name:
+attribute get -- Get the number value of the attribute.
+
+Synopsis:
+
+Value = ATTRIBUTE GET Name$, Filename$
+
+Description:
+
+Value = ATTRIBUTE GET Name$, Filename$
+  Get the number value of the attribute Name$ for file Filename$.
+  For "Bool" type attributes:
+  Value = 1|0
+
+Example:
+
+attribute set "bool","Saved", "false", "foobar" 
+
+if (attribute get "Saved","foobar") then
+print "foobar is saved"
+else
+print "foobar is not saved"
+end if
+
+Explanation:
+
+This example saves a false (0) attribute named Saved on the file "foobar" then checks to see if the Saved attribute is true(1) or false(0) and prints the result. in this case "foobar is not saved."
+
+Related: attribute clear, attribute set, attribute get$
+&
+attribute get$
+
+Name:
+
+attribute get$ -- Get the string value of an attribute.
+
+Synopsis:
+
+Value$ = ATTRIBUTE GET$ Name$, Filename$
+  Get the string value of the attribute Name$ for file Filename$.
+  For "Bool" type attributes:
+  Value$ ="true|false"
+  To get a list of attribute names and their types separated by " | ": 
+  Name$ = "" 
+  To get  the current program directory:
+   Name$ = "" and Filename$= ""
+
+Description:
+
+Gets the string value of an attribute, or the list of attributes attatched to a file, or the directory that the program was executed from.
+
+If the attribute is a bool type, the string returned is "true" or "false"
+
+If the attribute name is "" a list of attributes attatched to the file is returned.
+
+if both the attribute name and filename are "",  the current program directory is returned.
+
+Example:
+
+dir$ = attribute get$ "",""
+dir$=dir$+"/"
+
+attribute set "string","attribute1", "This is the first attribute,", dir$+"foobar"
+attribute set "int","attribute2", "127", dir$+"foobar"
+attribute set "bool", "attribute3", "false",  dir$+"foobar"
+a$=attribute get$ "", dir$+"foobar"
+print a$
+a$=attribute get$ "attribute1",  dir$+"foobar"
+print "attribute1 \""+a$+"\""
+
+
+Output:
+
+attribute1 | String | attribute2 | Int | attribute3 | Bool | 
+attribute1 "This is the first attribute."
+
+
+Explanation:
+
+This program uses attrribute get$ to find the program directory, then saves three attributes to the file foobar located in the program directory. Next it gets and prints a list of the attribute names and types associated with the file, then it prints the contents of attribute1.
+
+Related: attribute clear, attribute set, attribute get
+&
+attribute set
+
+Name:
+
+attribute set --  sets ( adds or overwrites ) an attribute of a file.
+
+
+Synopsis:
+
+ATTRIBUTE SET Type$, Name$, Value$, Filename$
+  Set the attribute Name$ of type Type$ for the file Filename$ with the string Value$.
+  These are valid types:
+  Type$ = "String|Int|Long|Double|Float|Mime|Bool"
+  For Bool type attributes:
+  Value$ = "true|false"
+
+Description:
+
+Attribute set sets, adds or overwrites, file attributes. The attributes can be strings, integer, long.double, or float numbers, or boolian true/false.
+
+ 
+Related: attribute clear, attribute get, attribute get$
 &
 bind()
 
@@ -4578,7 +4708,7 @@ Related: sleep, wait
 peek
 
 Name:
-peek -- retrieve various internal informations
+peek -- retrieve internal information
 
 Synopsis: 
 print peek("foo") 
@@ -4599,6 +4729,21 @@ Return the height in characters of the window, wherein yab runs. If you have not
 
 peek("screenwidth")
 Return the width in characters of the window, wherein yab runs. If you have not called clear screen yet, this peekwill return 0, regardless of the size of your terminal.
+
+peek("desktopheight")
+Return the height in pixels of the curent Desktop. 
+
+peek("desktopwidth")
+Return the width in pixels of the curent Desktop. 
+
+peek("menuheight")
+Return the height in pixels based on the font for a menu. 
+
+peek("scrollbarwidth")
+Return the width in pixels for a virtical scrollbar.
+
+peek("tabheight")
+Return the height in pixels based on the font for a tabview tab.
 
 peek("argument")
 Return the number of arguments, that have been passed to yab at invocation time. E.g. if yab has been called like this: 
@@ -4664,7 +4809,7 @@ Related: peek$, poke, open
 peek$
 
 Name:
-peek$ -- retrieve various internal string-informations
+peek$ -- retrieve internal string-information
 
 Synopsis: 
 print peek$("foo") 
@@ -4992,7 +5137,215 @@ This example demonstrates the difference between colon and newline as described 
 Related: if
 
 &GUI
+&Bitmaps
+&
+bitmap
+
+Name:
+bitmap -- creates a bitmap in memory
+
+Synopsis:
+BITMAP Width, Height, ID$
+
+Description:
+Bitmap creates a new bitmap in memory. A bitmap can be drawn on like a view or canvas.  A bitmap is always initialized with a white transparent background
+
+Related:  bitmap color, bitmap get, bitmap image, bitmap remove, bitmap save, draw bitmap  
+
+&
+bitmap color
+
+Name:
+bitmap color -- Gets the color of a pixel on a bitmap
+
+Synopsis:
+color = BITMAP COLOR x, y, ID$, ColorPart$
+	ColorPart$ = "red|green|blue"
+
+Description:
+Returns the red, green, or blue color value of the pixel at position (x,y) of the bitmap ID$
+
+Related: bitmap, bitmap get, bitmap image, bitmap remove, bitmap save, draw bitmap  
+&
+bitmap get
+
+Name:
+bitmap get -- get heitht/width information or insert an icon or portion of a bitmap or canvas view  to bitmap
+
+Synopsis:
+BITMAP GET x1, y1 TO x2, y2, Target_bitmap$, Source_bitmap$
+BITMAP GET IconSize, Bitmap$, File$
+BITMAP GET ID$, Option$, Path$
+BITMAP GET ID$, Option$
+
+Description:
+Get a portion of an image:
+
+BITMAP GET x1, y1 TO x2, y2, Target_bitmap$, Source_bitmap$
+
+x1,y1 and x2, y2 describe the bounding rectangle for the data in Source_bitmap$ to be copied to Target_bitmap$. Source_bitmap$ must be a bitmap or canvas. the Target_bitmap$ is created.
+
+get an icon and copy it to a bitmap:
+
+BITMAP GET IconSize, Bitmap$, File$
+
+Copies the icon, shown in Tracker, of File$ in the specified IconSize onto Bitmap$.
+The icon will be resized to IconSize, and properly scaled if it is an hvicon.
+
+Bitmap$ is created.
+
+Note: icons are square, IconSize 40 gives an image 40 * 40.
+
+BITMAP GET ID$, Option$, Path$
+
+Copies an icon to bitmap ID$.
+  
+Option$ =  "Path|Mime|Mime16|Mime32"
+ 
+If Option$ = "Path",  Path$ must be the path to a file. The icon returned is 32 * 32
+If Option$ = "Mime" or "Mime16", Path$ must be the mimetype of the file which icon is to be swown. The resulting bitmap is 16 to 16.
+If Option$ = "Mime32", Path$ must be the mimetype of the file which icon is to be swown.The resulting bitmap is 32 to 32.
+
+the bitmap ID$, is created.
+
+x=BITMAP GET ID$, Option$
+Option$ = "Height|Width"
+Delivers height or width of bitmap ID$
+
+Example:
+
+#!yab
+
+window open 100,100 to 600,600, "MainWindow", "IconWorld"
+canvas 0,0 to 500,500, "Main","MainWindow"
+systempath$ = "/boot/system/apps/Mail"
+
+draw text 70,30, "bitmap get \"BMP_icon\", \"path\", \"" + systempath$ +"\"", "Main"
+bitmap get "BMP_icon", "path", systempath$
+draw bitmap 10, 10, "BMP_icon", "alpha", "Main"
+bitmap remove "BMP_icon"
+ 
+draw text 70,70, "bitmap get \"BMP_icon\", \"mime16\", \"application/x-vnd.Be-MAIL\"", "Main"
+bitmap get "BMP_icon", "mime16", "application/x-vnd.Be-MAIL"
+draw bitmap 10, 60, "BMP_icon", "alpha", "Main"
+bitmap remove "BMP_icon"
+
+draw text 70,110, "bitmap get \"BMP_icon\", \"mime32\", \"application/x-vnd.Be-MAIL\"", "Main"
+bitmap get "BMP_icon", "mime32", "application/x-vnd.Be-MAIL"
+draw bitmap 10, 90, "BMP_icon", "alpha", "Main"
+bitmap remove "BMP_icon"
+
+draw text 70,150, "bitmap get 62, \"BMP_icon\", \"" + systempath$ + "\"", "Main"
+bitmap get 62, "BMP_icon", systempath$
+draw bitmap 10, 130, "BMP_icon", "alpha", "Main"
+
+x=bitmap get "BMP_icon","width"
+draw text 70,190, "x=bitmap get 62, \"BMP_icon\", \"width\" :"+str$(x), "Main"
+bitmap remove "BMP_icon"
+
+BITMAP GET 0, 130 TO 60, 150,"BMP_icon","Main"
+draw bitmap 0, 200, "BMP_icon", "alpha", "Main"
+draw text 70,220, "bitmap get 0,130 TO 60, 150, \"BMP_icon\", \"Main\"","Main" 
+
+x=bitmap get "BMP_icon","width"
+draw text 70,240, "x=bitmap get, \"BMP_icon\", \"width\" :"+str$(x), "Main"
+
+while(not instr(message$, "Quit"))
+wend
+
+window close "Main"
+
+
+Explanation:
+
+This program uses all forms of bitmap get and displays the output in a Window.
+
+Related: bitmap, bitmap color, bitmap image, bitmap remove, bitmap save, draw bitmap  
+&
+bitmap image
+Name:
+bitmap image -- copies an image file to a bitmap.
+
+Synopsis:
+ErrCode = BITMAP IMAGE ImageFile$, Bitmap$
+
+Explanation:
+
+Load image file ImageFIle$ into a new Bitmap called Bitmap$
+
+Related: bitmap, bitmap color, bitmap get, bitmap remove, bitmap save, draw bitmap
+
+&
+bitmap remove
+Name:
+bitmap remove -- removes a bitmap from memory
+
+Synopsis:
+BITMAP REMOVE Bitmap$
+
+Explanation:
+Removes Bitmap$ from memory
+
+Related: bitmap, bitmap color, bitmap get, bitmap image, bitmap save, draw bitmap  
+
+&
+bitmap save
+
+Name:
+bitmap save -- saves a bitmap to an image file.
+
+Synopsis:
+ErrCode = BITMAP IMAGE ImageFile$, Bitmap$
+
+Description:
+Saves a bitmap as FileName$ (overwrites existing ones!) in  Format$ 
+Format$ = "png|tiff|ppm|bmp|jpeg|tga"
+ErrCode = 0|1 , everything worked fine | file could not be saved
+
+
+Related: bitmap, bitmap color, bitmap get, bitmap image, bitmap remove, draw bitmap  
+
+&
+screenshot
+Name:
+screenshot -- copies the specified region of the desktop onto a bitmap
+
+Synopsis:
+SCREENSHOT x1, y1 to x2, y2, Bitmap$
+
+Description:
+Takes a screenshot and copies the specified region of the desktop onto Bitmap$, which will be created!
+&
+
 &Drawing
+
+&
+draw bitmap
+
+Name:
+draw bitmap -- Draw a bitmap on a view, another bitmap or a canvas.
+
+Synopsis:
+DRAW BITMAP x,y, Bitmap$, Mode$, View$
+DRAW BITMAP x1,y1 TO x2,y2, Bitmap$, Mode$, View$
+
+Description:
+
+DRAW BITMAP x,y, Bitmap$, Mode$, View$
+  Draw a bitmap on a view, another bitmap or a canvas.
+  Possible Mode$:
+  "Copy" -- copy the bitmap to the target ignoring transparency
+  "Alpha" -- copy the bitmap to the target supporting transparency
+
+DRAW BITMAP x1,y1 TO x2,y2, Bitmap$, Mode$, View$
+  Draws and scales the bitmap Bitmap$.
+  If x2 is set to -1, the width is scaled according to the height;
+  if y2 is set to -1, the height is scaled according to the width;
+  if x2 and y2 are set to -1, the image is not scaled at all (this is like DRAW BITMAP x,y, Bitmap$, Mode$, View$).
+  Possible Mode$:
+  "Copy" -- copy the bitmap to the target ignoring transparency
+  "Alpha" -- copy the bitmap to the target supporting transparency
+
 &
 draw circle
 
@@ -5598,7 +5951,7 @@ where Control$ is the ID of the widget or view where the event occured.
 
 Related: ismousein(), mouse message$(), mouse set
 &
-MOUSE SET Option$
+mouse set
 
 Name:
 mouse set -- show or hide the mouse cursor
@@ -6149,6 +6502,114 @@ Explanation:
 The example opens a window and sets up a boxview with the label "Hello Box" and a fancy border style (2).
 
 Related: view, view remove
+&
+canvas
+
+Name:
+canvas -- creates a special flicker-free drawing view.
+
+Synopsis:
+CANVAS x1, y1 TO x2, y2, ID$, View$
+
+Description:
+
+CANVAS x1, y1 TO x2, y2, ID$, View$
+A canvas is a special view for flicker-free drawing. It always shows a bitmap
+and thus cannot be resized. However, it does not have a drawing queue, so you
+do not need DRAW FLUSH
+A canvas is always initialized with a white background.
+
+related: draw bitmap, bitmap get
+&
+layout
+
+Name:
+latout -- Set the layout for all views on a window.
+
+Synopsis:
+LAYOUT Layout$, WindowOfView$
+
+Description:
+
+Set the layout for all views on the window of View$. The layout will affect all following new widgets, but not the already created. Draw commands are not affected by the layout.
+Layout$ (not case sensitive):
+"Standard" = default layout, all widgets follow bottom and right side of the window
+	except for listboxes and textedit which follow all sides.
+"All" = follow all sides (widgets resize)
+"None" = follow the top and the left side (equals "top, left")
+ -OR- Layout$ is a combination of a horizontal and a vertical command (e.g. "Right, Top" etc.).
+ Horizontal:
+"Left" = follow left side (default, when no other horizontal layout is given)
+"Right" = follow the right side
+"Left, Right" = follow the left and the right side (resize)
+"H-Center" = follow the horizontal center
+ Vertical:
+"Top" = follow the top side (default, when no other vertical layout is given)
+"Bottom" = follow the bottom side
+"Top, Bottom" = follow the top and bottom side (resize)
+"V-Center" = follow the vertical center
+
+&Scrollbar
+&
+scrollbar
+
+Name:
+scrollbar -- make a view scrollable
+
+Synopsis:
+SCROLLBAR ID$, ScrollbarType, View$
+
+Description:
+SCROLLBAR ID$, ScrollbarType, View$
+  Make View$ scrollable.
+
+Related: scrollbar get, scrollbar set
+&
+scrollbar get
+
+Name:
+scrollbar get --  Get the current position of the scrollbar.
+
+Description:
+Position = SCROLLBAR GET Scrollbar$, "Horizontal"
+Position = SCROLLBAR GET Scrollbar$, "Vertical"
+  Get the current position of the scrollbars.
+
+Related: scrollbar, scrollbar set
+
+& 
+scrollbar set
+
+Name: scrollbar set --  set various settings for the scrollbars.
+
+Synopsis:
+SCROLLBAR SET Scrollbar$, Borderoption$
+SCROLLBAR SET Scrollbar$, "Vertical Position", Position
+SCROLLBAR SET Scrollbar$, "Horizontal Position", Position
+SCROLLBAR SET Scrollbar$, "Vertical Range", Min, Max
+SCROLLBAR SET Scrollbar$, "Horizontal Range", Min, Max
+SCROLLBAR SET Scrollbar$, "Vertical Steps", SmallSteps, BigSteps
+SCROLLBAR SET Scrollbar$, "Horizontal Steps", SmallSteps, BigSteps
+
+Description:
+SCROLLBAR SET Scrollbar$, Borderoption$
+  Borderoption$ = "no-border" or "plain-border" or "fancy-border" (default)
+SCROLLBAR SET Scrollbar$, "Vertical Position", Position
+SCROLLBAR SET Scrollbar$, "Horizontal Position", Position
+  Set the scrollbar to the position Position. Default is (0,0).
+SCROLLBAR SET Scrollbar$, "Vertical Range", Min, Max
+SCROLLBAR SET Scrollbar$, "Horizontal Range", Min, Max
+  Set the scrollbars to a maximum range, default is (1000,1000).
+  Note: the Max value will be added to the view's actual width/height.
+SCROLLBAR SET Scrollbar$, "Vertical Steps", SmallSteps, BigSteps
+SCROLLBAR SET Scrollbar$, "Horizontal Steps", SmallSteps, BigSteps
+  Set the scrollbar steps. 
+  SmallSteps are the scrolling steps when the user clicks on the arrow buttons (default is 1.0).
+  BigSteps are the scrolling steps when the user clicks on the empty part of the scrollbar (default is 10.0).
+
+Related: scrollbar, scrollbar get
+
+
 &
 stackview
 

@@ -2002,6 +2002,7 @@ sub AboutWindow()
 	t=instr(a$,chr$(44))
 	a$=left$(a$,t-1)
 	a$="Running "+a$
+	//a$=str$(peek(version))
 	width=draw get "text-width", a$, "AboutWindow"
 	draw text 200-width/2, 200,a$,"AboutWindow"
 

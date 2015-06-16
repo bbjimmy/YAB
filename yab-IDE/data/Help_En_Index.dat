@@ -1,620 +1,662 @@
 &Arithmetic
-7340
+7500
 &
-7342
+7502
 abs()
-7348
+7508
 acos()
-7715
+7875
 and()
-8214
+8374
 asin()
-9004
+9164
 atan()
-9513
+9673
 bin$()
-10412
+10572
 cos()
-11018
+11178
 dec()
-11283
+11443
 eor()
-11802
+11962
 euler
-12579
+12739
 exp()
-12985
+13145
 frac()
-13607
+13767
 int()
-14288
+14448
 log()
-14688
+14848
 max()
-15347
+15507
 min()
-16139
+16299
 mod()
-16554
+16714
 or()
-17267
+17427
 pi
-18060
+18220
 ran()
-18516
+18676
 sig()
-19359
+19519
 sin()
-20003
+20163
 sqr()
-20528
+20688
 sqrt()
-20899
+21059
 tan()
-21251
+21411
 xor()
-21614
+21774
 ** or ^
-22647
+22807
 &
-23464
+23624
 and
-23468
+23628
 break
-23918
+24078
 case
-24613
+24773
 continue
-25110
+25270
 default
-25779
+25939
 do
-26899
+27059
 else
-27443
+27603
 elsif
-27982
+28142
 end
-29452
+29612
 endif
-30144
+30304
 false
-30790
+30950
 fi
-31357
+31517
 for
-31671
+31831
 gosub
-32633
+32793
 goto
-33503
+33663
 if
-34353
+34513
 label
-36139
+36299
 loop
-37128
+37288
 next
-37615
+37775
 not
-38174
+38334
 on gosub
-38826
+38986
 on goto
-40161
+40321
 on interrupt
-41585
+41745
 logical or
-42871
+43031
 pause
-43274
+43434
 repeat
-44502
+44662
 return
-45189
+45349
 sleep
-46888
+47048
 step
-47263
+47423
 switch
-47803
+47963
 then
-49119
+49279
 true
-49927
+50087
 until
-50363
+50523
 wait
-50970
+51130
 wend
-51344
+51504
 while
-51842
+52002
 :
-52498
+52658
 &
-53135
+53295
 arraydim()
-53146
+53306
 arraysize()
-54036
+54196
 data
-56609
+56769
 dim
-57561
+57721
 read
-59078
+59238
 redim
-59721
+59881
 restore
-60160
+60320
 &
-61229
+61389
 asc()
-61235
+61395
 chr$()
-62058
+62218
 glob()
-62920
+63080
 abc matches a* 
-63881
+64041
 
-64069
+64229
 hex$()
-64078
+64238
 instr()
-64568
+64728
 left$()
-65582
+65742
 len()
-66883
+67043
 lower$()
-67257
+67417
 ltrim$()
-67665
+67825
 rtrim$()
-68317
+68477
 mid$()
-68965
+69125
 right$()
-70233
+70393
 split()
-71552
+71712
 Please enter a line: a 
-74189
+74349
 
-74683
+74843
 str$()
-74709
+74869
 string |  Result for converting 1000*pi |      Description
-76115
+76275
 
-79512
+79672
 token()
-79814
+79974
 Please enter a line: a 
-82337
+82497
 
-82735
+82895
 trim$()
-82762
+82922
 upper$()
-83375
+83535
 val()
-84023
+84183
 &
-84737
+84897
 at()
-84742
+84902
 clear screen
-86033
+86193
 close
-86749
+86909
 color
-87220
+87380
 colour
-88334
+88494
 eof
-88481
+88641
 getscreen$()
-89072
+89232
 inkey$
-90220
+90380
 input
-91439
+91599
 Please enter the name of a file to read: test.yab 
-92833
+92993
 
-92970
+93130
 line input
-93005
+93165
 open
-93847
+94007
 print
-96974
+97134
 putscreen
-100211
+100371
 reverse
-101106
+101266
 screen
-101885
+102045
 seek()
-102115
+102275
 tell
-103677
+103837
 using
-104338
+104498
 #
-105379
+105539
 at()
-106752
+106912
 ;
-108031
+108191
 &
-108677
+108837
 end sub
-108685
+108845
 export
-109117
+109277
 import foo 
-110164
+110324
 
-110462
+110622
 Calling subroutine foo.bar (okay) ... 
-110563
+110723
 
-110877
+111037
 import
-111412
+111572
 rem  Make the subroutine x easily available outside this library 
-112343
+112503
 
-112519
+112679
 0 
-112568
+112728
 
-112726
+112886
 local
-113011
+113171
 numparams
-114471
+114631
 return
-115922
+116082
 static
-117624
+117784
 1 1 
-118426
+118586
 
-118449
+118609
 sub
-118644
+118804
+&Attributes
+121093
 &
-120923
+121095
+attribute clear
+121111
+attribute get
+121350
+attribute get$
+122081
+attribute set
+123739
 bind()
-120930
+124325
 clipboard copy
-121702
+125097
 clipboard paste$
-122404
+125799
 compile
-123026
+126421
 date$
-123582
+126977
 doc
-125307
+128702
 docu$
-126462
+129857
 error
-127284
+130679
 ---Error in t.yab, line 2: Oh no ... 
-127927
+131322
 
-127983
+131378
 execute$()
-127997
+131392
 print foo$(a$,b$) 
-129032
+132427
 
-129045
+132440
 execute()
-129085
+132480
 exit
-129490
+132885
 iscomputeron
-129884
+133279
 pause
-130272
+133667
 peek
-131499
+134894
 peek$
-136562
+140336
 3a 
-139523
+143288
 
-139544
+143309
 poke
-139579
+143344
 rem
-140817
+144582
 sleep
-141931
+145696
 system$()
-142290
+146055
 system()
-142879
+146644
 thread get
-143502
+147267
 thread remove
-144851
+148616
 time$
-145774
+149539
 to 
-146943
+150708
 //
-147497
+151262
 :
-148001
-&Drawing
-148634
+151766
+&Bitmaps
+152399
 &
-148636
+152401
+bitmap
+152408
+bitmap color
+152767
+bitmap get
+153119
+bitmap image
+156244
+bitmap remove
+156530
+bitmap save
+156757
+screenshot
+157154
+
+157399
+
+157409
+draw bitmap
+157423
 draw circle
-148648
+158360
 draw curve
-149307
+159019
 draw dot
-150292
+160004
 draw ellipse
-150873
+160585
 draw flush
-151612
+161324
 draw get
-152742
+162454
 draw get$
-154688
+164400
 draw image
-156101
+165813
 draw line
-158007
+167719
 draw rect
-158579
+168291
 draw set
-159235
+168947
 draw text
-162604
+172316
 &
-163774
+173486
 ismousein()
-163786
+173498
 keyboard message$()
-164508
+174220
 message$
-166397
+176109
 message send
-168730
+178442
 _Scripting:...|
-169635
+179347
 
-169648
+179360
 mouse message$()
-169875
+179587
 mousemove$
-171899
-MOUSE SET Option$
-172563
+181611
+mouse set
+182267
 shortcut
-173069
+182773
 "S" for the shift key
-173869
+183573
 
-174021
+183725
 "O" for ALT-O
-174171
+183875
 
-174236
+183940
 ALT-X
-174660
+184364
 
-174703
+184407
 &Printing
-175654
+185358
 &
-175656
+185360
 printer
-175664
+185368
 printer setup
-178037
+187741
 &
-179061
+188765
 menu
-179066
+188770
 Menu$ = "--"
-179534
+189238
 then the menu item will be a separator line.
-179591
+189295
 "S" for the shift key
-180064
+189768
 These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
-180313
+190017
 "O" for ALT-O
-180364
+190068
 
-180429
+190133
 For the menu Head$ "File":
-181227
+190931
 
-181477
+191181
 menu set
-182569
+192273
 Option$ = "Disable" -- grey out the item so it cannot be selected anymore
-183372
+193076
 
-183521
+193225
 popupmenu
-184632
+194336
 submenu
-186280
+195984
 Menu$ = "--"
-186864
+196568
 then the submenu item will be a separator line.
-186924
+196628
 "S" for the shift key
-187400
+197104
 These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
-187649
+197353
 "O" for ALT-O
-187700
+197404
 
-187765
+197469
 submenu set
-190651
+200355
 Option$ = "Disable" -- grey out the item so it cannot be selected anymore
-191527
+201231
 
-191676
+201380
 &
-192423
+202127
 boxview
-192431
+202135
+canvas
+203555
+layout
+203993
+&
+205118
+scrollbar
+205128
+scrollbar get
+205348
+scrollbar set
+205627
 stackview
-193854
+207066
 stackview get
-195968
+209180
 stackview set
-196259
+209471
 &
-196716
+209928
 button
-196723
+209935
 button image
-198038
+211250
 calendar
-199779
+212991
 calendar get$
-201446
+214658
 calendar set
-201939
+215151
 checkbox
-202364
+215576
 checkbox image
-203621
+216833
 checkbox set
-205848
+219060
 colorcontrol
-206147
+219359
 colorcontrol get
-208169
+221381
 colorcontrol set
-208777
+221989
 columnbox
-209113
+222325
 columnbox add
-214323
+227535
 columnbox clear
-215504
+228716
 columnbox color
-215872
+229084
 columnbox column
-216917
+230129
 columnbox count
-218076
+231288
 columnbox get
-218514
+231726
 columnbox get$
-219049
+232261
 columnbox remove
-219592
+232804
 columnbox select
-219949
+233161
 listbox
-220404
+233616
 listbox add
-223369
+236581
 listbox clear
-223847
+237059
 listbox count
-224142
+237354
 listbox get
-224538
+237750
 listbox get$
-225025
+238237
 listbox remove
-225443
+238655
 listbox select
-225782
+238994
 listbox sort
-226427
+239639
 radiobutton
-227139
+240351
 radiobutton set
-228873
+242085
 statusbar
-229279
+242491
 statusbar set
-230748
+243960
 text
-231246
+244458
 text set
-232434
+245646
 textedit
-233552
+246764
 textedit add
-233845
+247057
 textedit clear
-234057
+247269
 textedit color
-234399
+247611
 textedit get
-234701
+247913
 textedit get$
-235056
+248268
 textedit set
-235330
+248542
 tooltip
-238275
+251487
 tooltip color
-239955
+253167
 &Localization
-241243
+254455
 &
-241245
+254457
 localize
-241254
+254466
 # A comment starts with a #
-242818
+256030
 
-242942
+256154
 translate$()
-244508
+257720
 &Sound
-245261
+258473
 &
-245263
+258475
 beep
-245268
+258480
 bell
-245502
+258714
 sound play
-245865
+259077
 sound stop
-246790
+260002
 sound wait
-247164
+260376
 &Window
-247569
+260781
 &
-247571
+260783
 alert
-247577
+260789
 filepanel
-249355
+262567
 window open
-252645
+265857
 window close
-255360
+268572
 window count
-255852
+269064
 window get
-256479
+269691
 window set
-258200
+271412

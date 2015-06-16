@@ -564,9 +564,9 @@ SPLITVIEW x1,y1 TO x2,y2, ID$, IsVerticalSplit, NormalStyle, View$
   if IsVerticalSplit = false, a horizontal splitter is set.
   If NormalStyle = true, the splitter is 10 pixels thick,
   If NormalStyle = false, the splitter is 4 pixels thick.
-SPLITVIEW SET SplitView$ "Divider", Position
+SPLITVIEW SET SplitView$, "Divider", Position
   Set the position of the divider, default is the half of the total split view.
-SPLITVIEW SET SplitView$ "MinimumSizes", LeftOrTop, RightOrBottom
+SPLITVIEW SET SplitView$, "MinimumSizes", LeftOrTop, RightOrBottom
   Set the minimum sizes of the left (or top) view and the right (or bottom) view.
 Position = SPLITVIEW GET SplitView$, "Divider"
   Get the current position of the divider.
