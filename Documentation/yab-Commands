@@ -757,7 +757,7 @@ TREEBOX REMOVE TreeBox$, ListItem$
   Removes the first list item ListItem$ from the tree. Note: this also removes all subitems!
 n = TREEBOX COUNT TreeBox$
   Returns the number of entries in TreeBox$
-Item$ = TREEBOX GET TreeBox$, Position
+Item$ = TREEBOX GET$ TreeBox$, Position
   Returns the Item$ at position Position in TreeBox$.
 TREEBOX EXPAND TreeBox$, Head$
   Expands Head$ in TreeBox$.

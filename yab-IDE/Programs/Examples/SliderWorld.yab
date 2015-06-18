@@ -2,16 +2,18 @@
 
 window open 100,100 to 560,320, "WView", "SliderWorld"
 
-slider 20,20 to 350,50, "Slider1", "1. Slider with block thumb from 0.1 to 1", 1, 10, "WView"
+layout "left,top","WView"
 
-slider 20,70 to 350,100, "Slider2", "2. Slider with triangle thumb from 1 to 100 and limit labels; set to 20", 1, 100, "triangle", "WView"
+slider 20,10 to 350,40, "Slider1", "1. Slider with block thumb from 0.1 to 1", 1, 10, "WView"
+
+slider 20,50 to 350,80, "Slider2", "2. Slider with triangle thumb from 1 to 100 ", 1.5, 100, "triangle", "WView"
 slider label "Slider2", "Foo", "Bar"
 slider set "Slider2", 20
 
-slider 20,120 to 350,150, "Slider3", "3. Slider from 50 to 75, with 5 bottom hash markings, disabled", 50, 75, "WView"
+slider 20,110 to 350,140, "Slider3", "3. Slider from 50 to 75,", 50, 75, "WView"
 slider label "Slider3", "Foo", "Bar"
-slider set "Slider3", "bottom", 5
-option set "Slider3", "enabled", false
+slider set "Slider3", "bottom", 25
+//option set "Slider3", "enabled", false
 
 slider 20,170 to 350,200, "Slider4", "4. Slider from -20 to 20, with colors", -20, 20, "WView"
 slider color "Slider4", "barcolor", 240,140,140

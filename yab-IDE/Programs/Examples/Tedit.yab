@@ -1,0 +1,174 @@
+#!yab
+
+############# Prologue #############
+
+ProgramName$ = "Teditor"
+
+AuthorName$ = "Joe Bloggs"
+
+ProgramVersion$ = "V0.1"
+
+ProgramBriefDescription$ = "My unbelievable first yab program."
+
+ProgramLicense$ = "Public Domain"
+
+ProgramAcknowledgements$ ="With thanks to Michel Clasquin-Johnson for writing Teditor and to  Marc-Oliver Ihm, Jan Bungeroth and Jim Saxton for creating yab!"
+
+
+
+//*****Global Variables****
+
+## Technically, yab does not require you to declare global variables, it just is a really, really good idea to do it anyway.
+
+// set DEBUG = 1 to print out all messages on the console
+
+DEBUG = 1
+
+//change this to DEBUG = 0 when you are ready to bind the program for distribution
+
+
+
+OpenWindow()
+
+#######End of Prologue#######
+
+
+
+############# Main Message Loop #############
+
+dim msg$(1)
+
+while(not leavingLoop)
+	nCommands = token(message$, msg$(),"|") 
+	for everyCommand = 1 to nCommands
+	if(DEBUG and msg$(everyCommand)<>"") print msg$(everyCommand)
+		switch(msg$(everyCommand))
+			case "_QuitRequested":
+			case "MainWindow:_QuitRequested":
+			case "MainWindow:File:Quit":
+				leavingLoop = true
+				break
+			case "MainWindow:File:Save":
+				SaveFile()
+				break
+			case "MainWindow:File:New":
+				NewFile()
+				break
+			case "MainWindow:File:Open":
+				OpenFile()
+				break
+			case "MainWindow:Edit:Undo/Redo":
+				textedit set "EditSpace", "undo"
+				break
+			case "MainWindow:Edit:Cut":
+				textedit set "EditSpace", "cut"
+				break
+			case "MainWindow:Edit:Copy":
+				textedit set "EditSpace", "copy"
+				break
+			case "MainWindow:Edit:Paste":
+				textedit set "EditSpace", "paste"
+				break
+			case "MainWindow:Edit:Select All":
+				textedit set "EditSpace", "select-all"
+				break
+			case "MainWindow:Help:About":
+				Alert ProgramName$ + " " + ProgramVersion$ + "\n" + "by " + AuthorName$ +"\n\n" + ProgramBriefDescription$ + "\n" + ProgramLicense$ + "\n" + ProgramAcknowledgements$, "OK", "none"
+			default:
+				break
+		end switch
+	next everyCommand
+wend
+
+CloseWindow()
+end
+#######End of Main Loop#######
+
+sub CloseWindow()
+
+//Close down the main window
+
+NewFile()
+window close "MainWindow"
+end sub
+
+
+sub MakeMenu()
+
+//Create menu in MainWindow
+
+menu "File", "New", "N", "MainWindow"
+menu "File", "Open", "O", "MainWindow"
+menu "File", "Save", "S", "MainWindow"
+menu "File", "Quit", "Q", "MainWindow"
+menu "Edit", "Undo/Redo", "Z", "MainWindow"
+menu "Edit", "Cut", "X", "MainWindow"
+menu "Edit", "Copy", "Z", "MainWindow"
+menu "Edit", "Paste", "Z", "MainWindow"
+menu "Edit", "Select All", "A", "MainWindow"
+menu "Help", "About", "", "MainWindow"
+end sub
+
+
+
+sub NewFile()
+
+local sos
+if textedit get$ "EditSpace" <> "" then
+	sos = alert "Save Current Text First?", "Yes", "No", "", "none"
+	if sos = 1 SaveFile()
+	textedit clear "EditSpace"
+endif
+
+end sub
+
+
+
+sub OpenFile()
+
+local file2open$, anewline$
+
+NewFile()
+file2open$ = filepanel "load-file", "Open Which File?", "/boot/home"
+if file2open$ <> "" then
+	open file2open$ for reading as #1
+	while(not(eof(1)))
+		line input #1 anewline$
+		textedit add "EditSpace", anewline$ + "\n"
+	wend
+	close #1
+	textedit set "EditSpace", "gotoline", 1
+endif
+
+end sub
+
+
+
+sub OpenWindow()
+
+//Setup the main window here
+
+Window open 100,100 to 600,500, "MainWindow", "Teditor"
+textedit 0,20 to 499, 399, "EditSpace", 3, "MainWindow"
+textedit set "EditSpace", "wordwrap", 0
+MakeMenu()
+
+end sub
+
+
+
+sub SaveFile()
+
+local file2save$,filename$
+
+file2save$ = textedit get$ "EditSpace"
+if file2save$ <> "" then
+	filename$ = filepanel "save-file", "Save File As ...", "/boot/home"
+	if filename$= "" return
+	open filename$ for writing as #1
+	print #1 file2save$
+	close #1
+endif
+
+end sub
+

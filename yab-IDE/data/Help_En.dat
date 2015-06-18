@@ -156,7 +156,6 @@ Widgets:Slider
 Slider:slider set
 Slider:slider label
 Slider:slider get
-Slider:slider hashmarks
 Slider:slider color
 Slider:slider
 Widgets:Radiobutton
@@ -234,7 +233,9 @@ Scrollbar:scrollbar get
 Scrollbar:scrollbar
 Views:layout
 Views:canvas
-Views:boxview
+Views:Boxview
+Boxview:boxview set
+Boxview:boxview
 Graphical User Interface:Printing
 Printing:printer setup
 Printing:printer
@@ -5263,6 +5264,7 @@ This program uses all forms of bitmap get and displays the output in a Window.
 Related: bitmap, bitmap color, bitmap image, bitmap remove, bitmap save, draw bitmap  
 &
 bitmap image
+
 Name:
 bitmap image -- copies an image file to a bitmap.
 
@@ -5277,6 +5279,7 @@ Related: bitmap, bitmap color, bitmap get, bitmap remove, bitmap save, draw bitm
 
 &
 bitmap remove
+
 Name:
 bitmap remove -- removes a bitmap from memory
 
@@ -5307,6 +5310,7 @@ Related: bitmap, bitmap color, bitmap get, bitmap image, bitmap remove, draw bit
 
 &
 screenshot
+
 Name:
 screenshot -- copies the specified region of the desktop onto a bitmap
 
@@ -5332,19 +5336,23 @@ DRAW BITMAP x1,y1 TO x2,y2, Bitmap$, Mode$, View$
 Description:
 
 DRAW BITMAP x,y, Bitmap$, Mode$, View$
-  Draw a bitmap on a view, another bitmap or a canvas.
-  Possible Mode$:
-  "Copy" -- copy the bitmap to the target ignoring transparency
-  "Alpha" -- copy the bitmap to the target supporting transparency
+Draw a bitmap on a view, another bitmap or a canvas.
+
+Possible Mode$:
+
+"Copy" -- copy the bitmap to the target ignoring transparency
+"Alpha" -- copy the bitmap to the target supporting transparency
 
 DRAW BITMAP x1,y1 TO x2,y2, Bitmap$, Mode$, View$
-  Draws and scales the bitmap Bitmap$.
-  If x2 is set to -1, the width is scaled according to the height;
-  if y2 is set to -1, the height is scaled according to the width;
-  if x2 and y2 are set to -1, the image is not scaled at all (this is like DRAW BITMAP x,y, Bitmap$, Mode$, View$).
-  Possible Mode$:
-  "Copy" -- copy the bitmap to the target ignoring transparency
-  "Alpha" -- copy the bitmap to the target supporting transparency
+Draws and scales the bitmap Bitmap$.
+If x2 is set to -1, the width is scaled according to the height;
+if y2 is set to -1, the height is scaled according to the width;
+if x2 and y2 are set to -1, the image is not scaled at all. 
+
+Possible Mode$:
+
+"Copy" -- copy the bitmap to the target ignoring transparency
+"Alpha" -- copy the bitmap to the target supporting transparency
 
 &
 draw circle
@@ -5867,9 +5875,9 @@ The command returns one of the following error codes:
 Message:
 The destination yab application will produce a message$ stating:
 
-&exverbatim
+
 _Scripting:...|
-&exverbatim
+
 
 (The ... is the Message$.)
 
@@ -6465,6 +6473,7 @@ The submenu is in radio mode, so only one item can be selected. The user will do
 
 Related: menu, menu set, submenu
 &Views
+&Boxview
 &
 boxview
 
@@ -6503,6 +6512,18 @@ The example opens a window and sets up a boxview with the label "Hello Box" and 
 
 Related: view, view remove
 &
+boxview set
+
+Name:
+boxview set -- set the label and boarder for a boxview
+
+Synopsis:
+BOXVIEW SET  ID$, Option$, Value$
+
+Description:
+Option$ = "Label",  Value$ = new label
+Option$ = "Line",  Value$ = "0|1|2" no |simple | fancy border
+&
 canvas
 
 Name:
@@ -6524,7 +6545,7 @@ related: draw bitmap, bitmap get
 layout
 
 Name:
-latout -- Set the layout for all views on a window.
+layout -- Set the layout for all views on a window.
 
 Synopsis:
 LAYOUT Layout$, WindowOfView$
@@ -6537,8 +6558,14 @@ Layout$ (not case sensitive):
 	except for listboxes and textedit which follow all sides.
 "All" = follow all sides (widgets resize)
 "None" = follow the top and the left side (equals "top, left")
- -OR- Layout$ is a combination of a horizontal and a vertical command (e.g. "Right, Top" etc.).
- Horizontal:
+
+ -OR- Layout$ is a combination of  horizontal , vertical  (e.g. "Right, Top" etc.).
+
+NOTE:
+
+In combination, horizontal is first and virtical is second. "Right,Top" is ok, "Top, Right" is not.
+
+Horizontal:
 "Left" = follow left side (default, when no other horizontal layout is given)
 "Right" = follow the right side
 "Left, Right" = follow the left and the right side (resize)
@@ -6593,23 +6620,92 @@ SCROLLBAR SET Scrollbar$, "Horizontal Steps", SmallSteps, BigSteps
 
 Description:
 SCROLLBAR SET Scrollbar$, Borderoption$
-  Borderoption$ = "no-border" or "plain-border" or "fancy-border" (default)
+Borderoption$ = "no-border" or "plain-border" or "fancy-border" (default)
+
 SCROLLBAR SET Scrollbar$, "Vertical Position", Position
+
 SCROLLBAR SET Scrollbar$, "Horizontal Position", Position
-  Set the scrollbar to the position Position. Default is (0,0).
+Set the scrollbar to the position Position. Default is (0,0).
+
 SCROLLBAR SET Scrollbar$, "Vertical Range", Min, Max
+
 SCROLLBAR SET Scrollbar$, "Horizontal Range", Min, Max
-  Set the scrollbars to a maximum range, default is (1000,1000).
-  Note: the Max value will be added to the view's actual width/height.
+Set the scrollbars to a maximum range, default is (1000,1000).
+Note: the Max value will be added to the view's actual width/height.
+
 SCROLLBAR SET Scrollbar$, "Vertical Steps", SmallSteps, BigSteps
+
 SCROLLBAR SET Scrollbar$, "Horizontal Steps", SmallSteps, BigSteps
-  Set the scrollbar steps. 
-  SmallSteps are the scrolling steps when the user clicks on the arrow buttons (default is 1.0).
-  BigSteps are the scrolling steps when the user clicks on the empty part of the scrollbar (default is 10.0).
+Set the scrollbar steps. 
+SmallSteps are the scrolling steps when the user clicks on the arrow buttons (default is 1.0).
+BigSteps are the scrolling steps when the user clicks on the empty part of the scrollbar (default is 10.0).
 
 Related: scrollbar, scrollbar get
 
 
+&Splitview
+&
+splitview
+
+Name:
+splitview -- Set up the new view and split it into two new views.
+
+Synopsis:
+SPLITVIEW x1,y1 TO x2,y2, ID$, IsVerticalSplit, NormalStyle, View$
+
+Description:
+Set up the new view ID$ and split it into two new views ID$+"1" and ID$+"2".
+If IsVerticalSplit = true, a vertical splitter is set
+if IsVerticalSplit = false, a horizontal splitter is set
+If NormalStyle = true, the splitter is 10 pixels thick
+If NormalStyle = false, the splitter is 4 pixels thick
+
+Example:
+
+splitview 120,110 to 260,195, "Split", true, false, "Box2"
+draw set "bgcolor", "Panel-Background-Color, Darken-1-Tint", "Split1"
+draw set "bgcolor", "Panel-Background-Color, Lighten-1-Tint", "Split2"
+tooltip "Split", "SPLITVIEW"
+
+Explanation:
+
+This snippet from then AllInOne.yab example program opens a splitview and changes the background colors of each pannel so it is easy to see the two suib-views.
+
+related: splitview set, stackview, tabview
+&
+splitview get
+
+Name: splitview get --  Get the current position of the divider
+
+Synopsis:
+Position = SPLITVIEW GET SplitView$, "Divider"
+
+Description:
+Get the current position of the divider.
+
+Related: splitview, splitview set
+
+&
+splitview set
+
+Name:
+splitview set --   Set the position of the divider, or the minimum sizes of the view
+
+Synopsis:
+SPLITVIEW SET SplitView$ "Divider", Position
+SPLITVIEW SET SplitView$ "MinimumSizes", LeftOrTop, RightOrBottom
+
+Description:
+
+SPLITVIEW SET SplitView$ "Divider", Position
+Set the position of the divider, default is the half of the total split view.
+
+SPLITVIEW SET SplitView$ "MinimumSizes", LeftOrTop, RightOrBottom
+Set the minimum sizes of the left (or top) view and the right (or bottom) view.
+
+Related: slpitview
+
+&Stackview
 &
 stackview
 
@@ -6690,6 +6786,136 @@ Description:
 To switch the views of a stackview, yoy have to use this command. Simply provide it with the ID of the stackview (here: StackView$) and the number of the view you want it to show. Remember: The first view on the stack has the number 1. If you provide an invalid number, nothing will happen.
 
 Related: stackview, stackview get
+&Tabview
+&
+tabview
+
+Name:
+tabview -- Open a tabview and chose top/bottom for the tabs
+
+Synopsys:
+TABVIEW x1,y1 TO x2,y2, ID$, Option$, View$
+
+Description:
+Open a tabview and chose top/bottom for the tabs:
+Option$ = "top, bottom" where to place the tabs.
+
+Related: splitview, stackview
+&
+tabview add
+
+Name:
+tabview add -- Adds a new view and new tab to a tabview.
+
+Synopsys:
+TABVIEW ADD TabView$, TabName$
+
+Description:
+For each tab, a new view is created; you can add widgets or draw on these views as ususal.
+The ids for the views ist TabView$+"1" for the first, TabView$+"2" for the second view, etc.
+
+example:
+
+// make the tabview
+tabview 10,60 to 530,390, "Box", "top", "Win"
+tabview add "Box", "Widgets"
+tabview add "Box", "Views and More"
+
+// button
+button 10,10 to 100,30, "Button", "Button", "Box1"
+tooltip "Button", "BUTTON"
+
+Explanation:
+
+This snippet from the AllInOne.yab example program sets up a tabview called Box on the main Window view "Win" with the tabs at the top, then adds two tabs. "Widgets" is the first tab, "Box1", and "Views and More" is the second tab, "Box2". the button is added to the tab labeled "Widgets."
+
+Related: tabview tabview get, tabview set
+&
+tabview get
+
+Name:
+tabview get -- get the curent open tab number
+
+Synopsis:
+TabNumber = TABVIEW GET TABVIEW$
+
+Description:
+Get the current opened tab. 
+
+Related: tabview, tabview sdd tasbview set
+
+&
+tabview set
+
+Name:
+tabview set -- Chose the current tab
+
+Synopsys:
+TABVIEW SET TabView$, TabNumber
+
+Description:
+Open the tab number TabNumber.
+
+Related: tabview tabview add, tabview get
+
+&View
+&
+view
+
+Name:
+view -- add a view
+
+Synopsis:
+VIEW x1,y1 TO x2,y2, ID$, View$
+
+Description:
+ Adds a view
+
+Related: view get, view remove
+&
+view dropzone
+
+Name:
+view dropzone --  Definea view as a drop zone that accepts dropped files.
+
+synopsis:
+VIEW DROPZONE View$
+
+Description:
+Define View$ as a drop zone that accepts dropped files.
+DROPZONE accepts multiple files (and sends them in inversed order as message)
+Related: view
+&
+view get
+
+Name:
+view get -- gets information about a view
+
+Synopsis:
+Result = VIEW GET View$, Option$
+
+Description:
+Option$ = "Position-X/Position-Y/Width/Height/Exists/Focused"
+Returns the requested property or if used with Exists/Focused returns 1 if so and 0 if not.
+&
+view remove
+
+Name:
+view remove -- remove a view
+
+Synopsis:
+VIEW REMOVE View$
+
+Description:
+Remove View$. The window view cannot be removed. Should be much more stable now.
+Warning: Currently clears all internal information about menues and drop boxes. It is only safe to use it, when you don't have any menues or drop boxes on views that will not be removed.
+  
+Warning:
+
+Never remove menus with shortcuts, otherwise yab will crash when the shortcut key is pressed!
+
+Related: view, view get
+
 &Widgets
 &
 button
@@ -7260,6 +7486,139 @@ In the given columnbox named ColumnBox$, the specified row is selected. If Row i
 Have a look at the columnbox command for an example.
 
 Related: columnbox, columnbox add, columnbox clear, columnbox color, columnbox column, columnbox count, columnbox get, columnbox get$, columnbox remove
+&Dropbox
+&
+dropbox
+
+Name:
+dropbox -- Adds an empty dropbox.
+
+Synopsis:
+DROPBOX x1,y1 TO x2,y2, ID$, Label$, View$
+
+Description:
+Adds an empty dropbox (BMenuField) at (x1,y1) to (x2,y2) known as ID$ and with a label on View$. 
+
+Example:
+
+snippet
+
+DROPBOX 290,60 TO 480,80, "category", "Category:", "Mainview1"
+	DROPBOX ADD "category", "Audio"
+	DROPBOX ADD "category", "Business"
+	DROPBOX ADD "category", "Development"
+	DROPBOX ADD "category", "Education"
+	DROPBOX ADD "category", "Games"
+	DROPBOX ADD "category", "Graphics"
+	DROPBOX ADD "category", "Internet and Network"
+	DROPBOX ADD "category", "Productivity"
+	DROPBOX ADD "category", "Science and Matyhematics"
+	DROPBOX ADD "category", "System and Utilities"
+	DROPBOX ADD "category", "Video"
+	DROPBOX SELECT "category", 8
+
+end snippet
+
+Explanation:
+
+The dropbox "category" is created with a label of "Categorty" in "MainView1." Next the categories to select from are added, and "Productivity" is set as the default category. When a different category is selectedm the dropbox returns a message:    
+
+category:Science and Matyhematics
+
+if selection 9 is made.
+
+
+Related: dropbox add, dropbox clear, dropbox count, dropbox get$, dropbox remove, dropbox select
+&
+dropbox add
+
+Name:
+dropbox add -- adds an item to a dropbox.
+
+Synopsis:
+DROPBOX ADD DropBox$, Item$
+
+Description:
+Add Item$ to the dropbox. Use Item$ = "--" for a separator. 
+
+Related: dropbox , dropbox clear, dropbox count, dropbox get$, dropbox remove, dropbox select
+&
+dropbox clear
+
+Name:
+dropbox clear -- Clear all items from  a dropbox.
+
+Synopsis:
+DROPBOX CLEAR DropBox$
+
+Description:
+Clear dropbox DropBox$ of all items.
+
+Related: dropbox , dropbox add, dropbox count, dropbox get$, dropbox remove, dropbox select
+&
+dropbox count
+
+Name:
+dropbox count -- count the number of items in a dropbox.
+
+Synopsis:
+n = DROPBOX COUNT DropBox$
+
+Description
+Count the number of items.
+
+Related: dropbox , dropbox add, dropbox clear, dropbox get$, dropbox remove, dropbox select
+&
+dropbox get$
+
+Name:
+dropbox get$ -- Get the string of the item at a position.
+
+Synopsis:
+Item$ = DROPBOX GET$ DropBox$, Position
+
+Description:
+Get the item$ at Position fior the dropbox Dropbox$.
+
+Related: dropbox , dropbox add, dropbox clear, dropbox count, dropbox remove, dropbox select
+&
+dropbox remove
+
+Name:
+dropbox remove -- removes an item from a  dropbox.
+
+Synopsis:
+DROPBOX REMOVE DropBox$, Position
+
+Description:
+Removes item number Position. 
+Note: If the removed item was marked, the item before it will be marked instead. You will NOT get
+a message that the marked item has changed. If the first item will be deleted, the next item in
+the drop box will be marked.
+
+Note:
+
+Each time an item was removed, the drop box count will change as well!
+
+Related: dropbox , dropbox add, dropbox clear, dropbox count, dropbox get$, dropbox select
+&
+dropbox select
+
+Name:
+dropbox select -- Select a dropbox item.
+
+Synopsis:
+DROPBOX SELECT DropBox$, Position
+
+Description:
+Select the item at position Position.
+
+Note: 
+
+Counting starts at 0.
+
+Related: dropbox , dropbox add, dropbox clear, dropbox count, dropbox get$, dropbox remove
+
 &
 listbox
 
@@ -7443,6 +7802,51 @@ Note: After sorting, any former selection is removed.
 Have a look at the listbox command for an example.
 
 Related: listbox, listbox add, listbox clear, listbox count, listbox get, listbox get$, listbox remove, listbox select
+&Options
+&
+option color
+
+Name:
+option color -- Set the background color of a view.
+
+Synopsis:
+OPTION COLOR View$, "BGColor", r,g,b
+
+Description:
+Set the background color of any view (note: this is different to DRAW SET!)
+&
+option set
+
+Name:
+option set -- set various options for views and controls.
+
+Synopsis:
+OPTION SET View$, "Auto-Resize"
+OPTION SET View$, "Focus", HasFocus
+OPTION SET Control$, "Enabled", IsEnabled 
+OPTION SET Control$, "Label", NewLabel$
+OPTION SET Control$, "Visible", IsVisible
+
+Description:
+OPTION SET View$, "Auto-Resize"
+Automatically resize the view View$ to preferred (when this is supported by the view).
+
+OPTION SET View$, "Focus", HasFocus
+Set/remove the focus of View$ (when this is supported by the view).
+
+OPTION SET Control$, "Enabled", IsEnabled 
+Enable/disable the control Control$.
+
+OPTION SET Control$, "Label", NewLabel$
+Give a Control a new label.
+
+OPTION SET Control$, "Visible", IsVisible
+Set the control Control$ invisible or visible
+
+Note:
+
+The following widgets are controls:
+CHECKBOX, RADIOBUTTON, SLIDER, TEXTCONTROL, BUTTON, COLORCONTROL, SPINCONTROL, CALENDAR
 &
 radiobutton
 
@@ -7503,6 +7907,138 @@ Description:
 If IsActivated is set to true, the radiobutton named RadioButton$ will be selected. If IsActivated is set to false, the radiobutton will be deselected. Note: This allows you to activate more than one radiobutton in a group which is not recommended.
 
 Related: radiobutton
+&Slider
+&
+slider
+
+Name:
+slider -- Add a slider control
+
+Synopsis:
+SLIDER x1,y1 TO x2,y2, ID$, Label$, Min, Max, View$
+SLIDER x1,y1 TO x2,y2, ID$, Label$, Min, Max, Option$, View$
+
+Description:
+SLIDER x1,y1 TO x2,y2, ID$, Label$, Min, Max, View$
+Add a slider with a minimum and and a maximum value (Min, Max).
+
+SLIDER x1,y1 TO x2,y2, ID$, Label$, Min, Max, Option$, View$
+Option$ = "block/triangle, horizontal/vertical"
+
+
+Example:
+
+see SliderWorld.yab for example usage.
+
+NOTE:
+
+The label, Label$ must be shorter than the slider or yab will re-size the slider to fit the label. This can cause the slider to be wider than the view. it is best to use short labels.
+
+Related: slider color, slider get, slider label, slider set
+&
+slider color
+
+Name:
+slider color -- set the colors for a slider
+
+Synopsis:
+SLIDER COLOR Silder$, Part$, r,g,b
+
+Description:
+Sets the rgb color for the Part$ of Slider$
+Part$ = "barcolor" -- The color to the left or bottom, representing the slider's value.
+Part$ = "fillcolor" -- The color to the right or top, representing the remainder of the posible slider value.  
+
+Related: slider, slider get, slider label, slider set
+&
+slider get
+
+Name:
+slidet get -- get the curent value of a slider
+
+Synopsis:
+Value = SLIDER GET Slider$
+
+Description:
+Get the currently selected value of the slider.
+
+Related: slider, slider color, slider label, slider set
+
+&
+slider label
+
+Name:
+slider label -- Set start and end limit labels
+
+Synopsis:
+SLIDER LABEL Slider$, StartLabel$, EndLabel$
+
+Description:
+Sets the StartLabel$ and  EndLabel$ for the slider Slider$
+
+Related: slider, slider color, slider get, slider set
+&
+slider set
+
+Name:
+slider set -- set the slider value or hashmarks location and numnber
+
+Synopsis:
+SLIDER SET Silder$, Location$, Count
+SLIDER SET Silder$, Value
+
+Description:
+SLIDER SET Silder$, Location$, Count
+
+Set the hashmarks.
+Location$ = "none/bottom/top/both" use these valuse for hashmarks for horizontal sliders
+Location$ = "none/left/rigth/both" use  these valuse for hashmarks for vertical sliders
+Count = number of hashmarks
+
+SLIDER SET Silder$, Value
+
+Set the slider to Value. Moves the slider indicator block to this location.
+
+Related: slider, slider color, slider get, slider label
+&Spincontrol
+spincontrol
+
+Name:
+spincontrol -- Add a spincontrol to a view.
+
+Synopsis:
+SPINCONTROL x,y, ID$, Label$, Min, Max, Step, View$
+
+Description:
+Add  a spin control at x,y, named ID$, labeled Label$ with  the range (Min,Max), counting by Step on View$.
+
+Related: spincontrol get, spincontrol set
+&
+spincontrol get
+
+Name:
+spincontrol get -- Get the value of a spincontrol.
+
+Synopsis:
+Value = SPINCONTROL GET SpinControl$
+
+Description:
+Get the current spin control value for SpinControl$.
+
+Related: spincontrol, spincontrol set
+&
+spincontrol set
+
+Name:
+spincontrol set -- set the spincontrol to a value
+
+Synopsis:
+SPINCONTROL SET SpinControl$, Value
+
+Description:
+Sets the spin control SpinControl$ to value Value.
+
+Related: spincontrol, spincontrol get
 &
 statusbar
 
@@ -7636,6 +8172,88 @@ Explanation:
 This fun program changes the alignment of the text every half second. 
 
 Related: text
+&Textcontrol
+&
+textcontrol
+
+Name:
+textcontrol -- Add a textcontrol to a view.
+
+Synopsis:
+TEXTCONTROL x1,y1 TO x2,y2, ID$, Label$, Text$, View$
+
+Description:
+Opens a textcontrol from (x1,y1) to (x2,y2) with Label$ and preset it with Text$ on View$
+
+The distance from x1 to x2 needs to be long enough for the label Label$ and the textcontrol view.
+
+Message:
+The textcontrol will return a message on invocation, ( by pressing tsb or enter after entering text.)
+
+id$:text$
+
+Related: textcontrol clear, textcontrol get$, textcontrol set
+&
+textcontrol clear
+
+Name:
+textcontrol clear -- Clears the text data from a textcontrol.
+
+Synopsis:
+TEXTCONTROL CLEAR TextControl$
+
+Description:
+Delete the text of the text control.
+
+Related: textcontrol, textcontrol get$, textcontrol set
+&
+textcontrol get$
+
+Name:
+textcontrol get$ -- get the text held by a textcontrol.
+
+Synopsis:
+Text$ = TEXTCONTROL GET$ TextControl$
+
+
+Description:
+Get the entry of the text control TextControl$. Even works, when Return was not pressed.
+
+Related: textcontrol, textcontrol clear, textcontrol set
+&
+textcontrol set
+
+Name:
+textcontrol set -- Set various options for a textcontrol.
+
+Synopsis:
+TEXTCONTROL SET TextControl$, IsPassword 
+TEXTCONTROL SET TextControl$, Text$
+TEXTCONTROL SET TextControl$, Option$, Value$
+
+Description:
+
+TEXTCONTROL SET TextControl$, IsPassword 
+IsPassword = false Normal typing
+IsPassword = true Hide typing with *
+
+TEXTCONTROL SET TextControl$, Text$
+Set the text control's text to Text$.
+
+TEXTCONTROL SET TextControl$, Option$, Value$
+Option$="align" Value$= "left" / "right" / "center"
+*** note *** Haiku has issues align right. There are open tickets. 
+Option$="exclude", Value$=characters to disallow.
+Option$="include", Value$=characters to allow.
+Option$="length", Value$=str$(number) of characters allowed.
+Sets the font used to the system fixed font.
+Option$="type"
+Value$="number" Only allow  to characters 0-9 and  ".", full stop.
+Value$=""alphanumeric" allow all characters.
+Option$="focus" Value$ = "true" / "false" Set the focus of TextControl$.
+Option$="Curser", Value$=str$(number) positions the curser, sets the focus to true.
+
+Related: textcontrol, textcontrol clear, textcontrol get$
 &
 textedit
 
@@ -7646,13 +8264,17 @@ Synopsis:
 TEXTEDIT x1,y1 TO x2,y2, ID$, ScrollbarType, View$
 
 Description:
+Opens an editor at (x1,y1) to (x2,y2) with ID$ (not displayed) on View$.
 
-Layout:
+ScrollbarType = 0 -- no scrollbar
+ScrollbarType = 1 -- the textedit has a vertical scrollbar
+ScrollbarType = 2 -- the textedit has a horizontal scrollbar
+ScrollbarType = 3 -- the textedit has a vertical and a horizontal scrollbar
 
-Design:
+TEXTEDIT follows all sides in standard layout.
 
-Example:
-Explanation:
+Example: 
+See Tedit.yab or AllInOne.yab example programs.
 
 Related: textcontrol, textedit add, textedit clear, textedit color, textedit get, textedit get$, textedit set
 &
@@ -7764,8 +8386,45 @@ Option$ = "textwidth" -- set the maximum width of the text in pixel
 Given three parameters, the following options are valid for the textedit named TextEdit$ when the third parameter Value$ is a string:
 Option$ = "font" -- set the font to Value$ (see draw set for details), default is "system-plain"
 Option$ = "autocomplete" -- add the word Value$ to the auto-completion list
+Option$ = "align" and  value$ = "left|center|right" -- set the alignment for text in the textedit view.
 
 Related: textedit, textedit add, textedit clear, textedit color, textedit get, textedit get$
+&TextURL
+&
+texturl
+
+Name:
+texturl -- Add a text link to a url.
+
+Synopsis:
+TEXTURL x,y, ID$, Label$, Address$, View$
+
+Description:
+Set the web/email/ftp address at (x,y) with the label Label$ and the url Address$.
+This widget is quite nice, it launches the appropriate application when clicked, it supports
+a right-click popup-menu and you can drag the url to create either a person file or a bookmark.
+Email can be either of the style: "mailto:foo@bar.com" or just "foo@bar.com"
+A web url starts either with "http://" or with "file://"
+And a ftp address starts with "ftp://"
+
+Related: texturl color
+&
+texturl color
+
+Name:
+texturl color -- Set the color used for the text of a texturl.
+
+Synopsis:
+TEXTURL COLOR TextURL$, Option$, r,g,b
+
+
+Description:
+Set the colors for the URL. Valid options are:
+"Label" for the color of the label,
+"Click" for the color of the label, when clicked and
+"Mouse-over" for the color of the label, when the mouse is moved over the label.
+
+Related: texturl
 &
 tooltip
 
@@ -7842,7 +8501,153 @@ Explanation:
 Here, the color of the tooltips are changed from the default yellow background and black text color to a black background (RGB color values: 0,0,0) and from the default black text color to a white text (RGB color values: 255,255,255).
 
 Related: tooltip
+&Treebox
 &
+treebox
+
+Name:
+treebox -- Adds a treebox to a view.
+
+Sybopsis:
+TREEBOX x1,y1 to x2,y2, ID$, ScrollbarType, View$
+
+Description:
+Adds a tree box. This behaves just like a LISTBOX but is able to show nested trees.
+
+Related: treebox add, treebox clear, treebox collapse, treebox count, treebox expand, treebox get$, treebox remove, treebox select, treebox sort
+&
+treebox add
+
+Name:
+treebox add -- Add an item to a treebox.
+
+Synopsis:
+TREEBOX ADD TreeBox$, RootItem$
+TREEBOX ADD TreeBox$, HeadItem$, ListItem$, IsExpanded
+
+Description:
+
+TREEBOX ADD TreeBox$, RootItem$
+Add the item RootItem$ to the top level of the tree.
+
+TREEBOX ADD TreeBox$, HeadItem$, ListItem$, IsExpanded
+Add the item ListItem$ under the level of HeadItem$ of the tree.
+
+Related: treebox, treebox clear, treebox collapse, treebox count, treebox expand, treebox get$, treebox remove, treebox select, treebox sort
+&
+treebox clear
+
+Name:
+treebox clear -- clear a treebox
+
+Synopsis:
+TREEBOX CLEAR TreeBox$
+
+Description:
+Clear the tree.
+
+Related: treebox, treebox add, treebox collapse, treebox count, treebox expand, treebox get$, treebox remove, treebox select, treebox sort
+&
+treebox collapse
+
+Name:
+treebox collapse -- Collapse a top level category.
+
+Synopsis:
+TREEBOX COLLAPSE TreeBox$, Head$
+
+Description:
+Collapses Head$ in TreeBox$.
+
+Related: treebox, treebox add, treebox clear, treebox count, treebox expand, treebox get$, treebox remove, treebox select, treebox sort
+&
+treebox count
+
+Name:
+treebox count --  count the entries in a treebox.
+
+Synopsis:
+n = TREEBOX COUNT TreeBox$
+
+Description:
+Returns the number of entries in TreeBox$
+
+Related: treebox, treebox add, treebox clear, treebox collapse, treebox expand, treebox get$, treebox remove, treebox select, treebox sort
+&
+treebox expand
+
+Name:
+treebox expand -- Expand a category.
+
+Synopsis:
+TREEBOX EXPAND TreeBox$, Head$
+
+Description:
+Expands Head$ in TreeBox$.
+
+Related: treebox, treebox add, treebox clear, treebox collapse, treebox count, treebox get$, treebox remove, treebox select, treebox sort
+
+
+&
+treebox get$
+
+Name:
+treebox get$ --  Get an item from a treebox.
+
+Synopsis:
+Item$ = TREEBOX GET$ TreeBox$, Position
+
+Description:
+Returns the Item$ at position Position in TreeBox$.
+
+Related: treebox, treebox add, treebox clear, treebox collapse, treebox count, treebox expand, treebox remove, treebox select, treebox sort
+&
+treebox remove
+
+Name:
+treebox remove -- Remove an item from a treebox.
+
+Synopsis:
+TREEBOX REMOVE TreeBox$, Position
+TREEBOX REMOVE TreeBox$, Head$, ListItem$
+
+Description:
+TREEBOX REMOVE TreeBox$, Position
+Removes the entry at position Position in TreeBox$.
+
+TREEBOX REMOVE TreeBox$, Head$, ListItem$
+Removes ListItem$ under Head$ in TreeBox$.
+
+Related: treebox, treebox add, treebox clear, treebox collapse, treebox count, treebox expand, treebox get$, treebox select, treebox sort
+&
+treebox select
+
+Name:
+treebox select -- Select an item
+
+Synopsis:
+TREEBOX SELECT TreeBox$, Position
+
+Description:
+Selects theitem at position Position in TreeBox$.
+
+Related: treebox, treebox add, treebox clear, treebox collapse, treebox count, treebox expand, treebox get$, treebox remove, treebox sort
+&
+treebox sort
+
+Name:
+treebox sort -- Sort the treebox.
+
+Synopsis:
+TREEBOX SORT TreeBox$
+
+Description:
+Sorts the entries of TreeBox$ alphabetically.
+
+
+Related: treebox, treebox add, treebox clear, treebox collapse, treebox count, treebox expand, treebox get$, treebox remove, treebox select
+
+
 &Localization
 &
 localize
