@@ -1,0 +1,30 @@
+To update help:
+
+edit Help_En.dat 
+
+Be sure that the data  for the command is in the treebox adds section.
+
+the command data sections needs:
+
+&
+command
+
+Name:
+command -- what is does:
+
+Synopsis:
+the command 
+
+Description:
+what is does
+
+Example:
+example use
+
+Related: related commands
+&
+
+Note: the & before and after the command information. 
+
+run GenerateIndex.yab from the data directory to make a new Help_En_Index.dat
+
