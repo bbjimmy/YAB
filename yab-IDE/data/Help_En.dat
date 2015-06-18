@@ -8287,6 +8287,8 @@ Synopsis:
 TEXTEDIT ADD TextEdit$, Text$
 
 Description:
+Adds ( appends ) Text$ to textedit TextEdit$. 
+This command works when the textedit is not editable by the user.
 
 Related: textedit, textedit clear, textedit color, textedit get, textedit get$, textedit set
 &
@@ -8309,10 +8311,30 @@ Name:
 textedit color -- set the colors of a textedit or provide syntax highlighting
 
 Synopsis:
-TEXTEDIT COLOR TextEdit$, Option$, r,g,b
 TEXTEDIT COLOR TextEdit$, Option$, Command$
+TEXTEDIT COLOR TextEdit$, Option$, r,g,b
 
 Description:
+
+TEXTEDIT COLOR TextEdit$, Option$, Command$
+Option$ = "color1, color2, color3, color4, char-color", Command$
+
+Add the command Command$ to the list of words that are checked for syntax highlighting
+The char-color behaves differently and highlights only the first character of Command$
+(this happens after the highlighting of the other colors).
+
+
+TEXTEDIT COLOR TextEdit$, Option$, r,g,b
+Option$ = "bgcolor, textcolor, color1, color2, color3, color4, char-color", r,g,b
+
+Default colors are:
+bgcolor = 255,255,255 (white)
+textcolor = 0,0,0 (black)
+color1 = 0,0,255 (blue)
+color2 = 255,0,0 (red)
+color3 = 0,250,0 (green)
+color4 = 185,185,185 (gray)
+char-color = 200,0,255 (magenta)
 
 Related: textedit, textedit add, textedit clear, textedit get, textedit get$, textedit set
 &
@@ -8322,11 +8344,43 @@ Name:
 textedit get -- retrieve various information from a textedit
 
 Synopsis:
-LineNumber = TEXTEDIT GET TextEdit$, Option$
+Width = TEXTEDIT GET TextEdit$, "Line-Width", LineNumber
+Height = TEXTEDIT GET TextEdit$, "Line-Height", LineNumber
+return = TEXTEDIT GET TextEdit$, Option$
 LineNumber = TEXTEDIT GET TextEdit$, Option$, Search$
 Result = TEXTEDIT GET TextEdit$, Option$, LineNumber
 
 Description:
+
+return = TEXTEDIT GET TextEdit$, Option$
+Option$ = "hasChanged" -- returns IsChanged 0 not changed, 1 changed
+	
+This is a hook function that is set once the user changes the text, reset it to false by using:
+	 "textedit set TextEdit$, "changed", false
+
+Then use this hook to see if the user has changed the text. 
+
+
+Option$ = "countlines" --  returns the number of lines
+Option$ = "currentline" -- returns the curent lLineNumber
+Option$ = "vertical-scrollbar" -- returns the virtical ofset of the scrollbar
+Option$ = "horizontal-scrollbar" -- returns the horizontal ofset of the scrollbar
+Option$ = "cursor-position" -- returns the cursor position
+Option$ = "textlength" -- returns the length of the text.
+
+
+Width = TEXTEDIT GET TextEdit$, "Line-Width", LineNumber
+Get the width in pixels of the line.
+
+Height = TEXTEDIT GET TextEdit$, "Line-Height", LineNumber
+Get the height in pixels of the line.
+
+LineNumber = TEXTEDIT GET TextEdit$, Option$, Search$
+Option$ = "Find", Search$
+Option$ = "Case-Sensitive-Find", Search$
+
+Specifys the type of search and returns the linenumber that the search string is found in. returns 0 if not found.
+
 
 Related: textedit, textedit add, textedit clear, textedit color, textedit get$, textedit set
 &
@@ -8340,6 +8394,13 @@ EnteredText$ = TEXTEDIT GET$ TextEdit$
 TextLine$ = TEXTEDIT GET$ TextEdit$, LineNumber
 
 Description:
+EnteredText$ = TEXTEDIT GET$ TextEdit$
+Get the entire contents of a textedit.
+
+TextLine$ = TEXTEDIT GET$ TextEdit$, LineNumber
+Get the contents of a line of text.
+
+
 
 Related: textedit, textedit add, textedit clear, textedit color, textedit get, textedit set
 &

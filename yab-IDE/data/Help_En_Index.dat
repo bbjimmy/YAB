@@ -683,86 +683,86 @@ textedit
 textedit add
 261589
 textedit clear
-261801
+261914
 textedit color
-262143
+262256
 textedit get
-262445
+263237
 textedit get$
-262800
+264844
 textedit set
-263074
+265283
 &
-266124
+268333
 texturl
-266132
+268341
 texturl color
-266728
+268937
 tooltip
-267108
+269317
 tooltip color
-268788
+270997
 &
-270071
+272280
 treebox
-270079
+272288
 treebox add
-270442
+272651
 treebox clear
-270967
+273176
 treebox collapse
-271230
+273439
 treebox count
-271528
+273737
 treebox expand
-271836
+274045
 treebox get$
-272119
+274328
 treebox remove
-272446
+274655
 treebox select
-272931
+275140
 treebox sort
-273234
+275443
 &
-273528
+275737
 localize
-273537
+275746
 # A comment starts with a #
-275101
+277310
 
-275225
+277434
 translate$()
-276791
+279000
 &Sound
-277544
+279753
 &
-277546
+279755
 beep
-277551
+279760
 bell
-277785
+279994
 sound play
-278148
+280357
 sound stop
-279073
+281282
 sound wait
-279447
+281656
 &Window
-279852
+282061
 &
-279854
+282063
 alert
-279860
+282069
 filepanel
-281638
+283847
 window open
-284928
+287137
 window close
-287643
+289852
 window count
-288135
+290344
 window get
-288762
+290971
 window set
-290483
+292692
