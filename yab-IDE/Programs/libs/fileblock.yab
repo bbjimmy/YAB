@@ -154,8 +154,7 @@ rec=rec+1
 return rec
 end sub
 
-export sub lof(filehandle)
-// returns the number of blocks in the file.
+export sub lof(filehandle)  // alias for numberofrecords()
 local x
 filename$=f$(filehandle,0,0)
 x=open(filename$) 
@@ -167,6 +166,14 @@ ret= ret/(f(filehandle,51)+1)
 ret=int(ret)
 return ret
 end sub
+
+export sub numberofrecords(filehandle) // alias for lof()
+fh=filehandle
+rtn=lof(fh)
+return rtn
+end sub
+
+
 
 
 sub blank$(num)
