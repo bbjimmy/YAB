@@ -4,9 +4,12 @@ export sub openfile(filename$, recordlength, numberoffields)
 // specify the record(block) length and number of fields for the file
 // returns the filehandle number used for other subs
 static numfiles
+local x
+
 x=open(filename$, "a")
-if x=0 return 0 // error opening the file
+if x=0  print"rror opening the file":return -1 // error opening the file
 close x
+
 numfiles=numfiles+1
 dim f$(numfiles,50,2) // f$(numfile,1-50=fieldname$
 dim f(numfiles,52)
@@ -15,76 +18,93 @@ f(numfiles,51)=recordlength
 f(numfiles,52)=numberoffields
 
 return numfiles
+
 end sub
 
 
 export sub Field( filehandle,fieldnumber, fieldname$, fieldlength)
 //specify the field name and length for the field numbered fieldnumber
-if fieldnumber <= f(filehandle,52) then
-f$(filehandle,fieldnumber,0)=fieldname$
-f(filehandle,fieldnumber)=fieldlength
-f$(filehandle,fieldnumber,1)=blank$(f(filehandle,fieldnumber))
-return 1
-endif
-return 0
-end sub
+// return 1 ok, 0 bad fieldnumber
 
+if fieldnumber <= f(filehandle,52) then
+	f$(filehandle,fieldnumber,0)=fieldname$
+	f(filehandle,fieldnumber)=fieldlength
+	f$(filehandle,fieldnumber,1)=Blank$(f(filehandle,fieldnumber))
+	
+	return 1 
+	
+endif
+
+return 0
+
+end sub
 
 
 export sub lset(filehandle,fieldname$,data$)
 //sets data$ on the left end of the field, truncates the string if it is longer than the fieldlength
 //use this to prepare the record for writing
 
+local l
+local x
+local b$
+local dt$
+local a$
+local lf
+
 l=len(data$)
 x=0
+
 for x=1 to 50
 
-b$=f$(filehandle,x,0)
-if (b$ = fieldname$) then
-	lf=f(filehandle,x)
-	dt$=data$
-	
-	if( l > lf )dt$=left$(dt$,lf)
-	a$=blank$(lf-l)
-	if l<lf dt$=dt$+a$
+	b$=f$(filehandle,x,0)
 
-f$(filehandle,x,1) = dt$
+	if (b$ = fieldname$) then
+		
+		lf=f(filehandle,x)
+		dt$=data$
+		if( l > lf )dt$=left$(dt$,lf)
+		a$=Blank$(lf-l)
+		if l<lf dt$=dt$+a$
+		f$(filehandle,x,1) = dt$
 
-end if
+	end if
 
 next
 
-
 end sub
+
 
 export sub rset(filehandle,fieldname$,data$)
 //sets data$ on the right end of the field, truncates the string if it is longer than the fieldlength
 //use this to prepare the record for writing
+local l
+local x
+local b$
+local dt$
+local a$
 
 l=len(data$)
 x=0
+
 for x=1 to 50
 
-b$=f$(filehandle,x,0)
-if (b$ = fieldname$) then
-	lf=f(filehandle,x)
-	dt$=data$
-	
-	if( l > lf )dt$=left$(dt$,lf)
-	
-	a$=blank$(lf-l)
-	if l<lf dt$=a$+dt$
+	b$=f$(filehandle,x,0)
 
-f$(filehandle,x,1) = dt$
+	if (b$ = fieldname$) then
+	
+		lf=f(filehandle,x)
+		dt$=data$
+		if( l > lf )dt$=left$(dt$,lf)
+		a$=Blank$(lf-l)
+		if l<lf dt$=a$+dt$
+		f$(filehandle,x,1) = dt$
 
-end if
+	end if
 
 next
 
-
-
-
 end sub
+
 
 export sub readfield$(File, fieldname$)
 //returns the data held in fieldname$
@@ -98,92 +118,140 @@ next
 
 end sub
 
+
 export sub write_block(recordnumber, filehandle)
 // Writes all the fields to the file at this record location
 // Uses seek recordnumber*recordlength before the write
 // Clears the field data
 // Recordnumbers start at 0. ie the first record is 0, the second is 1 etc.
+local filename$
+local x
+local y
+local a$
 
 filename$=f$(filehandle,0,0)
 x=open(filename$, "r+")
 if x=0 print "error":return 0 // error opening the file
+
 if recordnumber = -1 then
 	seek x, 0, "end" // append data to the file
-else
+	else
 	seek x, ((f(filehandle,51) +1) * (recordnumber))
+
 endif
+
 printstring$=""
+
 for y=1 to f(filehandle,52)
+
 	printstring$=printstring$+f$(filehandle,y,1)
+
 next
+
 l=len(printstring$)
+
 for y=1 to l
+
 	a$=left$(printstring$,1)
 	printstring$=right$(printstring$,len(printstring$)-1)
 	poke x, a$
+
 next
+
 poke x ,"\n"
+
 for y=1 to f(filehandle,52)
-	f$(filehandle,y,1)=blank$(f(filehandle,y))
+
+	f$(filehandle,y,1)=Blank$(f(filehandle,y))
+
 next
+
 close x
+
 end sub
+
 
 export sub read_block(recordnumber, filehandle)
 // Reads the data at this record, or the next record if recordnumber is -1
 // Ffills the fields with the data
 // Recordnumbers start at 0. ie the first record is 0, the second is 1 etc.
+
 static rec
+local filename$
+local a$
+local z
+local y
+a$=""
+
+filename$=f$(filehandle,0,0)
 File=open(filename$, "rb")
 if File=0 print "error":return -1 // error opening the file
+
 if (recordnumber <> -1) then
-rec = recordnumber
-seek File, ((f(filehandle,51) +1) * (rec))
+
+	rec = recordnumber
+	seek File, ((f(filehandle,51) +1) * (rec))
+
 endif
-a$=""
+
 for z=1 to f(filehandle,51)
-y=peek(File)
-a$=a$+chr$(y) 
+
+	y=peek(File)
+	a$=a$+chr$(y)
+
 next
 
 for y=0 to f(filehandle,52)
+
 	f$(filehandle,y,1)= left$(a$,f(filehandle,y))
 	a$=right$(a$,len(a$)-f(filehandle,y))
+
 next
+
 rec=rec+1
 return rec
+
 end sub
+
 
 export sub lof(filehandle)  // alias for numberofrecords()
 local x
+local filename$
+local ret
 filename$=f$(filehandle,0,0)
 x=open(filename$) 
 seek #x, 0, "end"
 ret=tell(#x)
 if ret=0 return ret
-
 ret= ret/(f(filehandle,51)+1)
 ret=int(ret)
 return ret
+
 end sub
 
+
 export sub numberofrecords(filehandle) // alias for lof()
+local fh
+local rtn
+
 fh=filehandle
 rtn=lof(fh)
 return rtn
+
 end sub
 
 
-
-
-sub blank$(num)
+sub Blank$(num) // this is a local sub, not exported
 local s$
 local x
 s$=""
+
 for x=1 to num
-s$=s$+" "
+
+	s$=s$+" "
+
 next
+
 return s$ 
+
 end sub
-
-
