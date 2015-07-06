@@ -4,3 +4,4 @@ flex.c
 bison.output
 yab
 *.o
+libyab.so
