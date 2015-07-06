@@ -438,9 +438,11 @@ void function(struct command *current,YabInterface* yab) /* performs a function 
     break;
   case fRAN:
     value=a1->value*((double)rand()/RAND_MAX);
+    value=a1->value*((double)rand()/RAND_MAX);
     result=stNUMBER;
     break;
   case fRAN2:
+    value=(double)rand()/RAND_MAX;
     value=(double)rand()/RAND_MAX;
     result=stNUMBER;
     break;
