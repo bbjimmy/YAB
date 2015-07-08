@@ -874,7 +874,7 @@ static void initialize(void)
   cmdroot->next=cmdroot->prev=NULL;
   
   /* initialize random number generator */
-  srand((unsigned int)time(NULL));
+  //srand((unsigned int)time(NULL));
   
   /* specify default text-alignement and window origin */
   /*
