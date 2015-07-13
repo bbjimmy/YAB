@@ -314,13 +314,18 @@ end sub
 // read in one line from the given file
 /////////////////////////////////////////
 sub LineInput$(n)
-	local tmp : local tmp$
-	while (tmp <> 10)
-		tmp = peek(n)
-		if (tmp < 0) continue
-		tmp$ = tmp$ + chr$(tmp)
-	wend
 
+	local tmp : local tmp$
+
+//	while (tmp <> 10)
+//		tmp = peek(n)
+//		if (tmp < 0) continue
+//		tmp$ = tmp$ + chr$(tmp)
+//	wend
+
+// line input allows for final lines without a newline "\n" 
+
+line input #n tmp$
 	return trim$(tmp$)
 end sub
 
