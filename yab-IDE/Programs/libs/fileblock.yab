@@ -1,19 +1,18 @@
 
 
-export sub openfile(filename$, recordlength, numberoffields)
+export sub openfile(fil$, recordlength, numberoffields)
 // specify the record(block) length and number of fields for the file
 // returns the filehandle number used for other subs
 static numfiles
 local x
-
-x=open(filename$, "a")
+x=open(fil$, "a")
 if x=0  print"rror opening the file":return -1 // error opening the file
 close x
 
 numfiles=numfiles+1
 dim f$(numfiles,50,2) // f$(numfile,1-50=fieldname$
 dim f(numfiles,52)
-f$(numfiles,0,0)=filename$
+f$(numfiles,0,0)=fil$
 f(numfiles,51)=recordlength
 f(numfiles,52)=numberoffields
 
@@ -182,6 +181,7 @@ local a$
 local z
 local y
 a$=""
+local File
 
 filename$=f$(filehandle,0,0)
 File=open(filename$, "rb")
@@ -209,6 +209,7 @@ for y=0 to f(filehandle,52)
 next
 
 rec=rec+1
+close File
 return rec
 
 end sub
@@ -225,6 +226,7 @@ ret=tell(#x)
 if ret=0 return ret
 ret= ret/(f(filehandle,51)+1)
 ret=int(ret)
+close x
 return ret
 
 end sub
