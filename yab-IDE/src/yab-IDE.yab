@@ -3851,28 +3851,26 @@ end sub
 
 sub set_up_BuildFactory()
 local DataDir$
-
+local x
+local y
 local handel
 local ddir$
 
 DataDir$=trim$(system$("finddir  B_USER_DIRECTORY"))
-
-
-
-
 x=system("mkdir "+DataDir$+"/yab_work")
 system("mkdir ~/config/settings/yab")
-y=system("ls "+DataDir$+"/yab_work/BuildFactory")
-y=y+system("ls "+DataDir$+"/yab_work/Programs")
+y=system("ls "+DataDir$+"/yab_work/BuildFactory > /dev/null")
+y=y+system("ls "+DataDir$+"/yab_work/Programs > /dev/null")
+
+
 if x=0  or y>0 then
+
 	system("cp -ur "+ideDir$+"/BuildFactory "+DataDir$+"/yab_work")
 	system("cp -ur "+ideDir$+"Programs "+DataDir$+"/yab_work")
 	system ("cp -ur "+ideDir$+"img "+DataDir$+"/yab_work/Programs")
 	system("cp -ur "+ideDir$+"Programs/libs/* /boot/home/config/settings/yab")
 
-
 	handle=open(DataDir$+"/yab_work/BuildFactory/srcfiles","r")
-	
 
 		while(not eof(#handle)) 
 			input #handle a$ 
