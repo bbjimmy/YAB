@@ -8432,6 +8432,7 @@ Option$ = "color-case-sensitive" -- should the syntax highlighting be case-sensi
 Option$ = "editable" -- allow the user to edit the textedit, default is true
 Option$ = "has-autocompletion" -- turn auto-completion on or off, default is on (true)
 Option$ = "wordwrap" -- turn on/off word wrap at the end of a line, default is on (true)
+Option$= "focus", -- use this to make the textedit have focus (true)
 
 Some remarks: 
 Making a textedit not editable is useful when you want to show long text (or scrollable text).

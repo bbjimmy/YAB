@@ -1,3 +1,7 @@
+yab Version 
+-fix ran() command
+-add small gutter to textedit view
+
 yab Version 1.7.5
 -libyab.so --- smaller binaries
 
