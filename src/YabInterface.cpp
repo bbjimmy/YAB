@@ -3536,6 +3536,10 @@ void YabInterface::TextEdit(BRect frame, const char* title, int scrollbar, const
 
 			textframe = frame;
 			textframe.OffsetTo(B_ORIGIN);
+			textframe.right -=2;
+			textframe.bottom -=2;
+			textframe.top +=2;
+			textframe.left +=2;
 
 			if(w->layout == -1)
 				resizeMode = B_FOLLOW_ALL;
