@@ -8361,7 +8361,8 @@ This is a hook function that is set once the user changes the text, reset it to 
 Then use this hook to see if the user has changed the text. 
 
 
-Option$ = "countlines" --  returns the number of lines
+Option$ = "countlines" --  returns the number of lines ending in /n
+Options = "countphysicallines" -- returns the number of displayed lines
 Option$ = "currentline" -- returns the curent lLineNumber
 Option$ = "vertical-scrollbar" -- returns the virtical ofset of the scrollbar
 Option$ = "horizontal-scrollbar" -- returns the horizontal ofset of the scrollbar
@@ -8440,6 +8441,7 @@ The textedit will notice when text was changed since the last time the option "c
 
 Given three parameters, the following options are valid for the textedit named TextEdit$ when the third parameter Value is a number:
 Option$ = "autocomplete-start" -- set the number of characters when auto-completion should kick in (default is 4)
+Option$ = "Cursor" -- place the curser at the ofset of Value characters from the start.
 Option$ = "gotoline" -- put the cursor to the line with number Value
 Option$ = "select" -- select the line with number Value
 Option$ = "tabwidth" -- set the tab width to Value (in pixel!), default is 28

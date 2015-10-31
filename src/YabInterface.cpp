@@ -3796,7 +3796,11 @@ void YabInterface::TextSet(const char* title, const char* option, int value)
 						myText->SetCaseSensitive((bool)value);
 					else if(tmp.IFindFirst("tabwidth")!=B_ERROR)
 						myText->SetTabWidth(value);
+					else if(tmp.IFindFirst("curser")!=B_ERROR)
+						myText->Select(value, value);	
 					else if(tmp.IFindFirst("textwidth")!=B_ERROR)
+					
+					
 					{
 						// BRect txtframe = myText->TextRect();
 						// txtframe.right = txtframe.left + value;
@@ -4126,6 +4130,8 @@ int YabInterface::TextGet(const char* title, const char* option)
 						}
 					else if(tmp.IFindFirst("countlines")!=B_ERROR)
 						ret = myText->CountLines();
+					else if(tmp.IFindFirst("countphysicallines")!=B_ERROR)
+						ret=myText->CountPhysicalLines();
 					else if(tmp.IFindFirst("textlength")!=B_ERROR)
 						ret = myText->TextLength();
 					else if(tmp.IFindFirst("haschanged")!=B_ERROR)

@@ -659,7 +659,8 @@ LineNumber = TEXTEDIT GET TextEdit$, Option$, Search$
   LineNumber = Option$ = "Case-Sensitive-Find", Search$
 LineNumber = TEXTEDIT GET TextEdit$, Option$
   IsChanged = Option$ = "hasChanged"
-  LineNumber = Option$ = "countlines"
+  LineNumber = Option$ = "countlines" -- /n characters
+  LineNumber = Option$ = "countphysicallines" -- displayed lines
   LineNumber = Option$ = "currentline"
   YOffset = Option$ = "vertical-scrollbar"
   XOffset = Option$ = "horizontal-scrollbar"
@@ -673,6 +674,7 @@ TEXTEDIT SET TextEdit$, Option$, Value
   Option$ = "wordwrap", true/false
   Option$ = "editable", true/false
   Option$ = "color-case-sensitive", true/false
+  Options = "Cursor", ofset
   Option$ = "changed", true/false
   Option$ = "gotoline", LineNumber
   Option$ = "select", LineNumber
