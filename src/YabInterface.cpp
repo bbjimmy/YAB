@@ -2800,7 +2800,7 @@ void YabInterface::TextControl(const char* id, const char* option, const char* v
 							myTControl -> MakeFocus(focused);
 						}
 					}
-					if(tmpOption.IFindFirst("Curser")!=B_ERROR)
+					if(tmpOption.IFindFirst("Curser")!=B_ERROR || tmpOption.IFindFirst("Cursor")!=B_ERROR )
 					{
 						const char* str_int = tmpValue.String();
 						bool focused = true;
@@ -3796,7 +3796,7 @@ void YabInterface::TextSet(const char* title, const char* option, int value)
 						myText->SetCaseSensitive((bool)value);
 					else if(tmp.IFindFirst("tabwidth")!=B_ERROR)
 						myText->SetTabWidth(value);
-					else if(tmp.IFindFirst("curser")!=B_ERROR)
+					else if(tmp.IFindFirst("cursor")!=B_ERROR)
 						myText->Select(value, value);	
 					else if(tmp.IFindFirst("textwidth")!=B_ERROR)
 					
