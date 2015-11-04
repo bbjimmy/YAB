@@ -633,7 +633,7 @@ TEXTCONTROL SET TextControl$, Option$, Value$
   Value$="number" Only allow  to characters 0-9 and  ".", full stop.
   Value$=""alphanumeric" allow all characters.
  Option$="focus" Value$ = "true" / "false" Set the focus of TextControl$.
- Option$="Curser", Value$=str$(number) positions the curser, sets the focus to true.
+ Option$="Cursor", Value$=str$(number) positions the cursor, sets the focus to true.
 TEXTCONTROL CLEAR TextControl$
   Delete the text of the text control.
 Text$ = TEXTCONTROL GET$ TextControl$

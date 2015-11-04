@@ -8251,7 +8251,7 @@ Option$="type"
 Value$="number" Only allow  to characters 0-9 and  ".", full stop.
 Value$=""alphanumeric" allow all characters.
 Option$="focus" Value$ = "true" / "false" Set the focus of TextControl$.
-Option$="Curser", Value$=str$(number) positions the curser, sets the focus to true.
+Option$="Cursor", Value$=str$(number) positions the cursor, sets the focus to true.
 
 Related: textcontrol, textcontrol clear, textcontrol get$
 &
@@ -8441,7 +8441,7 @@ The textedit will notice when text was changed since the last time the option "c
 
 Given three parameters, the following options are valid for the textedit named TextEdit$ when the third parameter Value is a number:
 Option$ = "autocomplete-start" -- set the number of characters when auto-completion should kick in (default is 4)
-Option$ = "Cursor" -- place the curser at the ofset of Value characters from the start.
+Option$ = "Cursor" -- place the cursor at the ofset of Value characters from the start.
 Option$ = "gotoline" -- put the cursor to the line with number Value
 Option$ = "select" -- select the line with number Value
 Option$ = "tabwidth" -- set the tab width to Value (in pixel!), default is 28
