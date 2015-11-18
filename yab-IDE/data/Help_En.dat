@@ -6842,7 +6842,7 @@ TabNumber = TABVIEW GET TABVIEW$
 Description:
 Get the current opened tab. 
 
-Related: tabview, tabview sdd tasbview set
+Related: tabview, tabview add tasbview set
 
 &
 tabview set
