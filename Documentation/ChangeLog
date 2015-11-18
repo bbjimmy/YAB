@@ -1,5 +1,6 @@
 yab Version 1.7.5.1
--add cursor to textedit set command 
+-add cursor to textedit set command
+-add textedit get "countphysicallines"
 -fix ran() command
 -add small gutter to textedit view
 
