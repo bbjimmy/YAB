@@ -29,7 +29,7 @@ resource app_version {
 	minor  = 5,
 
 	variety = B_APPV_FINAL,
-	internal = 0,
+	internal = 1,
 
 	short_info = "Yab BASIC programming language",
 	long_info = "Yab allows fast prototyping with simple and clean code. yab contains a large number of BeAPI specific commands for GUI creation and much, much more."
