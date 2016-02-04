@@ -42,7 +42,7 @@ GCC = gcc
 GCC_OPT = $(DBG) $(OPT) -I. -I/boot/home/config/include/ -I/boot/home/config/include/ncurses/ -DHAVE_CONFIG -DUNIX $(HAIKUOPT)
 GPP = g++
 GPP_OPT = $(DBG) $(OPT) -I. -DHAVE_CONFIG -DUNIX $(HAIKUOPT)
-LD = g++
+LD = ld
 LD_OPT = -shared
 
 ##
