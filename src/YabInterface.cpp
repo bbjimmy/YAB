@@ -287,8 +287,12 @@ void YabInterface::MessageReceived(BMessage *message)
  */
 bool YabInterface::QuitRequested()
 {
+	//exiting = true;
+	//return false;
 	exiting = true;
-	return false;
+	ExitRequested();
+	snooze(20000);
+	return true;
 }
 
 void YabInterface::RefsReceived(BMessage *message){
