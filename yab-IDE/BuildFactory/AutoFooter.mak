@@ -20,4 +20,4 @@ main.o: main.c
 	$(GCC) $(GCC_OPT) -c main.c -o main.o
 
 clean:
-	rm -f core *.o column/*.o yabasic.output
+	rm -f core *.o yabasic.output

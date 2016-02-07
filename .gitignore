@@ -5,3 +5,4 @@ bison.output
 yab
 *.o
 libyab.so
+libyab_x86.so
