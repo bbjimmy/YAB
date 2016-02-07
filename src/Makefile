@@ -16,19 +16,24 @@
 ##
 HAIKUTAB = YabTabView.o
 HAIKUOPT = -DHAIKU -DLIBRARY_PATH=\"`finddir B_USER_SETTINGS_DIRECTORY`/yab\"
+#
 
-## find haiku systenm archetecture
+##
+## Find haiku systenm archetecture from the package file name
+##
 SYSTEMARCH:= $(shell catattr SYS:PACKAGE_FILE /boot/system/kernel_x86|cut --fields=4 -d-|cut -d. --fields 1)
-## find used archetecture
-USEDARCH := $(shell getarch)
+#
 
+##
+## Find used archetecture using the getarch command
+##
+USEDARCH := $(shell getarch)
 ifeq ($(SYSTEMARCH),$(USEDARCH))
 	ARCHADD:=
 else
 	ARCHADD := /$(USEDARCH)
-	
 endif
-
+#
 
 ##
 ## Use our own column list view
@@ -47,7 +52,7 @@ COLUMN = column/ColumnListView.o
 OPT = -O
 #
 ##
-## select libtrary name
+## set libtrary name
 ##
 YABLIBRARY := libyab.so
 ##
@@ -61,14 +66,15 @@ GCC = gcc
 GCC_OPT = $(DBG) $(OPT) -I. -I/boot/home/config/include/ -I/boot/home/config/include/ncurses/ -DHAVE_CONFIG -DUNIX $(HAIKUOPT)
 GPP = g++
 GPP_OPT = $(DBG) $(OPT) -I. -DHAVE_CONFIG -DUNIX $(HAIKUOPT)
-##GCC_VER_GTE48 := $(shell echo `gcc -dumpversion | cut -f1-2 -d.` \>= 4.8 | bc )
+##
+## find out if we need to change the library to libyab_x86.so and use gcc instead of ld
 ifeq ($(USEDARCH), x86)
 	LD = gcc
 	YABLIBRARY:=libyab_x86.so
 else
 	LD = ld
 endif
-
+#
 
 LD_OPT = -shared
 
