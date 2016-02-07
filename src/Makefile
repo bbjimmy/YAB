@@ -17,6 +17,18 @@
 HAIKUTAB = YabTabView.o
 HAIKUOPT = -DHAIKU -DLIBRARY_PATH=\"`finddir B_USER_SETTINGS_DIRECTORY`/yab\"
 
+## find haiku systenm archetecture
+SYSTEMARCH:= $(shell catattr SYS:PACKAGE_FILE /boot/system/kernel_x86|cut --fields=4 -d-|cut -d. --fields 1)
+## find used archetecture
+USEDARCH := $(shell getarch)
+
+ifeq ($(SYSTEMARCH),$(USEDARCH))
+	ARCHADD:=
+else
+	ARCHADD := /$(USEDARCH)
+	
+endif
+
 
 ##
 ## Use our own column list view
@@ -34,17 +46,25 @@ COLUMN = column/ColumnListView.o
 ##
 OPT = -O
 #
-
 ##
+## select libtrary name
+##
+YABLIBRARY := libyab.so
+##
+#
+
+
+
 ## GCC Options
 ##
 GCC = gcc
 GCC_OPT = $(DBG) $(OPT) -I. -I/boot/home/config/include/ -I/boot/home/config/include/ncurses/ -DHAVE_CONFIG -DUNIX $(HAIKUOPT)
 GPP = g++
 GPP_OPT = $(DBG) $(OPT) -I. -DHAVE_CONFIG -DUNIX $(HAIKUOPT)
-GCC_VER_GTE48 := $(shell echo `gcc -dumpversion | cut -f1-2 -d.` \>= 4.8 | bc )
-ifeq ($(GCC_VER_GTE48),1)
+##GCC_VER_GTE48 := $(shell echo `gcc -dumpversion | cut -f1-2 -d.` \>= 4.8 | bc )
+ifeq ($(USEDARCH), x86)
 	LD = gcc
+	YABLIBRARY:=libyab_x86.so
 else
 	LD = ld
 endif
@@ -75,12 +95,12 @@ YAB_OBJECTS = YabInterface.o YabWindow.o YabView.o YabBitmapView.o YabText.o Yab
 ##
 ## Compile and link
 ##
-yab: libyab.so YabMain.o main.o bison.o flex.o RdefApply YAB.rdef
-	$(GPP) $(GPP_OPT) -o $@ YabMain.o main.o bison.o flex.o $(LIBPATH) libyab.so $(LIB)
+yab: $(YABLIBRARY) YabMain.o main.o bison.o flex.o RdefApply YAB.rdef
+	$(GPP) $(GPP_OPT) -o $@ YabMain.o main.o bison.o flex.o $(LIBPATH) $(YABLIBRARY) $(LIB)
 	LIBRARY_PATH=$$LIBRARY_PATH:. $@ RdefApply YAB.rdef $@
 	addattr -t mime BEOS:TYPE application/x-vnd.be-elfexecutable $@
 
-libyab.so: $(YAB_OBJECTS)
+$(YABLIBRARY): $(YAB_OBJECTS)
 	$(LD) $(LD_OPT) -o $@ $+ $(LIBPATH) $(LIB)
 
 YabMain.o: YabMain.cpp 
@@ -141,15 +161,15 @@ YabControlLook.o: YabControlLook.h YabControlLook.cpp
 	$(GPP) $(GPP_OPT) -c YabControlLook.cpp -o YabControlLook.o
 
 clean:
-	rm -f core *.o column/*.o flex.* bison.* yab yabasic.output libyab.so
+	rm -f core *.o column/*.o flex.* bison.* yab yabasic.output $(YABLIBRARY) 
 
-install: yab libyab.so
-	mkdir -p /boot/system/non-packaged/bin
-	mkdir -p /boot/system/non-packaged/lib
-	mkdir -p /boot/system/non-packaged/develop/headers/yab/column
-	mkdir -p /boot/system/non-packaged/develop/lib
-	cp -f yab /boot/system/non-packaged/bin/
-	cp -f libyab.so /boot/system/non-packaged/lib/
-	cp -f libyab.so /boot/system/non-packaged/develop/lib
-	cp -f *.h /boot/system/non-packaged/develop/headers/yab/
-	cp -f column/*.h /boot/system/non-packaged/develop/headers/yab/column/
+install: yab $(YABLIBRARY)
+
+	
+	mkdir -p /boot/system/non-packaged/bin$(ARCHADD)
+	mkdir -p /boot/system/non-packaged/lib$(ARCHADD)
+	mkdir -p /boot/system/non-packaged/develop/lib$(ARCHADD)
+	cp -f yab /boot/system/non-packaged/bin$(ARCHADD)/
+	cp -f $(YABLIBRARY) /boot/system/non-packaged/lib$(ARCHADD)/
+	cp -f $(YABLIBRARY) /boot/system/non-packaged/develop/lib$(ARCHADD)/
+	
