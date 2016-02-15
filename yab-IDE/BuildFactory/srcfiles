@@ -1,9 +1,12 @@
+config.h
 bison.h
 function.c
+global.h
 main.c
 RdefApply
 yabasic.bison
 yabasic.flex
 yabasic.h
 YabInterface.h
+YabList.h
 YabMain.cpp
