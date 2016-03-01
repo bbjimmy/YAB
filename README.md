@@ -27,3 +27,8 @@ AUTHOR: jan__64
 yab homepage: http://yab.orgfree.com/
 
 yab forum:  http://yab.orgfree.com/forum/
+
+IRC channel:
+Network: Freenode
+Channel: #yab
+
