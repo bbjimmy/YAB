@@ -19,12 +19,12 @@ while(not leavingLoop)
 		if(DEBUG and msg$(everyCommand)<>"") print msg$(everyCommand)
 
 		switch(msg$(everyCommand))
-			case "_QuitRequested":
-			case "MainWindow:_QuitRequested":
+			case "_QuitRequested"
+			case "MainWindow:_QuitRequested"
 				leavingLoop = true
 				break
-			default:
-				break
+			default
+				
 		end switch
 
 	next everyCommand

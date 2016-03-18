@@ -19,16 +19,16 @@ while(not leavingLoop)
 		if(DEBUG and msg$(everyCommand)<>"") print msg$(everyCommand)
 
 		switch(msg$(everyCommand))
-			case "_QuitRequested":
+			case "_QuitRequested"
 			case "MainView:_QuitRequested":
-			case translate$("MainView:File:Quit"):
+			case translate$("MainView:File:Quit")
 				leavingLoop = true
 				break
-			case translate$("MainView:Help:Help"):
+			case translate$("MainView:Help:Help")
 				alert "The Help button was pressed", "Cool !", "idea" 
 				break
-			default:
-				break
+			default
+				
 		end switch
 
 	next everyCommand
