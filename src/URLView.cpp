@@ -1051,7 +1051,8 @@ bool URLView::IsFTPLink() {
 bool URLView::IsHTMLLink() {
 	// Is this link an HTML or file link?
 	return( (url->FindFirst( "http://" ) == 0 )  ||
-			(url->FindFirst( "file://" ) == 0 ) );
+			(url->FindFirst( "file://" ) == 0 )  ||
+			(url->FindFirst( "https://" ) == 0 ) );
 }
 
 
