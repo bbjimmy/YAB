@@ -1,0 +1,108 @@
+////////////////////////////////////////////////////////
+export sub new_popup(name$, view$, radio)
+static size
+size=size+1
+dim popup$(size,12,1) // name, view, selections ( up to 10)
+dim  popup(size,2) //radio flag, 1=radio, 0=not radio
+popup$(size,1,0)=name$
+popup$(size,2,0)=view$
+popup(size,1)=radio
+return size
+end sub
+////////////////////////////////////////////////////////
+
+export sub add_popup_selection$(popup,number,selection$)
+popup$(popup,number+2,0)=selection$
+
+return "ok"
+end sub
+
+////////////////////////////////////////////////////////
+
+export sub popup_select$(x,selection$)
+local i
+for i=3 to 12
+	if popup$(x,i,0)=selection$ then
+		if  popup(x,1)=1 then
+			popup(x,2)=i
+			return "ok"
+		else
+			if popup$(x,i,1)="√ " then
+				popup$(x,i,1)=""
+			else
+				popup$(x,i,1)="√ "
+			endif 
+			return "ok"
+		endif	
+	endif
+next
+
+
+
+return "error"
+end sub
+
+////////////////////////////////////////////////////////
+
+export sub popupdisplay$(x,y,popup)
+local i, MenuItems$
+MenuItems$=""
+if popup(popup,1)=1 then
+	for i=3 to 12
+		if popup$(popup,i,0)<>"" then
+			if popup(popup,2)=i  then
+				MenuItems$=MenuItems$+"√ "+popup$(popup,i,0)+"|"
+			else
+				MenuItems$=MenuItems$+"  "+popup$(popup,i,0)+"|"
+			endif
+		endif
+		
+	next
+endif	
+if popup(popup,1)=0 then
+
+	for i=3 to 10
+		if popup$(popup,i,0)<>"" then
+			MenuItems$=MenuItems$+popup$(popup,i,0)+"|"
+		endif
+	next
+endif	
+if popup(popup,1)=3 then
+	for i=3 to 10
+		if popup$(popup,i,0)<>"" then
+			MenuItems$=MenuItems$+popup$(popup,i,1)+popup$(popup,i,0)+"|"
+		endif
+	next
+endif
+
+MenuItems$=left$(MenuItems$,len(MenuItems$)-1)
+
+Selected$ = POPUPMENU x,y, MenuItems$, popup$(popup,2,0)
+return Selected$
+end sub
+////////////////////////////////////////////////////////
+
+export sub getselected$(x)
+local return$
+return$=""
+//return popup$(x,popup(x,2),0)
+if popup (x,1)=1 then
+	if popup(x,2) then
+		return "option"+str$(popup(x,2)-2)
+	else return ""
+	endif
+endif
+if popup (x,1)=3 then
+	for i=3 to 12
+	if popup$(x,i,1) ="√ " then
+		if return$="" then
+			return$="option"+str$(i-2)
+		else
+			return$=return$+"|option"+str$(i-2)
+		endif
+	endif
+next	
+return return$
+endif	
+end sub
+
