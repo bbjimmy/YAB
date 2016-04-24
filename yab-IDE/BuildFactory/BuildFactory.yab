@@ -60,6 +60,7 @@ Output_file$	= peek$("argument")
 Input_file$		= peek$("argument")
 appsig$         = peek$("argument")
 run_from_ide$		= peek$("argument")
+if appsig$="" appsig$=getappsig$(Input_file$)
 if appsig$="" appsig$="application/x-vnd.yab-app"
 SetAppSig(appsig$)
 
@@ -366,6 +367,34 @@ sub SetAppSig(sig$)
 	system(cmd$)
 
 end sub
+
+/////////////////////////////////////////////////////////////
+// set the application signature to match the mimetype declared in the file.
+/////////////////////////////////////////////////////////////
+
+
+sub getappsig$(infil$)
+local x,a$,i,ii
+open #22,infil$,"r" 
+for i=1 to 2
+line input #22 a$
+a$=lower$(a$)
+ii = instr(a$,"mimetype")
+if ii<>0 then
+a$=right$(a$,len(a$) - (ii+8))
+a$=trim$(a$)
+a$=right$(a$,len(a$)-1)
+a$=left$(a$,len(a$)-1)
+close #22
+return a$
+endif
+next
+close #22
+return ""
+
+
+end sub
+
 
 ////////////////////////////////////////
 ////////////////////////////////////////

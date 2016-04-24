@@ -2248,7 +2248,8 @@ sub Building()
 	isEmpty = false
 
 	textcontrol 10,50 to 380,70, "BuildPath", "Target file name:", binName$, "BuildWindow"
-	AppSig$="application/x-vnd.yab-app"
+	AppSig$ = getappsig$(globalAllNames$(globalCurrentText))
+	if AppSig$="" AppSig$="application/x-vnd.yab-app"
 	textcontrol 10,80 to 380,100, "AppSig", "Application Signature:", AppSig$, "BuildWindow"
 	//button 390,50 to 490,70, "BuildBrowse", "Browse", "BuildWindow"
 
@@ -3925,5 +3926,27 @@ if x>0 then
 	searchLineNum = textedit get "Text"+str$(globalCurrentText), "Find", TextPart$ 
 
 endif
+
+end sub
+
+sub getappsig$(infil$)
+local x,a$,i,ii
+open #122,infil$,"r" 
+for i=1 to 2
+line input #122 a$
+a$=lower$(a$)
+ii = instr(a$,"mimetype")
+if ii<>0 then
+a$=right$(a$,len(a$) - (ii+8))
+a$=trim$(a$)
+a$=right$(a$,len(a$)-1)
+a$=left$(a$,len(a$)-1)
+close #122
+return a$
+endif
+next
+close #122
+return ""
+
 
 end sub

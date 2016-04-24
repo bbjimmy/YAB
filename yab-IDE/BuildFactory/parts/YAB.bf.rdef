@@ -21,18 +21,3 @@ resource vector_icon {
 };
 
 
-resource app_signature "application/x-vnd.yab-app";
-
-resource app_version {
-	major  = 1,
-	middle = 7,
-	minor  = 5,
-
-	variety = B_APPV_FINAL,
-	internal = 2,
-
-	short_info = "Yab BASIC programming language",
-	long_info = "Yab allows fast prototyping with simple and clean code. yab contains a large number of BeAPI specific commands for GUI creation and much, much more."
-};
-
-resource app_flags 1;
