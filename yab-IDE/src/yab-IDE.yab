@@ -2249,7 +2249,8 @@ sub Building()
 
 	textcontrol 10,50 to 380,70, "BuildPath", "Target file name:", binName$, "BuildWindow"
 	AppSig$ = getappsig$(globalAllNames$(globalCurrentText))
-	if AppSig$="" AppSig$="application/x-vnd.yab-app"
+	
+	if AppSig$="" AppSig$="application/x-vnd."+binName$
 	textcontrol 10,80 to 380,100, "AppSig", "Application Signature:", AppSig$, "BuildWindow"
 	//button 390,50 to 490,70, "BuildBrowse", "Browse", "BuildWindow"
 
