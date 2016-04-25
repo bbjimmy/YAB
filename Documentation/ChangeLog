@@ -1,3 +1,15 @@
+yab Version 1.7.5.3
+- gcc4 now compiles
+- fix system shutdown bug
+- remove un-needed BuildFactory files
+- add https:// to texturl
+- BuildFactory use declared appsig
+-yab-IDE use declared appsig, or use filename for appsig
+
+
+yab Version 1.7.5.2
+- use public rgb_color mix_color()
+
 yab Version 1.7.5.1
 -add cursor to textedit set command
 -add textedit get "countphysicallines"
