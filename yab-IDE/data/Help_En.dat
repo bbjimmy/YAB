@@ -743,6 +743,9 @@ Description:
 The mod-function divides its two arguments and computes the remainder. Note, that a/b-int(a/b) and mod(a,b) are always equal.
 
 Example:
+//*** requires ncurses support compiled in ***
+//See Documentation/Advanced for info.
+
 clear screen 
 print at(10,10) "Please wait "
 p$="-\|/" 
@@ -817,6 +820,9 @@ Description:
 The ran-function returns a random number. If no argument is given, the number returned is in the range from 0 to 1; where only 0 is a possible value; 1 will never be returned. If an argument is supplied, the number returned will be in the range from 0 up to this argument, whereas this argument itself is not a possible return value.
 
 Example:
+//*** requires ncurses support compiled in ***
+//See Documentation/Advanced for info.
+
 clear screen 
 c=peek("screenwidth")-1 
 l=peek("screenheight") 
@@ -854,6 +860,8 @@ Description:
 Return +1, -1 or 0, if the single argument is positive, negative or zero.
 
 Example:
+//*** requires ncurses support compiled in ***
+//See Documentation/Advanced for info.
 clear screen 
 dim c$(3):c$(1)="red":c$(2)="white":c$(3)="green" 
 do 
@@ -1463,6 +1471,8 @@ The goto-statement passes the flow of execution to another point within your pro
 goto is normally considered obsolete and harmful, however in yab it may be put to the good use of leaving loops (e.g. while or for) prematurely. Note however, that subroutines may not be left with the goto-statement.
 
 Example:
+//*** requires ncurses support compiled in ***
+//See Documentation/Advanced for info.
 clear screen
 print "Please press any key to continue." 
 print "(program will continue by itself within 10 seconds)" 
@@ -1831,6 +1841,8 @@ Description:
 The repeat-loop executes all the statements up to the final until-keyword over and over. The loop is executed as long as the condition, which is specified with the until-clause, becomes true. By construction, the statements within the loop are executed at least once.
 
 Example:
+//*** requires ncurses support compiled in ***
+//See Documentation/Advanced for info.
 x=0 
 clear screen 
 print "This program will print the numbers from 1 to 10" 
@@ -2351,6 +2363,8 @@ Description:
 The read-statement retrieves literal data, which is stored within data-statements elsewhere in your program.
 
 Example:
+//*** requires ncurses support compiled in ***
+//See Documentation/Advanced for info.
 read num 
 dim col$(num) 
 for a=1 to num:read col$(a):next a 
@@ -3133,7 +3147,9 @@ at()
 Name:
 at() -- can be used in the print-command to place the output at a specified position
 
-Synopsis: 
+Synopsis:
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info. 
 clear screen 
 ... 
 print at(a,b) 
@@ -3164,7 +3180,9 @@ Name:
 clear screen -- erases the text window
 
 Synopsis:
-clear screen 
+clear screen
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info. 
 
 Description:
 clear screen erases the text window (the window where the output of print appears).
@@ -3215,7 +3233,11 @@ color
 Name:
 color -- print with color
 
-Synopsis: 
+Synopsis:
+
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info. 
+
 print color(fore$) text$ 
 print color(fore$,back$) text$ 
 
@@ -3249,7 +3271,11 @@ colour
 Name:
 colour -- see color
 
-Synopsis: 
+Synopsis:
+
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info. 
+ 
 print colour(fore$) text$ 
 print colour(fore$,back$) text$ 
 
@@ -3293,6 +3319,10 @@ Name:
 getscreen$() -- returns a string representing a rectangular section of the text terminal
 
 Synopsis:
+
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info.
+
 a$=getscreen$(2,2,20,20) 
 
 Description:
@@ -3326,6 +3356,10 @@ Name:
 inkey$ -- wait, until a key is pressed
 
 Synopsis:
+
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info.
+
 clear screen 
 foo$=inkey$ 
 inkey$ 
@@ -3529,9 +3563,17 @@ print foo using "##.###"
 Print the number foo with as many digits before and after the decimal dot as given by the number of '#'-signs. See the entries for using and str$ for a detailed description of this format.
 
 print reverse "foo"
+
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info.
+
 As all the print-variants to follow, this form of the print-statement can only be issued after clear screen has been called. The strings and numbers after the reverse-clause are simply printed inverse (compared to the normal print-statement).
 
 print at(10,10) a$,b
+
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info.
+
 Print at the specified (x,y)-position. This is only allowed after clear screen has been called. You may want to query peek$("screenwidth") or peek$("screenheight") to learn the actual size of your screen. You may add a semicolon to suppress the implicit newline.
 
 print @(10,10) a$,b
@@ -3572,6 +3614,10 @@ Name:
 putscreen -- draw a rectangle of characters into the text terminal
 
 Synopsis 
+
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info.
+
 clear screen 
 ... 
 a$=getscreen$(5,5,10,10) 
@@ -3607,6 +3653,10 @@ Name:
 reverse -- print reverse (background and foreground colors exchanged)
 
 Synopsis: 
+
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info.
+
 clear screen 
 ... 
 print reverse "foo" 
@@ -3650,7 +3700,12 @@ Name:
 screen -- as clear screen clears the text window
 
 Synopsis:
+
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info.
+
 clear screen 
+
 
 Description:
 The keyword screen appears only within the sequence clear screen; please see there for a description.
@@ -3796,6 +3851,10 @@ Name:
 at() -- can be used in the print-command to place the output at a specified position
 
 Synopsis: 
+
+*** requires ncurses support compiled in ***
+See Documentation/Advanced for info.
+
 clear screen 
 ... 
 print at(a,b) 
@@ -3956,7 +4015,7 @@ import foo
 Description:
 The import-statment imports a library. It expects a single argument, which must be the name of a library (without the trailing .yab). This library will then be read and parsed and its subroutines (and variables) will be made available within the main program.
 
-Libraries will first be searched within the current directory (i.e. the directory within which you have invoked yab), then within the special directory /boot/home/config/lib/yab. The location of this second directory may be changed with the option -library.
+Libraries will first be searched within the current directory (i.e. the directory within which you have invoked yab), then within the special directory /boot/home/config/settings/yab. The location of this second directory may be changed with the option -library.
 
 Example:
 import lib 
@@ -4726,10 +4785,10 @@ peek(a), peek(#a)
 Read a single character from the file a (which must be open of course).
 
 peek("screenheight")
-Return the height in characters of the window, wherein yab runs. If you have not called clear screen yet, this peekwill return 0, regardless of the size of your terminal.
+Return the height in characters of the window, wherein yab runs. This will return 25. With ncurses support compiled in, if you have not called clear screen yet, this peek will return 0, regardless of the size of your terminal.
 
 peek("screenwidth")
-Return the width in characters of the window, wherein yab runs. If you have not called clear screen yet, this peekwill return 0, regardless of the size of your terminal.
+Return the width in characters of the window, wherein yab runs. This will return 80. With ncurses support compiled in, if you have not called clear screen yet, this peekwill return 0, regardless of the size of your terminal.
 
 peek("desktopheight")
 Return the height in pixels of the curent Desktop. 
@@ -4829,7 +4888,7 @@ peek$("library")
 Return the name of the library, this statement is contained in. See the import-command for a detailed description or for more about libraries.
 
 peek$("os")
-This peek returns the name of the operating system, where your yab version was compiled on. This can be either "BeOS" or "ZETA". On BeOS R5 it will always be "BeOS" while on ZETA it can be both. To check whether the system is really running ZETA do: RealOS$ = upper$(system$("uname -o"))
+This peek returns the name of the operating system, on wich your yab version was compiled. This version of yab can only return "Haiku" as it can only run on Haiku. If there are future variants of Haiku, This should identify the variant.
 
 peek$("env","NAME")
 Return the environment variable specified by NAME (which may be any string expression). Which kind of environment variables are available on your system depends, as well as their meaning, on your system; however typing env on the commandline will produce a list. Note, that peek$("env",...) can be written as peek$("environment",...) too.

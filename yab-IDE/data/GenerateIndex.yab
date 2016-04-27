@@ -1,3 +1,4 @@
+#!yab
 f1 = open("Help_En.dat", "r")
 f2 = open("Help_En_Index.dat", "w")
 
