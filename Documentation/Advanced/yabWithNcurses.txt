@@ -1,0 +1,35 @@
+Several commands require ncurses compiled in to work. These are all related to terminal functions. If one needs to run a terminal app that uses these functions one needs to re-compile yab. 
+
+Compiling yab with ncurses
+
+1 change src/global.h line 1
+
+from :
+
+//define BUILD_NCURSES
+
+to: 
+
+#define BUILD_NCURSES
+
+2  change src/makefile line 92 
+
+from:
+
+LIB = -lbe -lroot -ltranslation -ltracker -lmedia  
+
+to:
+
+LIB = -lbe -lroot -ltranslation -ltracker -lmedia  -lncurses
+
+3 install ncurses and ncurses devel
+
+
+4
+run make in the src directory
+
+NOTE:
+
+An ncurses enabled  version of yab and libyab.so are not compatible with the standard version and may break working apps if installed.
+
+
