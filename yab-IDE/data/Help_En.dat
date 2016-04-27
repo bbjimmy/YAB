@@ -5922,8 +5922,6 @@ The target program should have the signature Application$. The default signature
 You can change the signature for yab scripts when you add a comment in the first or second line of your program like this:
 // mimetype "application/x-vnd.myapp"
 
-For binaries, change the signature using the external QuickRes program.
-
 The command returns one of the following error codes:
    0: Message was delivered
    1: The destination program was not found
