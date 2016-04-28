@@ -4,7 +4,7 @@ yab Version 1.7.5.3
 - remove un-needed BuildFactory files
 - add https:// to texturl
 - BuildFactory use declared appsig
--yab-IDE use declared appsig, or use filename for appsig
+- yab-IDE use declared appsig, or use filename for appsig
 
 
 yab Version 1.7.5.2
