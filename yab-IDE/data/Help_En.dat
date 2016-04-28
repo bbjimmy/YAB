@@ -8525,7 +8525,7 @@ Set the web/email/ftp address at (x,y) with the label Label$ and the url Address
 This widget is quite nice, it launches the appropriate application when clicked, it supports
 a right-click popup-menu and you can drag the url to create either a person file or a bookmark.
 Email can be either of the style: "mailto:foo@bar.com" or just "foo@bar.com"
-A web url starts either with "http://" or with "file://"
+A web url starts either with "http://". "https://" or with "file://"
 And a ftp address starts with "ftp://"
 
 Related: texturl color
