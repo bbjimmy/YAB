@@ -4893,6 +4893,14 @@ This peek returns the name of the operating system, on wich your yab version was
 peek$("env","NAME")
 Return the environment variable specified by NAME (which may be any string expression). Which kind of environment variables are available on your system depends, as well as their meaning, on your system; however typing env on the commandline will produce a list. Note, that peek$("env",...) can be written as peek$("environment",...) too.
 
+peek$("refsreceived")
+Returns TrackerItem which you used 'open with...' your application on, or the path and name of the file that was double-clicked. The  double-clicked file must have an attribute "BEOS:PREF_APP" set to the yab applications signature and the this application signature must be registered in the FileTypes prefflet.
+
+Save a data file and then use :
+ATTRIBUTE SET "Mime:, "BEOS:PREF_APP", "application/x-vnd.yourcool-app", Filename$
+
+Where "application/x-vnd.yourcool-app" is the apoplication signature and Filename$ is the name of the data file. Double-clicking the data file will open the yab application. peek$("refsreceived") will return this data file pathame.
+
 peek$("argument")
 Return one of the arguments, that have been passed to yab at invocation time (the next call will return the the second argument, and so on). E.g. if yab has been called like this: yab foo.yab bar baz, then the first call to peek$("argument") will return bar. This is because foo.yab is treated as the name of the program to run, whereas bar and baz are considered arguments to this program, which are passed on the commandline. The second call to peek$("argument") will return baz. Note, that peek$("argument") can be written as peek$("arguments").
 Finally you will want to check out the corresponding function peek("argument").
@@ -4902,16 +4910,14 @@ print "You have supplied these arguments: "
 while(peek("argument")) 
 	print peek("argument"),peek$("argument") 
 wend 
+
 Explanation:
 
 If you save this program in a file foo.yab and execute it via yab t.yab a b c, your will get this output:
 
-&exverbatim
 3a 
 2b 
 1c 
-&exverbatim
-
 
 Related: peek, poke, open
 

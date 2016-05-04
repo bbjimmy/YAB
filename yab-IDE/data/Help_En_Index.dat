@@ -338,431 +338,427 @@ peek
 136435
 peek$
 141988
-3a 
-144889
-
-144910
 poke
-144945
+145605
 rem
-146183
+146843
 sleep
-147297
+147957
 system$()
-147656
+148316
 system()
-148245
+148905
 thread get
-148868
+149528
 thread remove
-150217
+150877
 time$
-151140
+151800
 to 
-152309
+152969
 //
-152863
+153523
 :
-153367
+154027
 &Bitmaps
-154000
+154660
 &
-154002
+154662
 bitmap
-154009
+154669
 bitmap color
-154368
+155028
 bitmap get
-154720
+155380
 bitmap image
-157845
+158505
 bitmap remove
-158132
+158792
 bitmap save
-158360
+159020
 screenshot
-158757
+159417
 
-159003
+159663
 
-159013
+159673
 draw bitmap
-159027
+159687
 draw circle
-159893
+160553
 draw curve
-160552
+161212
 draw dot
-161537
+162197
 draw ellipse
-162118
+162778
 draw flush
-162857
+163517
 draw get
-163987
+164647
 draw get$
-165933
+166593
 draw image
-167346
+168006
 draw line
-169252
+169912
 draw rect
-169824
+170484
 draw set
-170480
+171140
 draw text
-173849
+174509
 &
-175019
+175679
 ismousein()
-175031
+175691
 keyboard message$()
-175753
+176413
 message$
-177642
+178302
 message send
-179975
+180635
 mouse message$()
-181025
+181685
 mousemove$
-183049
+183709
 mouse set
-183705
+184365
 shortcut
-184211
+184871
 "S" for the shift key
-185011
+185671
 
-185163
+185823
 "O" for ALT-O
-185313
+185973
 
-185378
+186038
 ALT-X
-185802
+186462
 
-185845
+186505
 &Printing
-186796
+187456
 &
-186798
+187458
 printer
-186806
+187466
 printer setup
-189179
+189839
 &
-190203
+190863
 menu
-190208
+190868
 Menu$ = "--"
-190676
+191336
 then the menu item will be a separator line.
-190733
+191393
 "S" for the shift key
-191206
+191866
 These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
-191455
+192115
 "O" for ALT-O
-191506
+192166
 
-191571
+192231
 For the menu Head$ "File":
-192369
+193029
 
-192619
+193279
 menu set
-193711
+194371
 Option$ = "Disable" -- grey out the item so it cannot be selected anymore
-194514
+195174
 
-194663
+195323
 popupmenu
-195774
+196434
 submenu
-197422
+198082
 Menu$ = "--"
-198006
+198666
 then the submenu item will be a separator line.
-198066
+198726
 "S" for the shift key
-198542
+199202
 These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
-198791
+199451
 "O" for ALT-O
-198842
+199502
 
-198907
+199567
 submenu set
-201793
+202453
 Option$ = "Disable" -- grey out the item so it cannot be selected anymore
-202669
+203329
 
-202818
+203478
 &Boxview
-203572
+204232
 &
-203574
+204234
 boxview
-203582
+204242
 boxview set
-205007
+205667
 canvas
-205238
+205898
 layout
-205676
+206336
 &
-206898
+207558
 scrollbar
-206908
+207568
 scrollbar get
-207128
+207788
 scrollbar set
-207407
+208067
 &
-208839
+209499
 splitview
-208849
+209509
 splitview get
-209787
+210447
 splitview set
-210017
+210677
 &
-210550
+211210
 stackview
-210560
+211220
 stackview get
-212674
+213334
 stackview set
-212965
+213625
 &
-213422
+214082
 tabview
-213430
+214090
 tabview add
-213710
+214370
 tabview get
-214607
+215267
 tabview set
-214806
+215466
 &
-214990
+215650
 view
-214995
+215655
 view dropzone
-215139
+215799
 view get
-215424
+216084
 view remove
-215699
+216359
 &
-216190
+216850
 button
-216197
+216857
 button image
-217512
+218172
 calendar
-219253
+219913
 calendar get$
-220920
+221580
 calendar set
-221413
+222073
 checkbox
-221838
+222498
 checkbox image
-223095
+223755
 checkbox set
-225322
+225982
 colorcontrol
-225621
+226281
 colorcontrol get
-227643
+228303
 colorcontrol set
-228251
+228911
 columnbox
-228587
+229247
 columnbox add
-233797
+234457
 columnbox clear
-234978
+235638
 columnbox color
-235346
+236006
 columnbox column
-236391
+237051
 columnbox count
-237550
+238210
 columnbox get
-237988
+238648
 columnbox get$
-238523
+239183
 columnbox remove
-239066
+239726
 columnbox select
-239423
+240083
 &
-239879
+240539
 dropbox
-239887
+240547
 dropbox add
-241092
+241752
 dropbox clear
-241366
+242026
 dropbox count
-241617
+242277
 dropbox get$
-241867
+242527
 dropbox remove
-242161
+242821
 dropbox select
-242720
+243380
 listbox
-242999
+243659
 listbox add
-245964
+246624
 listbox clear
-246442
+247102
 listbox count
-246737
+247397
 listbox get
-247133
+247793
 listbox get$
-247620
+248280
 listbox remove
-248038
+248698
 listbox select
-248377
+249037
 listbox sort
-249022
+249682
 &
-249731
+250391
 option color
-249744
+250404
 option set
-249954
+250614
 radiobutton
-250846
+251506
 radiobutton set
-252580
+253240
 &
-252984
+253644
 slider
-252991
+253651
 slider color
-253712
+254372
 slider get
-254135
+254795
 slider label
-254362
+255022
 slider set
-254613
+255273
 spincontrol
-255225
+255885
 spincontrol get
-255522
+256182
 spincontrol set
-255752
+256412
 statusbar
-255972
+256632
 statusbar set
-257441
+258101
 text
-257939
+258599
 text set
-259127
+259787
 &
-260249
+260909
 textcontrol
-260261
+260921
 textcontrol clear
-260786
+261446
 textcontrol get$
-261024
+261684
 textcontrol set
-261316
+261976
 textedit
-262442
+263102
 textedit add
-263105
+263765
 textedit clear
-263430
+264090
 textedit color
-263772
+264432
 textedit get
-264753
+265413
 textedit get$
-266445
+267105
 textedit set
-266884
+267544
 &
-270091
+270751
 texturl
-270099
+270759
 texturl color
-270707
+271367
 tooltip
-271087
+271747
 tooltip color
-272767
+273427
 &
-274050
+274710
 treebox
-274058
+274718
 treebox add
-274421
+275081
 treebox clear
-274946
+275606
 treebox collapse
-275209
+275869
 treebox count
-275507
+276167
 treebox expand
-275815
+276475
 treebox get$
-276098
+276758
 treebox remove
-276425
+277085
 treebox select
-276910
+277570
 treebox sort
-277213
+277873
 &
-277507
+278167
 localize
-277516
+278176
 # A comment starts with a #
-279080
+279740
 
-279204
+279864
 translate$()
-280770
+281430
 &Sound
-281523
+282183
 &
-281525
+282185
 beep
-281530
+282190
 bell
-281764
+282424
 sound play
-282127
+282787
 sound stop
-283052
+283712
 sound wait
-283426
+284086
 &Window
-283831
+284491
 &
-283833
+284493
 alert
-283839
+284499
 filepanel
-285617
+286277
 window open
-288907
+289567
 window close
-291622
+292282
 window count
-292114
+292774
 window get
-292741
+293401
 window set
-294462
+295122
