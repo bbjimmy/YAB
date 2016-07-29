@@ -156,609 +156,509 @@ chr$()
 62748
 glob()
 63610
-abc matches a* 
-64571
-
-64759
 hex$()
-64768
+64746
 instr()
-65258
+65236
 left$()
-66272
+66250
 len()
-67573
+67551
 lower$()
-67947
+67925
 ltrim$()
-68355
+68333
 rtrim$()
-69007
+68985
 mid$()
-69655
+69633
 right$()
-70923
+70901
 split()
-72242
-Please enter a line: a 
-74879
-
-75373
+72220
 str$()
-75399
-string |  Result for converting 1000*pi |      Description
-76805
-
-80202
+75355
 token()
-80504
-Please enter a line: a 
-83027
-
-83425
+80438
 trim$()
-83452
+83364
 upper$()
-84065
+83977
 val()
-84713
+84625
 &
-85427
+85339
 at()
-85432
+85344
 clear screen
-86805
+86717
 close
-87603
+87515
 color
-88074
+87986
 colour
-89272
+89184
 eof
-89504
+89416
 getscreen$()
-90095
+90007
 inkey$
-91327
+91239
 input
-92630
-Please enter the name of a file to read: test.yab 
-94024
-
-94161
+92542
 line input
-94196
+94086
 open
-95038
+94928
 print
-98165
+98055
 putscreen
-101570
+101460
 reverse
-102549
+102439
 screen
-103412
+103302
 seek()
-103727
+103617
 tell
-105289
+105179
 using
-105950
+105840
 #
-106991
+106881
 at()
-108364
+108254
 ;
-109727
+109617
 &
-110373
+110263
 end sub
-110381
+110271
 export
-110813
-import foo 
-111860
-
-112158
-Calling subroutine foo.bar (okay) ... 
-112259
-
-112573
+110703
 import
-113108
-rem  Make the subroutine x easily available outside this library 
-114044
-
-114220
-0 
-114269
-
-114427
+112954
 local
-114712
+114514
 numparams
-116172
+115974
 return
-117623
+117425
 static
-119325
-1 1 
-120127
-
-120150
+119127
 sub
-120345
+120125
 &Attributes
-122634
+122414
 &
-122636
+122416
 attribute clear
-122652
+122432
 attribute get
-122891
+122671
 attribute get$
-123622
+123402
 attribute set
-125280
+125060
 bind()
-125866
+125646
 clipboard copy
-126638
+126418
 clipboard paste$
-127340
+127120
 compile
-127962
+127742
 date$
-128518
+128298
 doc
-130243
+130023
 docu$
-131398
+131178
 error
-132220
----Error in t.yab, line 2: Oh no ... 
-132863
-
-132919
+132000
 execute$()
-132933
-print foo$(a$,b$) 
-133968
-
-133981
+132691
 execute()
-134021
+133757
 exit
-134426
+134162
 iscomputeron
-134820
+134556
 pause
-135208
+134944
 peek
-136435
+136171
 peek$
-141988
+141724
 poke
-145605
+145341
 rem
-146843
+146579
 sleep
-147957
+147693
 system$()
-148316
+148052
 system()
-148905
+148641
 thread get
-149528
+149264
 thread remove
-150877
+150613
 time$
-151800
+151536
 to 
-152969
+152705
 //
-153523
+153259
 :
-154027
+153763
 &Bitmaps
-154660
+154396
 &
-154662
+154398
 bitmap
-154669
+154405
 bitmap color
-155028
+154764
 bitmap get
-155380
+155116
 bitmap image
-158505
+158241
 bitmap remove
-158792
+158528
 bitmap save
-159020
+158756
 screenshot
-159417
+159153
 
-159663
+159399
 
-159673
+159409
 draw bitmap
-159687
+159423
 draw circle
-160553
+160289
 draw curve
-161212
+160948
 draw dot
-162197
+161933
 draw ellipse
-162778
+162514
 draw flush
-163517
+163253
 draw get
-164647
+164383
 draw get$
-166593
+166329
 draw image
-168006
+167742
 draw line
-169912
+169648
 draw rect
-170484
+170220
 draw set
-171140
+170876
 draw text
-174509
+174245
 &
-175679
+175415
 ismousein()
-175691
+175427
 keyboard message$()
-176413
+176149
 message$
-178302
+178038
 message send
-180635
+180371
 mouse message$()
-181685
+181421
 mousemove$
-183709
+183445
 mouse set
-184365
+184101
 shortcut
-184871
-"S" for the shift key
-185671
-
-185823
-"O" for ALT-O
-185973
-
-186038
-ALT-X
-186462
-
-186505
+184607
 &Printing
-187456
+187126
 &
-187458
+187128
 printer
-187466
+187136
 printer setup
-189839
+189509
 &
-190863
+190533
 menu
-190868
-Menu$ = "--"
-191336
-then the menu item will be a separator line.
-191393
-"S" for the shift key
-191866
-These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
-192115
-"O" for ALT-O
-192166
-
-192231
-For the menu Head$ "File":
-193029
-
-193279
+190538
 menu set
-194371
-Option$ = "Disable" -- grey out the item so it cannot be selected anymore
-195174
-
-195323
+193953
 popupmenu
-196434
+195994
 submenu
-198082
-Menu$ = "--"
-198666
-then the submenu item will be a separator line.
-198726
-"S" for the shift key
-199202
-These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
-199451
-"O" for ALT-O
-199502
-
-199567
+197642
 submenu set
-202453
-Option$ = "Disable" -- grey out the item so it cannot be selected anymore
-203329
-
-203478
+201947
 &Boxview
-204232
+203704
 &
-204234
+203706
 boxview
-204242
+203714
 boxview set
-205667
+205139
 canvas
-205898
+205370
 layout
-206336
+205808
 &
-207558
+207030
 scrollbar
-207568
+207040
 scrollbar get
-207788
+207260
 scrollbar set
-208067
+207539
 &
-209499
+208971
 splitview
-209509
+208981
 splitview get
-210447
+209919
 splitview set
-210677
+210149
 &
-211210
+210682
 stackview
-211220
+210692
 stackview get
-213334
+212806
 stackview set
-213625
+213097
 &
-214082
+213554
 tabview
-214090
+213562
 tabview add
-214370
+213842
 tabview get
-215267
+214739
 tabview set
-215466
+214938
 &
-215650
+215122
 view
-215655
+215127
 view dropzone
-215799
+215271
 view get
-216084
+215556
 view remove
-216359
+215831
 &
-216850
+216322
 button
-216857
+216329
 button image
-218172
+217644
 calendar
-219913
+219385
 calendar get$
-221580
+221052
 calendar set
-222073
+221545
 checkbox
-222498
+221970
 checkbox image
-223755
+223227
 checkbox set
-225982
+225454
 colorcontrol
-226281
+225753
 colorcontrol get
-228303
+227775
 colorcontrol set
-228911
+228383
 columnbox
-229247
+228719
 columnbox add
-234457
+233929
 columnbox clear
-235638
+235110
 columnbox color
-236006
+235478
 columnbox column
-237051
+236523
 columnbox count
-238210
+237682
 columnbox get
-238648
+238120
 columnbox get$
-239183
+238655
 columnbox remove
-239726
+239198
 columnbox select
-240083
+239555
 &
-240539
+240011
 dropbox
-240547
+240019
 dropbox add
-241752
+241224
 dropbox clear
-242026
+241498
 dropbox count
-242277
+241749
 dropbox get$
-242527
+241999
 dropbox remove
-242821
+242293
 dropbox select
-243380
+242852
 listbox
-243659
+243131
 listbox add
-246624
+246096
 listbox clear
-247102
+246574
 listbox count
-247397
+246869
 listbox get
-247793
+247265
 listbox get$
-248280
+247752
 listbox remove
-248698
+248170
 listbox select
-249037
+248509
 listbox sort
-249682
+249154
 &
-250391
+249863
 option color
-250404
+249876
 option set
-250614
+250086
 radiobutton
-251506
+250978
 radiobutton set
-253240
+252712
 &
-253644
+253116
 slider
-253651
+253123
 slider color
-254372
+253844
 slider get
-254795
+254267
 slider label
-255022
+254494
 slider set
-255273
+254745
 spincontrol
-255885
+255357
 spincontrol get
-256182
+255654
 spincontrol set
-256412
+255884
 statusbar
-256632
+256104
 statusbar set
-258101
+257573
 text
-258599
+258071
 text set
-259787
+259259
 &
-260909
+260381
 textcontrol
-260921
+260393
 textcontrol clear
-261446
+260918
 textcontrol get$
-261684
+261156
 textcontrol set
-261976
+261448
 textedit
-263102
+262574
 textedit add
-263765
+263237
 textedit clear
-264090
+263562
 textedit color
-264432
+263904
 textedit get
-265413
+264885
 textedit get$
-267105
+266577
 textedit set
-267544
+267016
 &
-270751
+270223
 texturl
-270759
+270231
 texturl color
-271367
+270839
 tooltip
-271747
+271219
 tooltip color
-273427
+272899
 &
-274710
+274182
 treebox
-274718
+274190
 treebox add
-275081
+274553
 treebox clear
-275606
+275078
 treebox collapse
-275869
+275341
 treebox count
-276167
+275639
 treebox expand
-276475
+275947
 treebox get$
-276758
+276230
 treebox remove
-277085
+276557
 treebox select
-277570
+277042
 treebox sort
-277873
+277345
 &
-278167
+277639
 localize
-278176
-# A comment starts with a #
-279740
-
-279864
+277648
 translate$()
-281430
+280880
 &Sound
-282183
+281633
 &
-282185
+281635
 beep
-282190
+281640
 bell
-282424
+281874
 sound play
-282787
+282237
 sound stop
-283712
+283162
 sound wait
-284086
+283536
 &Window
-284491
+283941
 &
-284493
+283943
 alert
-284499
+283949
 filepanel
-286277
+285727
 window open
-289567
+289017
 window close
-292282
+291732
 window count
-292774
+292224
 window get
-293401
+292851
 window set
-295122
+294572

@@ -2520,7 +2520,7 @@ Explanation:
 
 This program checks the string abc against various patterns and prints the result. The output is:
 
-&exverbatim
+
 abc matches a* 
 abc does not match a? 
 abc matches a?? 
@@ -2531,7 +2531,7 @@ abc does not match ?
 abc matches *c 
 abc does not match A* 
 abc does not match ???? 
-&exverbatim
+
 
 &
 hex$()
@@ -2841,7 +2841,7 @@ Explanation:
 
 This program prints the following output:
 
-&exverbatim
+
 Please enter a line: a 
 1 Tokens: a 
 
@@ -2871,7 +2871,7 @@ Please enter a line: a--b-
 
 Please enter a line: -a==b-c== 
 7 Tokens: (EMPTY),a,(EMPTY),b,c,(EMPTY),(EMPTY) 
-&exverbatim
+
 
 
 Related: token
@@ -2897,7 +2897,7 @@ Note, that for clarity, each space in the result has been replaced by the letter
 
 Examples for the format argument
 
-&exverbatim
+
 string |  Result for converting 1000*pi |      Description
 
 %2.5f             3141.59265                      The '2' determines the minimum
@@ -2953,7 +2953,7 @@ argument of "_,"  x3_141,59                       Similar to the example above, 
                                                   specifies 2, yab does not know 
                                                   what to do; therefore it chooses just 
                                                   to reproduce the format string.
-&exverbatim
+
 
 Example:
 do 
@@ -3023,7 +3023,7 @@ Explanation:
 
 This program prints the following output: 
   
-&exverbatim
+
 Please enter a line: a 
 1 Tokens: a 
 
@@ -3053,7 +3053,7 @@ Please enter a line: a--b-
 
 Please enter a line: -a==b-c== 
 3 Tokens: a,b,c 
-&exverbatim
+
 
 
 Related: split
@@ -3417,7 +3417,7 @@ Explanation:
 
 If this program is stored within a file test.yab and you enter this name when prompted for a file to read, you will see this output:
 
-&exverbatim
+
 Please enter the name of a file to read: test.yab 
 input 
 "Please 
@@ -3440,7 +3440,7 @@ b$
 print 
 b$ 
 wend 
-&exverbatim
+
 
 
 Related: line input
@@ -3957,7 +3957,7 @@ Explanation:
 The library foo.bar (which is listed above) defines two functions bar and baz, however only the function bar is exported and therefore visible even outside the library; baz is not exported and may only be used within the library foo.yab.
 
 Now within your main program cux.yab (which imports the library foo.yab); note that this program produces an error:
-&exverbatim 
+ 
 import foo 
 
 print "Calling subroutine foo.bar (okay) ..." 
@@ -3975,11 +3975,11 @@ print "done."
 print "Calling subroutine baz (NOT okay) ..." 
 baz() 
 print "done." 
-&exverbatim 
+ 
 
 The output when executing yab foo.yab is this:
  
-&exverbatim 
+ 
 Calling subroutine foo.bar (okay) ... 
 Hello 
 done. 
@@ -3993,7 +3993,7 @@ Calling subroutine baz (NOT okay) ...
 ---Error in main.yab, line 16: can't find subroutine 'baz' 
 ---Dump: sub baz() called in main.yab,16 
 ---Error: Program stopped due to an error 
-&exverbatim 
+ 
 
 As the error message above shows, the subroutine baz must be qualified with the name of the library, if used outside the library, wherein it is defined (e.g. foo.baz. I.e. outside the library foo.yab you need to write foo.baz. baz alone would be an error.
 
@@ -4037,7 +4037,7 @@ Lets say you have a yab-program foo.yab, which imports a library lib.yab.
  
 Now the library lib.yab reads:
 
-&exverbatim
+
 rem  Make the subroutine x easily available outside this library 
 export sub x(a) 
   print a 
@@ -4050,18 +4050,18 @@ sub y(a)
   print a 
   return 
 end sub 
-&exverbatim
+
 
 This program produces an error:
  
-&exverbatim
+
 0 
 1 
 2 
 ---Error in foo.yab, line 13: can't find subroutine 'y' 
 ---Dump: sub y() called in foo.yab,13 
 ---Error: Program stopped due to an error 
-&exverbatim
+
 
 As you may see from the error message, yab is unable to find the subroutine y without specifying the name of the library (i.e. lib.y). The reason for this is, that y, other than x, is not exported from the library lib.yab (using the export-statement). 
 
@@ -4232,11 +4232,11 @@ Explanation:
 
 This program shows the difference between static and local variables within a subroutine; it produces this output:
 
-&exverbatim
+
 1 1 
 2 1 
 3 1 
-&exverbatim
+
 
 The output shows, that the static variable a keeps its value between subroutine calls, whereas b is initialized with the value 0 at every call to the subroutine foo.
 
@@ -4637,10 +4637,10 @@ Explanation:
 This program is very harsh in checking the users input; instead of just asking again, the program terminates with an error, if the user enters something wrong.
 The error message would look like this:
 
-&exverbatim
+
 ---Error in t.yab, line 2: Oh no ... 
 ---Error: Program stopped due to an error 
-&exverbatim
+
 
 
 &
@@ -4666,9 +4666,9 @@ Explanation:
 
 The example simply prints Hello world!, which is the return value of the user defined subroutine foo$. The same could be achieved by executing:
 
-&exverbatim
+
 print foo$(a$,b$) 
-&exverbatim
+
 
 
 Related: compile, execute
@@ -6053,21 +6053,21 @@ For adding keyboard shortcuts to your program that are not related to menu entri
 
 The first letter of Shortcut$ specifys the shortcut key for this menu item. It is always combined with the command key which is ALT normally (or CTRL when CTRL and ALT are switched in the preferences). E.g. consider a Shortcut$ of "O" then ALT-O will send MyMessage$ to the message queue. Additionaly to the command key you can specify further modifiers which are set before the shortcut letter:
 
-&exverbatim
+
 "S" for the shift key
 "C" for the control key (CTRL, or ALT if CTRL and ALT are switched)
 "O" for the option key (on most keyboards probably the Windows button)
-&exverbatim
+
 
 These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
 
 Some Shortcut examples:
 
-&exverbatim
+
 "O" for ALT-O
 "SO" for Shift-ALT-O
 "COO" for Control-Option-ALT-O
-&exverbatim
+
 
 Message:
 Shortcut sends MyMessage$.
@@ -6077,14 +6077,14 @@ To use shortcuts is good but to use shortcuts in menus is much better. In menus 
 
 Use the default shortcuts as described for the menu command. Note: Other than with menu, the following shortcuts are reserved and cannot be overwritten:
 
-&exverbatim
+
 ALT-X
 ALT-C
 ALT-V
 ALT-A
 ALT-W
 ALT-Q
-&exverbatim
+
 
 Example:
 window open 100,100 to 300,200, "Example", "Example"
@@ -6214,26 +6214,26 @@ Description:
 To add a menubar with menus to a window or a view named View$ is very easy. Simply call menu with the menu entry Head$ and a menu item called Menu$. If there is no menubar yet, a new one will be created. If the entry Head$ already exists, the item Menu$ will be added to the existing items at the end.
 
 If Menu$ is set as follows:
-&exverbatim
+
 Menu$ = "--"
-&exverbatim
+
 then the menu item will be a separator line.
 
 The first letter of Shortcut$ specifys the shortcut key for this menu item. It is always combined with the command key which is ALT normally (or CTRL when CTRL and ALT are switched in the preferences). E.g. consider a Shortcut$ of "O" then ALT-O will appear in the menu and the user has to press ALT-O to activate this menu item. Additionaly to the command key you can specify further modifiers which are set before the shortcut letter:
 
-&exverbatim
+
 "S" for the shift key
 "C" for the control key (CTRL, or ALT if CTRL and ALT are switched)
 "O" for the option key (on most keyboards probably the Windows button)
-&exverbatim
+
 These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
 
 Some Shortcut examples:
-&exverbatim
+
 "O" for ALT-O
 "SO" for Shift-ALT-O
 "COO" for Control-Option-ALT-O
-&exverbatim
+
 
 The height of the menubar (which depends on the size of the system menu font) can be checked with the peek command.
 
@@ -6248,7 +6248,7 @@ Design:
 Although views can have a menubar too, you should only give windows a menu. Use capitalized words for English menu entries (like for headings).  A menu item should have three dots (...) always when the user can expect a further dialog and not an immediate action. Use the default menu head entries: File, Edit, View, Help
 
 Use the following default shortcuts:
-&exverbatim
+
 For the menu Head$ "File":
 "N" -- New
 "O" -- Open
@@ -6268,7 +6268,7 @@ Further default shortcuts:
 "G" -- Find Again
 "H" -- Help
 "P" -- Print
-&exverbatim
+
 
 Example:
 localize
@@ -6323,12 +6323,12 @@ Given a MenuHead$ you can put the entire menu in radio mode, i.e. only one item 
 
 Given a MenuHead$ and a MeniItem$ you can disable or enable the item or you can select it by putting a mark to it or remove the mark again. Thus the following options are valid:
 
-&exverbatim
+
 Option$ = "Disable" -- grey out the item so it cannot be selected anymore
 Option$ = "Enable" -- enable a formerly disabled item again
 Option$ = "Mark" -- mark this item
 Option$ = "Plain" -- remove a mark again
-&exverbatim
+
 
 Example:
 window open 100,100 to 400,300, "Example", "Example"
@@ -6414,26 +6414,26 @@ Description:
 To have a submenu to an existing menu, you have to specify the menu title MenuHead$, the menu item that will contain the submenu MenuItem$ and the new name for the submenu entry SubMenuItem$. If MenuHead$ or MenuItem$ do not exist, they are created. Similar to the menu command the submenu item can be called by a shortcut key Shortcut$. This again explained below in detail.
 
 If SubMenuItem$ is set as follows:
-&exverbatim
+
 Menu$ = "--"
-&exverbatim
+
 then the submenu item will be a separator line.
 
 The first letter of Shortcut$ specifys the shortcut key for this submenu item. It is always combined with the command key which is ALT normally (or CTRL when CTRL and ALT are switched in the preferences). E.g. consider a Shortcut$ of "O" then ALT-O will appear in the menu and the user has to press ALT-O to activate this menu item. Additionaly to the command key you can specify further modifiers which are set before the shortcut letter:
 
-&exverbatim
+
 "S" for the shift key
 "C" for the control key (CTRL, or ALT if CTRL and ALT are switched)
 "O" for the option key (on most keyboards probably the Windows button)
-&exverbatim
+
 These modifiers can be combined, but the following combinations do not work: "SO", "SC" and "SCO"
 
 Some Shortcut examples:
-&exverbatim
+
 "O" for ALT-O
 "SO" for Shift-ALT-O
 "COO" for Control-Option-ALT-O
-&exverbatim
+
 
 Message:
 The submenu when selected or called by the shortcut key will return a message of the format: 
@@ -6509,12 +6509,12 @@ Given a MenuHead$ and a MenuItem$ you can put the entire submenu in radio mode, 
 
 Given a MenuHead$, a MeniItem$ and a SubMenuItem$ you can disable or enable the item or you can select it by putting a mark to it or remove the mark again. Thus the following options are valid:
 
-&exverbatim
+
 Option$ = "Disable" -- grey out the item so it cannot be selected anymore
 Option$ = "Enable" -- enable a formerly disabled item again
 Option$ = "Mark" -- mark this item
 Option$ = "Plain" -- remove a mark again
-&exverbatim
+
 
 Example:
 window open 100,100 to 400,300, "Example", "Example"
@@ -8794,13 +8794,13 @@ Dictionaries for stand-alone programs are normally put into the subdirectory Lan
 In the dictionary directory there should be files named like the programs name or like file name in Filename$. The files have a language code as ending. The language code consists of a two letter code for the language and a capitalized two letter code of the country. For a sample program named foobar.yab, some example dictionaries: foobar.deDE (language German (de) and country Germany (DE)), foorbar.enUS (language English (en) and country United States (US)), foobar.nlBE (language Dutch (nl) and country Belgium (BE)).
 
 The dictionary contains the English term in paranthesis ("") some spaces as separator and the translated text in the target language in paranthesis too. Example: 
-&exverbatim
+
 # A comment starts with a #
 # English     German
 "File"        "Datei"
 "Quit"        "Beenden"
 "This is a sentence."  "Dies ist ein Satz."
-&exverbatim
+
 
 This all looks complicated, but the reader is encouraged to have a look at the localization of the yab IDE and other tools to understand localization completly.
 
