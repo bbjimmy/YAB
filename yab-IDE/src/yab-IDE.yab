@@ -471,7 +471,10 @@ while(inloop)
 				endif
 				break
 			case MyTranslate$("MainView:Program:Open project folder...")
-				system("open " + globalProjectDir$)
+				OpenProjectDir$ = getprojectdir$()
+				
+				//system("open " +  globalProjectDir$)
+				system("open " +  OpenProjectDir$)
 				break
 			case "ToolbarPattern"
 			case MyTranslate$("MainView:Tools:Pattern editor...")
@@ -860,8 +863,9 @@ while(inloop)
 
 		// help selected
 		if(left$(msg$(i),9) = "HelpTree:") then
-			tmp$ = right$(msg$(i), len(msg$(i))-17)
-			tmp$ = treebox get$ "HelpTree", val(tmp$)
+			//tmp$ = right$(msg$(i), len(msg$(i))-17)
+			tmp=treebox get "HelpTree"
+			tmp$ = treebox get$ "HelpTree", tmp
 			t$ = SyntaxGetInfoText$(ideDir$+"data/Help_En.dat", ideDir$+"data/Help_En_Index.dat", tmp$)
 			if(t$<>"") then
 				textedit clear "Text"+str$(MAXFILES+1)
@@ -3950,4 +3954,15 @@ close #122
 return ""
 
 
+end sub
+
+
+sub getprojectdir$()
+local CurrentSelection, CurrentSelection$, i,OpenProjectDir$
+CurrentSelection = columnbox get "FileBox"
+CurrentSelection$ = columnbox get$ "FileBox", 2, CurrentSelection
+for i=1 to COLUMNBOX COUNT "FileBox"
+if (GetFileName$(globalAllNames$(i)) = CurrentSelection$) OpenProjectDir$ =  GetDirectory$(globalAllNames$(i)):break
+next
+return OpenProjectDir$
 end sub
