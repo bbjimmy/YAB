@@ -2,13 +2,13 @@
 
 doc Author: Jan Bungeroth
 doc Thanks to: Genki, Lelldorin, lorglas, Stargater, DasJott, bbjimmy
-doc (c) 2006-2016 in terms of the Artistic License
+doc (c) 2006-2017 in terms of the Artistic License
 
 doc
 doc The yab-IDE provides you with an integrated development suite for yab
 doc Enjoy.
 path()
-versionnumber$="2.2.6"
+versionnumber$="2.2.7"
 
 settingsRCSOff = true
 globalConfigDir$ = trim$(system$("finddir B_USER_SETTINGS_DIRECTORY"))+"/yab-ide/"
@@ -2010,8 +2010,8 @@ sub AboutWindow()
 	width=draw get "text-width", a$, "AboutWindow"
 	draw text 200-width/2, 200,a$,"AboutWindow"
 
-	width = draw get "text-width", "(c) 2006-2015 in terms of the Artistic License", "AboutWindow"
-	draw text 198-width/2, 260, "(c) 2006-2015 in terms of the Artistic License", "AboutWindow"
+	width = draw get "text-width", "(c) 2006-2017 in terms of the Artistic License", "AboutWindow"
+	draw text 198-width/2, 260, "(c) 2006-2017 in terms of the Artistic License", "AboutWindow"
 	width= draw get "text-width", "Ported to Haiku PM by bbjimmy","AboutWindow"
 	draw text 200-width/2, 240, "Ported to Haiku PM by bbjimmy","AboutWindow"
 	width = draw get "text-width", "Coded by Jan, graphics by Genki, thanks to BeSly", "AboutWindow"
