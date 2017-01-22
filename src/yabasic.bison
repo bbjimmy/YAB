@@ -805,7 +805,7 @@ loop: tEOPROG {if (missing_loop) {sprintf(string,"%d loop(s) are missing (last a
   ;
 
 
-while_loop: tWHILE {add_command(cCONTINUE_HERE,NULL);create_break_mark(0,1);missing_wend++;missing_wend_line=mylineno;pushgoto()} '(' expression ')'
+while_loop: tWHILE {add_command(cCONTINUE_HERE,NULL);create_break_mark(0,1);missing_wend++;missing_wend_line=mylineno;pushgoto();} '(' expression ')'
 	      {add_command(cDECIDE,NULL);
 	      pushlabel();}
 	      statement_list
