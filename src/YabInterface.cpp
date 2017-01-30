@@ -123,7 +123,7 @@ int32 interpreter(void *data)
 	char **argv;
 	YabInterface *yab;
 	BList *myData = (BList*)data;
-	argc = (int)myData->ItemAt(0);
+	argc = (int)(addr_t)myData->ItemAt(0);
 	argv = (char**)myData->ItemAt(1);
 	yab = (YabInterface*)myData->ItemAt(2);
 
@@ -160,7 +160,7 @@ YabInterface::YabInterface(int argc, char **argv, const char* signature)
 	localMessage = "";
 
 	BList *myData = new BList(3);
-	myData->AddItem((void*)argc);
+	myData->AddItem((void*)(addr_t)argc);
 	myData->AddItem((void*)argv);
 	myData->AddItem((void*)this);
 	myThread = spawn_thread(interpreter,"YabInterpreter",B_NORMAL_PRIORITY,(void*)myData);
@@ -6431,7 +6431,7 @@ void YabInterface::PrinterConfig(const char* config)
 const char* YabInterface::ClipboardPaste()
 {
 	const char *text; 
-	int32 textlen; 
+	ssize_t textlen; 
 	BString returnstring; 
 	BMessage *clip = (BMessage *)NULL; 
 
