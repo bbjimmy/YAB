@@ -38,7 +38,7 @@ void YabList::AddView(const char* id, const BView* view, int type)
 {
 	idList->AddItem((void*)new BString(id));
 	viewList->AddItem((void*)view);
-	typeList->AddItem((void*)type);
+	typeList->AddItem((void*)(addr_t)type);
 }
 
 void YabList::DelView(const char* id)
@@ -70,7 +70,7 @@ const void* YabList::GetView(const char* id)
 
 const int YabList::GetType(const char* id)
 {
-	return (int)typeList->ItemAt(ViewNum(id));
+	return (int)(addr_t)typeList->ItemAt(ViewNum(id));
 }
 
 const int YabList::CountItems()
