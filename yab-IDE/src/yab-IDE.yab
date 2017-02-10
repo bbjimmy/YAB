@@ -3868,6 +3868,15 @@ system("mkdir ~/config/settings/yab")
 y=system("ls "+DataDir$+"/yab_work/BuildFactory > /dev/null")
 y=y+system("ls "+DataDir$+"/yab_work/Programs > /dev/null")
 
+system("cp -ur "+ideDir$+"/BuildFactory "+DataDir$+"/yab_work")
+handle=open(DataDir$+"/yab_work/BuildFactory/srcfiles","r")
+
+		while(not eof(#handle)) 
+			input #handle a$ 
+			system("cp -u "+ideDir$+"/src/"+a$+" "+DataDir$+"/yab_work/BuildFactory/"+a$)
+		end while
+	close handle
+	system("cp -ur "+ideDir$+"/src/column "+DataDir$+"/yab_work/BuildFactory")
 
 if x=0  or y>0 then
 
