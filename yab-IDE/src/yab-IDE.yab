@@ -865,6 +865,7 @@ while(inloop)
 		if(left$(msg$(i),9) = "HelpTree:") then
 			//tmp$ = right$(msg$(i), len(msg$(i))-17)
 			tmp=treebox get "HelpTree"
+			treebox select "HelpTree", tmp
 			tmp$ = treebox get$ "HelpTree", tmp
 			t$ = SyntaxGetInfoText$(ideDir$+"data/Help_En.dat", ideDir$+"data/Help_En_Index.dat", tmp$)
 			if(t$<>"") then
