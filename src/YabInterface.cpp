@@ -6071,7 +6071,8 @@ int YabInterface::WindowGet(const char* view, const char* option)
 	else if(t.IFindFirst("maximum-height")!=B_ERROR) opt = 8;
 	else if(t.IFindFirst("width")!=B_ERROR) opt = 3;
 	else if(t.IFindFirst("height")!=B_ERROR) opt = 4;	
-	else if(t.IFindFirst("exists")!=B_ERROR) opt = 9;	
+	else if(t.IFindFirst("exists")!=B_ERROR) opt = 9;
+	else if(t.IFindFirst("minimized-to-deskbar")!=B_ERROR) opt = 10;	
 
 
 	YabView *myView = cast_as((BView*)viewList->GetView(view), YabView);
@@ -6108,6 +6109,8 @@ int YabInterface::WindowGet(const char* view, const char* option)
 					case 7: ret = (int)x2;
 						break;
 					case 8: ret = (int)y2;
+						break;
+					case 10:  ret = w->IsMinimized();
 						break;
 				}
 			}
