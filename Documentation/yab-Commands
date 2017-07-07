@@ -804,8 +804,8 @@ WINDOW CLOSE WindowView$
 n = WINDOW COUNT
   Returns the number of open windows
 Result = WINDOW GET View$, Option$
-  Option$ = "Position-X/Position-Y/Width/Height/Minimum-Width/Minimum-Height/Maximum-Width/Maximum-Height/Exists"
-  Returns the requested property or if used with Exists returns 1 if found and 0 if not.
+  Option$ = "Position-X/Position-Y/Width/Height/Minimum-Width/Minimum-Height/Maximum-Width/Maximum-Height/Exists/Minimized-To-Deskbar"
+  Returns the requested property or if used with Exists/Minimized-To-Deskbar returns 1 if true and 0 if not.
 WINDOW SET Window$, Option$, Value$
   "Look", "Document/Titled(default)/Floating/Modal/Bordered/No-Border"
   "Feel", "Normal(default)/Modal-App/Modal-All/Floating-App/Floating-All"

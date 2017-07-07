@@ -9169,6 +9169,7 @@ Option$ = "Minimum-Height" -- Result will contain the minimum height of the wind
 Option$ = "Maximum-Width" -- Result will contain the maximum width of the window that is allowed when resizing
 Option$ = "Maximum-Height" -- Result will contain the maximum height of the window that is allowed when resizing
 Option$ = "Exists" -- Result will be true if a window with this WindowID$ exits and false otherwise
+Option$ = "Minimized-To-Deskbar" -- Result will be true if the window has been minimized and false if it is not.
 
 Example:
 window open 100,100 to 300,300, "Example", "Example"
