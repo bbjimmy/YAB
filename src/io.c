@@ -762,12 +762,24 @@ void myclose(void) /* close the specified stream */
 #endif
   
   s=(int)pop(stNUMBER)->value;
+  if (s == -2){
+  	for(s=1;s<FOPEN_MAX-4;s++) {
+  		if (stream_modes[s]!=smCLOSED) {
+  			streams[s]=NULL;
+  			stream_modes[s]=smCLOSED;
+      	}
+    }
+    return;
+  }
+  
   if (abs(s)==STDIO_STREAM || badstream(s,0)) return;
   if (stream_modes[s]==smCLOSED) {
     sprintf(string,"stream %d already closed",s);
     error(WARNING,string);
     return;
   }
+  
+	
   if (s==lprstream) {
 #ifdef UNIX
     pclose(lineprinter);

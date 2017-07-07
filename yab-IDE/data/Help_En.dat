@@ -3210,19 +3210,27 @@ close -- close a file, which has been opened before
 
 Synopsis: 
 close filenum 
-close # filenum 
+close # filenum
+close -2
+close #-2 
 
 Description:
+
 The close-command closes an open file. You should issue this command as soon as you are done with reading from or writing to a file.
 
+close -2 closes all open files. 
 Example:
+
+all = -2
 open "my.data" for reading as 1 
 input #1 a 
 print a 
-close 1 
+close all 
+
 Explanation:
 
-This program opens the file "my.data", reads a number from it, prints this number and closes the file again.
+This program opens the file "my.data", reads a number from it, prints this number and then closes all files.
+
 
 
 Related: open
