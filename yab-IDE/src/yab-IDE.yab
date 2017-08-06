@@ -3975,4 +3975,3 @@ if (GetFileName$(globalAllNames$(i)) = CurrentSelection$) OpenProjectDir$ =  Get
 next
 return OpenProjectDir$
 end sub
-end sub
