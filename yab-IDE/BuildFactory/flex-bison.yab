@@ -15,6 +15,8 @@ system ("mv flex.c tmpflex.c")
 open #1, "tmpflex.c", "r"
 open #2, "outflex.c", "w"
 
+
+
 while (a$<>"#include <stdlib.h>")
 	line input #1 a$
 	print #2 a$
@@ -23,6 +25,20 @@ wend
 print #2 "#include <zlib.h>"
 print #2 "#include "+chr$(34)+"program.h"+chr$(34)
 print #2 "static int isparsed = 0;"
+systype$=system$("getarch")
+systype$=trim$(systype$)
+
+if systype$="x86_64" then
+while (a$<>"#define YY_BUF_SIZE 32768")
+	line input #1 a$
+	if (a$<>"#define YY_BUF_SIZE 32768") print #2 a$
+wend
+
+print #2 "#define YY_BUF_SIZE PROGLEN"
+
+
+
+endif
 
 while (a$<>"#define YY_BUF_SIZE 16384")
 	line input #1 a$
@@ -35,7 +51,7 @@ found=0
 
 while (found=0)
 	line input #1 a$
-	if (!instr(a$,"while ( (result = fread"))then
+	if (!instr(a$,"while ( (result = fread")) and (!instr(a$,"while ( (result = (int) fread")) then
 		print #2 a$
 	else
 		found=1
