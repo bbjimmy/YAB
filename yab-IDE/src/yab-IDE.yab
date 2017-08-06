@@ -1176,7 +1176,7 @@ sub OpenMainWindow()
 		layout "standard", "Stack"+str$(i)
 
 		textedit set "Text"+str$(i), "autocomplete-start", settingsACNumChar
-		handle = open(ideDir$+"/data/autocompletion")
+		handle = open(ideDir$+"data/autocompletion")
 		if(handle) then
 			while(not eof(handle))
 				line input #handle tmp$
@@ -1185,7 +1185,7 @@ sub OpenMainWindow()
 			close(handle)
 		endif
 
-		handle = open(ideDir$+"/data/color1")
+		handle = open(ideDir$+"data/color1")
 		if(handle) then
 			while(not eof(handle))
 				line input #handle tmp$
@@ -1193,7 +1193,7 @@ sub OpenMainWindow()
 			wend
 			close(handle)
 		endif
-		handle = open(ideDir$+"/data/color2")
+		handle = open(ideDir$+"data/color2")
 		if(handle) then
 			while(not eof(handle))
 				line input #handle tmp$
@@ -1201,7 +1201,7 @@ sub OpenMainWindow()
 			wend
 			close(handle)
 		endif
-		handle = open(ideDir$+"/data/color3")
+		handle = open(ideDir$+"data/color3")
 		if(handle) then
 			while(not eof(handle))
 				line input #handle tmp$
@@ -1209,7 +1209,7 @@ sub OpenMainWindow()
 			wend
 			close(handle)
 		endif
-		handle = open(ideDir$+"/data/color4")
+		handle = open(ideDir$+"data/color4")
 		if(handle) then
 			while(not eof(handle))
 				line input #handle tmp$
@@ -1217,7 +1217,7 @@ sub OpenMainWindow()
 			wend
 			close(handle)
 		endif
-		handle = open(ideDir$+"/data/color5")
+		handle = open(ideDir$+"data/color5")
 		if(handle) then
 			while(not eof(handle))
 				line input #handle tmp$
@@ -3868,20 +3868,19 @@ x=system("mkdir "+DataDir$+"/yab_work")
 system("mkdir ~/config/settings/yab")
 y=system("ls "+DataDir$+"/yab_work/BuildFactory > /dev/null")
 y=y+system("ls "+DataDir$+"/yab_work/Programs > /dev/null")
-
-system("cp -ur "+ideDir$+"/BuildFactory "+DataDir$+"/yab_work")
+system("cp -ur "+ideDir$+"BuildFactory "+DataDir$+"/yab_work")
 handle=open(DataDir$+"/yab_work/BuildFactory/srcfiles","r")
 
 		while(not eof(#handle)) 
 			input #handle a$ 
-			system("cp -u "+ideDir$+"/src/"+a$+" "+DataDir$+"/yab_work/BuildFactory/"+a$)
+			system("cp -u "+ideDir$+"src/"+a$+" "+DataDir$+"/yab_work/BuildFactory/"+a$)
 		end while
 	close handle
-	system("cp -ur "+ideDir$+"/src/column "+DataDir$+"/yab_work/BuildFactory")
+	system("cp -ur "+ideDir$+"src/column "+DataDir$+"/yab_work/BuildFactory")
 
 if x=0  or y>0 then
 
-	system("cp -ur "+ideDir$+"/BuildFactory "+DataDir$+"/yab_work")
+	system("cp -ur "+ideDir$+"BuildFactory "+DataDir$+"/yab_work")
 	system("cp -ur "+ideDir$+"Programs "+DataDir$+"/yab_work")
 	system ("cp -ur "+ideDir$+"img "+DataDir$+"/yab_work/Programs")
 	system("cp -ur "+ideDir$+"Programs/libs/* /boot/home/config/settings/yab")
@@ -3890,15 +3889,15 @@ if x=0  or y>0 then
 
 		while(not eof(#handle)) 
 			input #handle a$ 
-			system("cp -u "+ideDir$+"/src/"+a$+" "+DataDir$+"/yab_work/BuildFactory/"+a$)
+			system("cp -u "+ideDir$+"src/"+a$+" "+DataDir$+"/yab_work/BuildFactory/"+a$)
 		end while
 	close handle
 
-	system("cp -ur "+ideDir$+"/src/column "+DataDir$+"/yab_work/BuildFactory")
+	system("cp -ur "+ideDir$+"src/column "+DataDir$+"/yab_work/BuildFactory")
 end if
 
 x=1
-open #1, ideDir$+"/src/YabMain.cpp","r"
+open #1, ideDir$+"src/YabMain.cpp","r"
 open #2, DataDir$+"/yab_work/BuildFactory/parts/YabMain.cpp.end","w"
 
 while(not eof(#1)) 
@@ -3975,4 +3974,5 @@ for i=1 to COLUMNBOX COUNT "FileBox"
 if (GetFileName$(globalAllNames$(i)) = CurrentSelection$) OpenProjectDir$ =  GetDirectory$(globalAllNames$(i)):break
 next
 return OpenProjectDir$
+end sub
 end sub
