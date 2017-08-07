@@ -1,3 +1,10 @@
+yab Version 1.7.5.4
+now compiles on x86_64
+yab-IDE now updates BuildFactory files on launch
+add Window Get Windiwid$, "Minimized-To-Deskbar"
+update help filed for yab-ide
+
+
 yab Version 1.7.5.3
 - gcc4 now compiles
 - fix system shutdown bug

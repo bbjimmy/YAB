@@ -248,7 +248,7 @@ Menus:menu
 Graphical User Interface:Input and Messages
 Input and Messages:shortcut
 Input and Messages:mouse set
-Input and Messages:mousemove$
+Input and Messages:mouse message$
 Input and Messages:mouse message$()
 Input and Messages:message send
 Input and Messages:message$
@@ -5831,7 +5831,7 @@ Explanation:
 After opening the window named "Example", this program checks if the mouse is currently over the window. Then a message is printed on the console.
 
 
-Related: mouse message$(), mousemove$, mouse set
+Related: mouse message$(), mouse message$, mouse set
 
 &
 keyboard message$()
@@ -6005,28 +6005,22 @@ Explanation:
 This example lets you drag a rectangle with the mouse. It gets the current position and button state in the sub GetMouse(). Now when the left mouse button is pressed and the mouse is over the rectangle, the rectangle will be moved as long as the button is pressed. The redrawing of the rectangle can be improved by checking whether the mouse actually moved.
 
 
-Related: ismousein(), keyboard message$(), mousemove$, mouse set
+Related: ismousein(), keyboard message$(), mouse message$, mouse set
 &
-mousemove$
+mouse message$
 
 Name:
-mousemove$ -- returns more detailed mouse messages
+mouse message$ --  Returns the state of the mouse related to the application.
+  
 
 Synopsis:
-Mouse$ = MOUSEMOVE$
+Mouse$ = MOUSE MESSAGE$
 
 Description:
-This command is somewhat a duplicate to mouse message$(). However, it does not require a view to be given, but reports the name of the view back as part of the message Mouse$. The following messages can occur:
+This command is somewhat a duplicate to mouse message$(). However, it does not require a view to be given, but reports the name of the view back as part of the message Mouse$. 
 
-Control$+":_InsideView"
-Control$+":_EnteredView"
-Control$+":_ExitedView"
-Control$+":_MouseDown"
-Control$+":_MouseUp"
-Control$+":_LeftMouseButton"
-Control$+":_RightMouseButton"
-Control$+":_MiddleMouseButton"
-where Control$ is the ID of the widget or view where the event occured.
+The mouse string has the format  VIEW:X:Y:LMB:MMB:RMB  where VIEW is the View$ the mouse is over, MB is the 
+  corresponding left, middle, right mousebutton. X and Y are relative to the VIEW returned.
 
 Related: ismousein(), mouse message$(), mouse set
 &
@@ -6045,7 +6039,7 @@ Option$ = "Hide" -- hide the mouse cursor
 Option$ = "Show" -- show the mouse cursor
 Option$ = "Obscure" -- hide the mouse cursor until the mouse is moved 
 
-Related: ismousein(), mouse message$(), mousemove$
+Related: ismousein(), mouse message$(), mouse message$
 &
 shortcut
 

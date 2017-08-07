@@ -1,664 +1,664 @@
 &Arithmetic
-7512
+7516
 &
-7514
+7518
 abs()
-7520
+7524
 acos()
-7887
+7891
 and()
-8386
+8390
 asin()
-9176
+9180
 atan()
-9685
+9689
 bin$()
-10584
+10588
 cos()
-11190
+11194
 dec()
-11455
+11459
 eor()
-11974
+11978
 euler
-12751
+12755
 exp()
-13157
+13161
 frac()
-13779
+13783
 int()
-14460
+14464
 log()
-14860
+14864
 max()
-15519
+15523
 min()
-16311
+16315
 mod()
-16726
+16730
 or()
-17526
+17530
 pi
-18319
+18323
 ran()
-18775
+18779
 sig()
-19705
+19709
 sin()
-20435
+20439
 sqr()
-20960
+20964
 sqrt()
-21331
+21335
 tan()
-21683
+21687
 xor()
-22046
+22050
 ** or ^
-23079
+23083
 &
-23896
-and
 23900
+and
+23904
 break
-24350
+24354
 case
-25045
+25049
 continue
-25542
+25546
 default
-26211
+26215
 do
-27331
+27335
 else
-27875
+27879
 elsif
-28414
+28418
 end
-29884
+29888
 endif
-30576
+30580
 false
-31222
+31226
 fi
-31789
+31793
 for
-32103
+32107
 gosub
-33065
+33069
 goto
-33935
+33939
 if
-34871
+34875
 label
-36657
+36661
 loop
-37646
+37650
 next
-38133
+38137
 not
-38692
+38696
 on gosub
-39344
+39348
 on goto
-40679
+40683
 on interrupt
-42103
+42107
 logical or
-43389
+43393
 pause
-43792
+43796
 repeat
-45020
+45024
 return
-45793
+45797
 sleep
-47492
+47496
 step
-47867
+47871
 switch
-48407
+48411
 then
-49723
+49727
 true
-50531
+50535
 until
-50967
+50971
 wait
-51574
+51578
 wend
-51948
+51952
 while
-52446
+52450
 :
-53102
+53106
 &
-53739
+53743
 arraydim()
-53750
+53754
 arraysize()
-54640
+54644
 data
-57213
+57217
 dim
-58165
+58169
 read
-59682
+59686
 redim
-60411
+60415
 restore
-60850
+60854
 &
-61919
+61923
 asc()
-61925
+61929
 chr$()
-62748
+62752
 glob()
-63610
+63614
 hex$()
-64746
+64750
 instr()
-65236
+65240
 left$()
-66250
+66254
 len()
-67551
+67555
 lower$()
-67925
+67929
 ltrim$()
-68333
+68337
 rtrim$()
-68985
+68989
 mid$()
-69633
+69637
 right$()
-70901
+70905
 split()
-72220
+72224
 str$()
-75355
+75359
 token()
-80438
+80442
 trim$()
-83364
+83368
 upper$()
-83977
+83981
 val()
-84625
+84629
 &
-85339
+85343
 at()
-85344
+85348
 clear screen
-86717
+86721
 close
-87515
+87519
 color
-88053
+88057
 colour
-89251
+89255
 eof
-89483
+89487
 getscreen$()
-90074
+90078
 inkey$
-91306
+91310
 input
-92609
+92613
 line input
-94153
+94157
 open
-94995
+94999
 print
-98122
+98126
 putscreen
-101527
+101531
 reverse
-102506
+102510
 screen
-103369
+103373
 seek()
-103684
+103688
 tell
-105246
+105250
 using
-105907
+105911
 #
-106948
+106952
 at()
-108321
+108325
 ;
-109684
+109688
 &
-110330
+110334
 end sub
-110338
+110342
 export
-110770
+110774
 import
-113021
+113025
 local
-114581
+114585
 numparams
-116041
+116045
 return
-117492
+117496
 static
-119194
+119198
 sub
-120192
+120196
 &Attributes
-122481
+122485
 &
-122483
+122487
 attribute clear
-122499
+122503
 attribute get
-122738
+122742
 attribute get$
-123469
+123473
 attribute set
-125127
+125131
 bind()
-125713
+125717
 clipboard copy
-126485
+126489
 clipboard paste$
-127187
+127191
 compile
-127809
+127813
 date$
-128365
+128369
 doc
-130090
+130094
 docu$
-131245
+131249
 error
-132067
+132071
 execute$()
-132758
+132762
 execute()
-133824
+133828
 exit
-134229
+134233
 iscomputeron
-134623
+134627
 pause
-135011
+135015
 peek
-136238
+136242
 peek$
-141791
+141795
 poke
-145408
+145412
 rem
-146646
+146650
 sleep
-147760
+147764
 system$()
-148119
+148123
 system()
-148708
+148712
 thread get
-149331
+149335
 thread remove
-150680
+150684
 time$
-151603
+151607
 to 
-152772
+152776
 //
-153326
+153330
 :
-153830
+153834
 &Bitmaps
-154463
+154467
 &
-154465
+154469
 bitmap
-154472
+154476
 bitmap color
-154831
+154835
 bitmap get
-155183
+155187
 bitmap image
-158308
+158312
 bitmap remove
-158595
+158599
 bitmap save
-158823
+158827
 screenshot
-159220
+159224
 
-159466
+159470
 
-159476
+159480
 draw bitmap
-159490
+159494
 draw circle
-160356
+160360
 draw curve
-161015
+161019
 draw dot
-162000
+162004
 draw ellipse
-162581
+162585
 draw flush
-163320
+163324
 draw get
-164450
+164454
 draw get$
-166396
+166400
 draw image
-167809
+167813
 draw line
-169715
+169719
 draw rect
-170287
+170291
 draw set
-170943
+170947
 draw text
-174312
+174316
 &
-175482
+175486
 ismousein()
-175494
+175498
 keyboard message$()
-176216
+176224
 message$
-178105
+178113
 message send
-180438
+180446
 mouse message$()
-181488
-mousemove$
-183512
+181496
+mouse message$
+183528
 mouse set
-184168
+184107
 shortcut
-184674
+184617
 &Printing
-187193
+187136
 &
-187195
+187138
 printer
-187203
+187146
 printer setup
-189576
+189519
 &
-190600
+190543
 menu
-190605
+190548
 menu set
-194020
+193963
 popupmenu
-196061
+196004
 submenu
-197709
+197652
 submenu set
-202014
+201957
 &Boxview
-203771
+203714
 &
-203773
+203716
 boxview
-203781
+203724
 boxview set
-205206
+205149
 canvas
-205437
+205380
 layout
-205875
+205818
 &
-207097
+207040
 scrollbar
-207107
+207050
 scrollbar get
-207327
+207270
 scrollbar set
-207606
+207549
 &
-209038
+208981
 splitview
-209048
+208991
 splitview get
-209986
+209929
 splitview set
-210216
+210159
 &
-210749
+210692
 stackview
-210759
+210702
 stackview get
-212873
+212816
 stackview set
-213164
+213107
 &
-213621
+213564
 tabview
-213629
+213572
 tabview add
-213909
+213852
 tabview get
-214806
+214749
 tabview set
-215005
+214948
 &
-215189
+215132
 view
-215194
+215137
 view dropzone
-215338
+215281
 view get
-215623
+215566
 view remove
-215898
+215841
 &
-216389
+216332
 button
-216396
+216339
 button image
-217711
+217654
 calendar
-219452
+219395
 calendar get$
-221119
+221062
 calendar set
-221612
+221555
 checkbox
-222037
+221980
 checkbox image
-223294
+223237
 checkbox set
-225521
+225464
 colorcontrol
-225820
+225763
 colorcontrol get
-227842
+227785
 colorcontrol set
-228450
+228393
 columnbox
-228786
+228729
 columnbox add
-233996
+233939
 columnbox clear
-235177
+235120
 columnbox color
-235545
+235488
 columnbox column
-236590
+236533
 columnbox count
-237749
+237692
 columnbox get
-238187
+238130
 columnbox get$
-238722
+238665
 columnbox remove
-239265
+239208
 columnbox select
-239622
+239565
 &
-240078
+240021
 dropbox
-240086
+240029
 dropbox add
-241291
+241234
 dropbox clear
-241565
+241508
 dropbox count
-241816
+241759
 dropbox get$
-242066
+242009
 dropbox remove
-242360
+242303
 dropbox select
-242919
+242862
 listbox
-243198
+243141
 listbox add
-246163
+246106
 listbox clear
-246641
+246584
 listbox count
-246936
+246879
 listbox get
-247332
+247275
 listbox get$
-247819
+247762
 listbox remove
-248237
+248180
 listbox select
-248576
+248519
 listbox sort
-249221
+249164
 &
-249930
+249873
 option color
-249943
+249886
 option set
-250153
+250096
 radiobutton
-251045
+250988
 radiobutton set
-252779
+252722
 &
-253183
+253126
 slider
-253190
+253133
 slider color
-253911
+253854
 slider get
-254334
+254277
 slider label
-254561
+254504
 slider set
-254812
+254755
 spincontrol
-255424
+255367
 spincontrol get
-255721
+255664
 spincontrol set
-255951
+255894
 statusbar
-256171
+256114
 statusbar set
-257640
+257583
 text
-258138
+258081
 text set
-259326
+259269
 &
-260448
+260391
 textcontrol
-260460
+260403
 textcontrol clear
-260985
+260928
 textcontrol get$
-261223
+261166
 textcontrol set
-261515
+261458
 textedit
-262641
+262584
 textedit add
-263304
+263247
 textedit clear
-263629
+263572
 textedit color
-263971
+263914
 textedit get
-264952
+264895
 textedit get$
-266644
+266587
 textedit set
-267083
+267026
 &
-270290
+270233
 texturl
-270298
+270241
 texturl color
-270906
+270849
 tooltip
-271286
+271229
 tooltip color
-272966
+272909
 &
-274249
+274192
 treebox
-274257
+274200
 treebox add
-274620
+274563
 treebox clear
-275145
+275088
 treebox collapse
-275408
+275351
 treebox count
-275706
+275649
 treebox expand
-276014
+275957
 treebox get$
-276297
+276240
 treebox remove
-276624
+276567
 treebox select
-277109
+277052
 treebox sort
-277412
+277355
 &
-277706
+277649
 localize
-277715
+277658
 translate$()
-280947
+280890
 &Sound
-281700
+281643
 &
-281702
+281645
 beep
-281707
+281650
 bell
-281941
+281884
 sound play
-282304
+282247
 sound stop
-283229
+283172
 sound wait
-283603
+283546
 &Window
-284008
+283951
 &
-284010
+283953
 alert
-284016
+283959
 filepanel
-285794
+285737
 window open
-289084
+289027
 window close
-291799
+291742
 window count
-292291
+292234
 window get
-292918
+292861
 window set
-294752
+294695
