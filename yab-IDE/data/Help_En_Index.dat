@@ -375,290 +375,290 @@ mouse message$()
 mouse message$
 183528
 mouse set
-184107
+184104
 shortcut
-184617
+184614
 &Printing
-187136
+187133
 &
-187138
+187135
 printer
-187146
+187143
 printer setup
-189519
+189516
 &
-190543
+190540
 menu
-190548
+190545
 menu set
-193963
+193960
 popupmenu
-196004
+196001
 submenu
-197652
+197649
 submenu set
-201957
+201954
 &Boxview
-203714
+203711
 &
-203716
+203713
 boxview
-203724
+203721
 boxview set
-205149
+205146
 canvas
-205380
+205377
 layout
-205818
+205815
 &
-207040
+207037
 scrollbar
-207050
+207047
 scrollbar get
-207270
+207267
 scrollbar set
-207549
+207546
 &
-208981
+208978
 splitview
-208991
+208988
 splitview get
-209929
+209926
 splitview set
-210159
+210156
 &
-210692
+210689
 stackview
-210702
+210699
 stackview get
-212816
+212813
 stackview set
-213107
+213104
 &
-213564
+213561
 tabview
-213572
+213569
 tabview add
-213852
+213849
 tabview get
-214749
+214746
 tabview set
-214948
+214945
 &
-215132
+215129
 view
-215137
+215134
 view dropzone
-215281
+215278
 view get
-215566
+215563
 view remove
-215841
+215838
 &
-216332
+216329
 button
-216339
+216336
 button image
-217654
+217651
 calendar
-219395
+219392
 calendar get$
-221062
+221059
 calendar set
-221555
+221552
 checkbox
-221980
+221977
 checkbox image
-223237
+223234
 checkbox set
-225464
+225461
 colorcontrol
-225763
+225760
 colorcontrol get
-227785
+227782
 colorcontrol set
-228393
+228390
 columnbox
-228729
+228726
 columnbox add
-233939
+233936
 columnbox clear
-235120
+235117
 columnbox color
-235488
+235485
 columnbox column
-236533
+236530
 columnbox count
-237692
+237689
 columnbox get
-238130
+238127
 columnbox get$
-238665
+238662
 columnbox remove
-239208
+239205
 columnbox select
-239565
+239562
 &
-240021
+240018
 dropbox
-240029
+240026
 dropbox add
-241234
+241231
 dropbox clear
-241508
+241505
 dropbox count
-241759
+241756
 dropbox get$
-242009
+242006
 dropbox remove
-242303
+242300
 dropbox select
-242862
+242859
 listbox
-243141
+243138
 listbox add
-246106
+246103
 listbox clear
-246584
+246581
 listbox count
-246879
+246876
 listbox get
-247275
+247272
 listbox get$
-247762
+247759
 listbox remove
-248180
+248177
 listbox select
-248519
+248516
 listbox sort
-249164
+249161
 &
-249873
+249870
 option color
-249886
+249883
 option set
-250096
+250093
 radiobutton
-250988
+250985
 radiobutton set
-252722
+252719
 &
-253126
+253123
 slider
-253133
+253130
 slider color
-253854
+253851
 slider get
-254277
+254274
 slider label
-254504
+254501
 slider set
-254755
+254752
 spincontrol
-255367
+255364
 spincontrol get
-255664
+255661
 spincontrol set
-255894
+255891
 statusbar
-256114
+256111
 statusbar set
-257583
+257580
 text
-258081
+258078
 text set
-259269
+259266
 &
-260391
+260388
 textcontrol
-260403
+260400
 textcontrol clear
-260928
+260925
 textcontrol get$
-261166
+261163
 textcontrol set
-261458
+261455
 textedit
-262584
+262581
 textedit add
-263247
+263244
 textedit clear
-263572
+263569
 textedit color
-263914
+263911
 textedit get
-264895
+264892
 textedit get$
-266587
+266584
 textedit set
-267026
+267023
 &
-270233
+270230
 texturl
-270241
+270238
 texturl color
-270849
+270846
 tooltip
-271229
+271226
 tooltip color
-272909
+272906
 &
-274192
+274189
 treebox
-274200
+274197
 treebox add
-274563
+274560
 treebox clear
-275088
+275085
 treebox collapse
-275351
+275348
 treebox count
-275649
+275646
 treebox expand
-275957
+275954
 treebox get$
-276240
+276237
 treebox remove
-276567
+276564
 treebox select
-277052
+277049
 treebox sort
-277355
+277352
 &
-277649
+277646
 localize
-277658
+277655
 translate$()
-280890
+280887
 &Sound
-281643
+281640
 &
-281645
+281642
 beep
-281650
+281647
 bell
-281884
+281881
 sound play
-282247
+282244
 sound stop
-283172
+283169
 sound wait
-283546
+283543
 &Window
-283951
+283948
 &
-283953
+283950
 alert
-283959
+283956
 filepanel
-285737
+285734
 window open
-289027
+289024
 window close
-291742
+291739
 window count
-292234
+292231
 window get
-292861
+292858
 window set
-294695
+294692

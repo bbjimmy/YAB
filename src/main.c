@@ -26,7 +26,7 @@ can be found at www.yabasic.de
 /* ------------- defines ---------------- */
 
 #define DONE {current=current->next;break;}  /* reduces type-work */
-#define COPYRIGHT "Original yabasic Copyright 1995-2006 by Marc-Oliver Ihm\n\tyab improvements Copyright 2006-2014 by Jan Bungeroth\n\tyab improvements Copyright 2013-2016 by Jim Saxton\n"
+#define COPYRIGHT "Original yabasic Copyright 1995-2006 by Marc-Oliver Ihm\n\tyab improvements Copyright 2006-2014 by Jan Bungeroth\n\tyab improvements Copyright 2013-2017 by Jim Saxton\n"
 #define BANNER \
 "\n        yab is yabasic for Haiku. This is version " VERSION ",\n       built on "\
 ARCHITECTURE " on " BUILD_TIME "\n\n      " COPYRIGHT "\n\n"

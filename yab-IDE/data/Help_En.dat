@@ -6019,8 +6019,7 @@ Mouse$ = MOUSE MESSAGE$
 Description:
 This command is somewhat a duplicate to mouse message$(). However, it does not require a view to be given, but reports the name of the view back as part of the message Mouse$. 
 
-The mouse string has the format  VIEW:X:Y:LMB:MMB:RMB  where VIEW is the View$ the mouse is over, MB is the 
-  corresponding left, middle, right mousebutton. X and Y are relative to the VIEW returned.
+The mouse string has the format  VIEW:X:Y:LMB:MMB:RMB  where VIEW is the View$ the mouse is over, MB is the corresponding left, middle, right mousebutton. X and Y are relative to the VIEW returned.
 
 Related: ismousein(), mouse message$(), mouse set
 &
