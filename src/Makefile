@@ -14,7 +14,6 @@
 ##
 ## Haiku stuff
 ##
-HAIKUTAB = YabTabView.o
 HAIKUOPT = -DHAIKU -DLIBRARY_PATH=\"`finddir B_USER_SETTINGS_DIRECTORY`/yab\"
 #
 
@@ -99,7 +98,7 @@ BISONFLAGS = -d -l -t -v
 YAB_OBJECTS = YabInterface.o YabWindow.o YabView.o YabBitmapView.o YabText.o YabFilePanel.o YabFilePanelLooper.o YabList.o \
 	function.o io.o graphic.o symbol.o bison.o \
 	$(COLUMN) column/YabColumnType.o column/ColorTools.o \
-	YabStackView.o SplitPane.o URLView.o YabControlLook.o $(HAIKUTAB) Spinner.o $(TABLIB) CalendarControl.o
+	YabStackView.o SplitPane.o URLView.o YabTabView.o Spinner.o $(TABLIB) CalendarControl.o
 
 ##
 ## Compile and link
@@ -162,12 +161,10 @@ column/ColorTools.o: column/ColorTools.cpp column/ColorTools.h
 	$(GPP) $(GPP_OPT) -c column/ColorTools.cpp -o column/ColorTools.o
 column/YabColumnType.o: column/YabColumnType.cpp column/YabColumnType.h
 	$(GPP) $(GPP_OPT) -c column/YabColumnType.cpp -o column/YabColumnType.o
-$(HAIKUTAB): YabTabView.cpp YabTabView.h
+YabTabView.o: YabTabView.cpp YabTabView.h
 	$(GPP) $(GPP_OPT) -c YabTabView.cpp -o YabTabView.o
 CalendarControl.o: CalendarControl.cpp CalendarControl.h DateTextView.cpp MonthWindow.cpp MonthView.cpp MouseSenseStringView.cpp
 	$(GPP) $(GPP_OPT) -c CalendarControl.cpp -o CalendarControl.o
-YabControlLook.o: YabControlLook.h YabControlLook.cpp
-	$(GPP) $(GPP_OPT) -c YabControlLook.cpp -o YabControlLook.o
 
 clean:
 	rm -f core *.o column/*.o flex.* bison.* yab yabasic.output $(YABLIBRARY) 

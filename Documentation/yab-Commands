@@ -599,7 +599,7 @@ SUBMENU SET MenuHead$, MenuItem$, SubMenuItem$, Option$, View$
 -= T =-
 
 TABVIEW x1,y1 TO x2,y2, ID$, Option$, View$
-  Option$ = "top, bottom" where to place the tabs.
+  Option$ = "top, bottom, left, right" where to place the tabs.
 TABVIEW ADD TabView$, TabName$
   For each tab, a new view is created; you can add widgets or draw on these views as ususal.
   The ids for the views ist TabView$+"1" for the first, TabView$+"2" for the second view, etc.
