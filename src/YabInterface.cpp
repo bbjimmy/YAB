@@ -390,7 +390,7 @@ int YabInterface::CloseWindow(const char* view)
 					{
 						for(int i = 0; i<((YabTabView*)child)->CountTabs(); i++)
 						{
-							YabView *t = (YabView*)((YabTabView*)child)->TabAt(i);
+							YabView *t = (YabView*)((YabTabView*)child)->TabAt(i)->View();
 							RemoveView(t);
 							viewList->DelView(t->Name());
 						}
@@ -407,7 +407,7 @@ int YabInterface::CloseWindow(const char* view)
 							{
 								for(int i = 0; i<((YabTabView*)subchild)->CountTabs(); i++)
 								{
-									YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i);
+									YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i)->View();
 									RemoveView(t);
 									viewList->DelView(t->Name());
 								}
@@ -601,12 +601,16 @@ void YabInterface::BoxViewSet(const char* id, const char* option, const char* va
 }
 void YabInterface::Tab(BRect frame, const char* id, const char* mode, const char* view)
 {
-	tab_orientation side;		
+	BTabView::tab_side side;
 	BString option(mode);
-	if(option.IFindFirst("top")!=B_ERROR)
-		side = B_TAB_TOP;	
-	else if(option.IFindFirst("bottom")!=B_ERROR)
-		side = B_TAB_BOTTOM;	
+	if(option.IFindFirst("top") != B_ERROR)
+		side = BTabView::kTopSide;
+	else if(option.IFindFirst("bottom") != B_ERROR)
+		side = BTabView::kBottomSide;
+	else if(option.IFindFirst("left") != B_ERROR)
+		side = BTabView::kLeftSide;
+	else if(option.IFindFirst("right") != B_ERROR)
+		side = BTabView::kRightSide;
 	else ErrorGen("Invalid Option");
 
 	YabView *myView = cast_as((BView*)viewList->GetView(view), YabView);
@@ -626,7 +630,7 @@ void YabInterface::Tab(BRect frame, const char* id, const char* mode, const char
 
 			myTabView->SetFlags(B_WILL_DRAW|B_FULL_UPDATE_ON_RESIZE|B_NAVIGABLE|B_NAVIGABLE_JUMP);
 			
-			myTabView->SetOrientation(side);
+			myTabView->SetTabSide(side);
 			myTabView->SetTabWidth(B_WIDTH_FROM_LABEL);
 
 			myView->AddChild(myTabView); 
@@ -3378,7 +3382,7 @@ void YabInterface::WindowClear(const char* window)
 					{
 						for(int i = 0; i<((YabTabView*)child)->CountTabs(); i++)
 						{
-							YabView *t = (YabView*)((YabTabView*)child)->TabAt(i);
+							YabView *t = (YabView*)((YabTabView*)child)->TabAt(i)->View();
 							RemoveView(t);
 							viewList->DelView(t->Name());
 						}
@@ -3393,7 +3397,7 @@ void YabInterface::WindowClear(const char* window)
 							{
 								for(int i = 0; i<((YabTabView*)subchild)->CountTabs(); i++)
 								{
-									YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i);
+									YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i)->View();
 									RemoveView(t);
 									viewList->DelView(t->Name());
 								}
@@ -3458,7 +3462,7 @@ void YabInterface::RemoveView(BView *myView)
 		{
 			for(int i = 0; i<((YabTabView*)child)->CountTabs(); i++)
 			{
-				YabView *t = (YabView*)((YabTabView*)child)->TabAt(i);
+				YabView *t = (YabView*)((YabTabView*)child)->TabAt(i)->View();
 				RemoveView(t);
 				viewList->DelView(t->Name());
 			}
@@ -3473,7 +3477,7 @@ void YabInterface::RemoveView(BView *myView)
 				{
 					for(int i = 0; i<((YabTabView*)subchild)->CountTabs(); i++)
 					{
-						YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i);
+						YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i)->View();
 						RemoveView(t);
 						viewList->DelView(t->Name());
 					}
