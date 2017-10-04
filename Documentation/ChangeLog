@@ -1,3 +1,9 @@
+
+yab 1.7.5.5
+-Enable tabview with tabs on the side. This removes trhe reliance on BControlLook
+
+
+
 yab Version 1.7.5.4
 now compiles on x86_64
 yab-IDE now updates BuildFactory files on launch

@@ -6855,14 +6855,14 @@ Related: stackview, stackview get
 tabview
 
 Name:
-tabview -- Open a tabview and chose top/bottom for the tabs
+tabview -- Open a tabview and chose top/bottom/left/right for the tabs
 
 Synopsys:
 TABVIEW x1,y1 TO x2,y2, ID$, Option$, View$
 
 Description:
 Open a tabview and chose top/bottom for the tabs:
-Option$ = "top, bottom" where to place the tabs.
+Option$ = "top, bottom,left,right" where to place the tabs.
 
 Related: splitview, stackview
 &

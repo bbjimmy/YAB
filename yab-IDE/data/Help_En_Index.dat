@@ -439,226 +439,226 @@ stackview set
 tabview
 213569
 tabview add
-213849
+213871
 tabview get
-214746
+214768
 tabview set
-214945
+214967
 &
-215129
+215151
 view
-215134
+215156
 view dropzone
-215278
+215300
 view get
-215563
+215585
 view remove
-215838
+215860
 &
-216329
+216351
 button
-216336
+216358
 button image
-217651
+217673
 calendar
-219392
+219414
 calendar get$
-221059
+221081
 calendar set
-221552
+221574
 checkbox
-221977
+221999
 checkbox image
-223234
+223256
 checkbox set
-225461
+225483
 colorcontrol
-225760
+225782
 colorcontrol get
-227782
+227804
 colorcontrol set
-228390
+228412
 columnbox
-228726
+228748
 columnbox add
-233936
+233958
 columnbox clear
-235117
+235139
 columnbox color
-235485
+235507
 columnbox column
-236530
+236552
 columnbox count
-237689
+237711
 columnbox get
-238127
+238149
 columnbox get$
-238662
+238684
 columnbox remove
-239205
+239227
 columnbox select
-239562
+239584
 &
-240018
+240040
 dropbox
-240026
+240048
 dropbox add
-241231
+241253
 dropbox clear
-241505
+241527
 dropbox count
-241756
+241778
 dropbox get$
-242006
+242028
 dropbox remove
-242300
+242322
 dropbox select
-242859
+242881
 listbox
-243138
+243160
 listbox add
-246103
+246125
 listbox clear
-246581
+246603
 listbox count
-246876
+246898
 listbox get
-247272
+247294
 listbox get$
-247759
+247781
 listbox remove
-248177
+248199
 listbox select
-248516
+248538
 listbox sort
-249161
+249183
 &
-249870
+249892
 option color
-249883
+249905
 option set
-250093
+250115
 radiobutton
-250985
+251007
 radiobutton set
-252719
+252741
 &
-253123
+253145
 slider
-253130
+253152
 slider color
-253851
+253873
 slider get
-254274
+254296
 slider label
-254501
+254523
 slider set
-254752
+254774
 spincontrol
-255364
+255386
 spincontrol get
-255661
+255683
 spincontrol set
-255891
+255913
 statusbar
-256111
+256133
 statusbar set
-257580
+257602
 text
-258078
+258100
 text set
-259266
+259288
 &
-260388
+260410
 textcontrol
-260400
+260422
 textcontrol clear
-260925
+260947
 textcontrol get$
-261163
+261185
 textcontrol set
-261455
+261477
 textedit
-262581
+262603
 textedit add
-263244
+263266
 textedit clear
-263569
+263591
 textedit color
-263911
+263933
 textedit get
-264892
+264914
 textedit get$
-266584
+266606
 textedit set
-267023
+267045
 &
-270230
+270252
 texturl
-270238
+270260
 texturl color
-270846
+270868
 tooltip
-271226
+271248
 tooltip color
-272906
+272928
 &
-274189
+274211
 treebox
-274197
+274219
 treebox add
-274560
+274582
 treebox clear
-275085
+275107
 treebox collapse
-275348
+275370
 treebox count
-275646
+275668
 treebox expand
-275954
+275976
 treebox get$
-276237
+276259
 treebox remove
-276564
+276586
 treebox select
-277049
+277071
 treebox sort
-277352
+277374
 &
-277646
+277668
 localize
-277655
+277677
 translate$()
-280887
+280909
 &Sound
-281640
+281662
 &
-281642
+281664
 beep
-281647
+281669
 bell
-281881
+281903
 sound play
-282244
+282266
 sound stop
-283169
+283191
 sound wait
-283543
+283565
 &Window
-283948
+283970
 &
-283950
+283972
 alert
-283956
+283978
 filepanel
-285734
+285756
 window open
-289024
+289046
 window close
-291739
+291761
 window count
-292231
+292253
 window get
-292858
+292880
 window set
-294692
+294714
