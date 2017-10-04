@@ -21,9 +21,10 @@
 //
 //	File Name:		YabTabView.h
 //	Author:			Marc Flerackers (mflerackers@androme.be)
-// 				Jan Bungeroth (jan@be-logos.org)
+//					Jan Bungeroth (jan@be-logos.org)
+//					Kacper Kasper (kacperkasper@gmail.com)
 //	Description:	YabTabView provides the framework for containing and
-//                  managing groups of BView objects.
+//					managing groups of BView objects.
 //------------------------------------------------------------------------------
 
 #ifndef YABTAB_VIEW_H
@@ -31,23 +32,10 @@
 
 // Standard Includes -----------------------------------------------------------
 
-#include <View.h>
-#include "YabControlLook.h"
-
-// Local Defines ---------------------------------------------------------------
-enum tab_position {
-	B_TAB_FIRST = 999,
-	B_TAB_FRONT,
-	B_TAB_ANY
-};
-
-enum tab_orientation {
-	B_TAB_TOP = 0,
-	B_TAB_BOTTOM
-};
+#include <TabView.h>
 
 // YabTabView class ------------------------------------------------------------------
-class YabTabView : public BView
+class YabTabView : public BTabView
 {
 public:
 						YabTabView(BRect frame, const char *name,
@@ -58,57 +46,19 @@ public:
 								B_FRAME_EVENTS | B_NAVIGABLE);
 						~YabTabView();
 
-virtual void			KeyDown(const char *bytes, int32 numBytes);
-virtual void			MouseDown(BPoint point);
-
-virtual	void			Select(int32 tab);
-	int32			Selection() const;
-
-virtual	void			MakeFocus(bool focused = true);
-virtual	void			SetFocusTab(int32 tab, bool focused);
-	int32			FocusTab() const;
-
-virtual	void			Draw(BRect updateRect);
-virtual	BRect			DrawTabs();
-virtual	void			DrawBox(BRect selTabRect);
-virtual	BRect			TabFrame(int32 tab_index) const;
-virtual void			DrawFocusMark(BRect frame, int32 current);
-virtual void 			DrawLabel(int32 current, BRect frame);
-virtual void 			DrawTab(BRect frame, int32 current, tab_position position, bool full);
 virtual const char* 		GetTabName(int32 index) const;
 
 virtual	void			AddTab(BView *target, const char* tabname);
-virtual	BView			*RemoveTab(int32 tabIndex);
 
-virtual	BView			*TabAt ( int32 tab_index );
-virtual	void			SetTabWidth(button_width width);
-button_width			TabWidth() const;
+virtual	void				Select(int32 index);
+virtual	void				MakeFocus(bool focused = true);
+virtual	void				SetFocusTab(int32 tab, bool focused);
 
-	void			SetOrientation(tab_orientation side);
-	tab_orientation		Orientation();
-		
-virtual	void			SetTabHeight(float height);
-		float			TabHeight(); 
-
-		BView			*ContainerView();
-
-		int32			CountTabs() const;
 		int32			FocusChanged;
 		int32			OldTabView;
 
 private:
-		BList			*fTabList;
 		BList			*fTabNames;
-		BView			*fContainerView;
-		button_width	fTabWidthSetting;
-		float 			fTabWidth;
-		float			fTabHeight;
-		int32			fSelection;
-		int32			fInitialSelection;
-		int32			fFocus;	
-		float                   fTabOffset;
-		tab_orientation		fTabOrientation;
-		YabControlLook		fYabControlLook;
 };
 //------------------------------------------------------------------------------
 
