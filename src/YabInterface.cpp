@@ -807,7 +807,7 @@ void YabInterface::TabSet(const char* id, int num)
 				myTabView = cast_as(myView->FindView(id), YabTabView);
 				if(myTabView)
 				{
-					if(num>0 && num<=myTabView->CountTabs())
+					if(num=0 && num<=myTabView->CountTabs() && num != myTabView->Selection()+1)
 						myTabView->Select(num-1);
 					w->Unlock();
 					return;
