@@ -579,86 +579,86 @@ textcontrol get$
 textcontrol set
 261477
 textedit
-262603
+262535
 textedit add
-263266
+263198
 textedit clear
-263591
+263523
 textedit color
-263933
+263865
 textedit get
-264914
+264846
 textedit get$
-266606
+266538
 textedit set
-267045
+266977
 &
-270252
+270515
 texturl
-270260
+270523
 texturl color
-270868
+271131
 tooltip
-271248
+271511
 tooltip color
-272928
+273191
 &
-274211
+274474
 treebox
-274219
+274482
 treebox add
-274582
+274845
 treebox clear
-275107
-treebox collapse
 275370
+treebox collapse
+275633
 treebox count
-275668
+275931
 treebox expand
-275976
+276239
 treebox get$
-276259
+276522
 treebox remove
-276586
+276849
 treebox select
-277071
+277334
 treebox sort
-277374
+277637
 &
-277668
+277931
 localize
-277677
+277940
 translate$()
-280909
+281172
 &Sound
-281662
+281925
 &
-281664
+281927
 beep
-281669
+281932
 bell
-281903
+282166
 sound play
-282266
+282529
 sound stop
-283191
+283454
 sound wait
-283565
+283828
 &Window
-283970
+284233
 &
-283972
+284235
 alert
-283978
+284241
 filepanel
-285756
+286019
 window open
-289046
+289309
 window close
-291761
+292024
 window count
-292253
+292516
 window get
-292880
+293143
 window set
-294714
+294977

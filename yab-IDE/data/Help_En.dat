@@ -8306,7 +8306,6 @@ Set the text control's text to Text$.
 
 TEXTCONTROL SET TextControl$, Option$, Value$
 Option$="align" Value$= "left" / "right" / "center"
-*** note *** Haiku has issues align right. There are open tickets. 
 Option$="exclude", Value$=characters to disallow.
 Option$="include", Value$=characters to allow.
 Option$="length", Value$=str$(number) of characters allowed.
@@ -8515,6 +8514,9 @@ Given three parameters, the following options are valid for the textedit named T
 Option$ = "font" -- set the font to Value$ (see draw set for details), default is "system-plain"
 Option$ = "autocomplete" -- add the word Value$ to the auto-completion list
 Option$ = "align" and  value$ = "left|center|right" -- set the alignment for text in the textedit view.
+Option$ = "plain" value$ = str$(point) sets the font to system plain font of point size (number from 7 and up 
+Option$ = "fixed" value$ = str$(point) sets the font to system fixed font of point size (number from 7 and up 
+Option$ = "bold" value$ = str$(point) sets the font to system bold font of point size (number from 7 and up 
 
 Related: textedit, textedit add, textedit clear, textedit color, textedit get, textedit get$
 &TextURL

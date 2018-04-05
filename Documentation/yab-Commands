@@ -624,8 +624,7 @@ TEXTCONTROL SET TextControl$, IsPassword
   IsPassword = true Hide typing
 TEXTCONTROL SET TextControl$, Option$, Value$
  Option$="align" Value$= "left" / "right" / "center"
-  *** note *** Haiku has issues align right. There are open tickets. 
-   Option$="exclude", Value$=characters to disallow.
+ Option$="exclude", Value$=characters to disallow.
  Option$="include", Value$=characters to allow.
  Option$="length", Value$=str$(number) of characters allowed.
   Sets the font used to the system fixed font.
@@ -698,6 +697,8 @@ TEXTEDIT SET TextEdit$, Option$, Value$
   Add a word Value$ to the auto-completion list.
   Option$ = "font"
   Set the font to Value$ (similar to DRAW SET); default is "system-plain"
+  Option$="align" value$= "left | center | right" Sets the alignment for text in the textedit view.
+  Option$ = "plain | bold |fixed" valu$=str$(point_size) Sets the font face to system plain | bold | fixed font and sets the size to point_size
 TEXTEDIT COLOR TextEdit$, Option$, Command$
   Option$ = "color1, color2, color3, color4, char-color", Command$
   Add the command Command$ to the list of words that are checked for syntax highlighting

@@ -2871,6 +2871,7 @@ void YabInterface::TextControl(const char* id, const char* option, const char* v
 							ErrorGen("Bad length");
 						}
 					}
+			
 					if(tmpOption.IFindFirst("exclude")!=B_ERROR)
 					{
 						int i;
@@ -3677,6 +3678,11 @@ void YabInterface::TextSet(const char* title, const char* option, const char* va
 				myText = cast_as(myView->FindView(title),YabText);
 				if(myText)
 				{
+					
+									
+					
+					
+					
 					if(tmp.IFindFirst("align")!=B_ERROR)
 					{ 
 						if(tmp2.IFindFirst("left")!=B_ERROR)
@@ -3685,7 +3691,52 @@ void YabInterface::TextSet(const char* title, const char* option, const char* va
 							myText->SetAlignment(B_ALIGN_CENTER);
 						else if(tmp2.IFindFirst("right")!=B_ERROR)
 							myText->SetAlignment(B_ALIGN_RIGHT);
-					}		
+					}
+					else if(tmp.IFindFirst("fixed")!=B_ERROR)
+					{ 
+						const char* str_int = tmp2.String();
+						int i = atoi(str_int);
+						if (i>6)
+						{
+							BFont myFont=(be_fixed_font);
+							int myFontSize = i;
+							myFont.SetSize(myFontSize);
+							int TL = myText->TextLength();
+							const rgb_color Textcolor = {0,0,0,255};
+							myText->SetFontAndColor(0,TL,&myFont,B_FONT_ALL,&Textcolor);
+						}
+						
+					}
+					else if(tmp.IFindFirst("plain")!=B_ERROR)
+					{ 
+						const char* str_int = tmp2.String();
+						int i = atoi(str_int);
+						if (i>6)
+						{
+							BFont myFont=(be_plain_font);
+							int myFontSize = i;
+							myFont.SetSize(myFontSize);
+							int TL = myText->TextLength();
+							const rgb_color Textcolor = {0,0,0,255};
+							myText->SetFontAndColor(0,TL,&myFont,B_FONT_ALL,&Textcolor);
+						}
+						
+					}
+					else if(tmp.IFindFirst("bold")!=B_ERROR)
+					{ 
+						const char* str_int = tmp2.String();
+						int i = atoi(str_int);
+						if (i>6)
+						{
+							BFont myFont=(be_bold_font);
+							int myFontSize = i;
+							myFont.SetSize(myFontSize);
+							int TL = myText->TextLength();
+							const rgb_color Textcolor = {0,0,0,255};
+							myText->SetFontAndColor(0,TL,&myFont,B_FONT_ALL,&Textcolor);
+						}
+						
+					}
 					else if(tmp.IFindFirst("autocomplete")!=B_ERROR)
 						myText->AddWord(new BString(value));
 					else if(tmp.IFindFirst("font")!=B_ERROR)
@@ -3805,10 +3856,9 @@ void YabInterface::TextSet(const char* title, const char* option, int value)
 					else if(tmp.IFindFirst("tabwidth")!=B_ERROR)
 						myText->SetTabWidth(value);
 					else if(tmp.IFindFirst("cursor")!=B_ERROR)
-						myText->Select(value, value);	
+						myText->Select(value, value);
 					else if(tmp.IFindFirst("textwidth")!=B_ERROR)
-					
-					
+						
 					{
 						// BRect txtframe = myText->TextRect();
 						// txtframe.right = txtframe.left + value;
