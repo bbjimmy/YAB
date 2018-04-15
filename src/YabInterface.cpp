@@ -392,7 +392,7 @@ int YabInterface::CloseWindow(const char* view)
 						{
 							YabView *t = (YabView*)((YabTabView*)child)->TabAt(i)->View();
 							RemoveView(t);
-							viewList->DelView(t->Name());
+							viewList->DelView(t->NameForTabView());
 						}
 					}
 					if(is_kind_of(child, YabBitmapView))
@@ -409,7 +409,7 @@ int YabInterface::CloseWindow(const char* view)
 								{
 									YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i)->View();
 									RemoveView(t);
-									viewList->DelView(t->Name());
+									viewList->DelView(t->NameForTabView());
 								}
 							}
 							if(viewList->GetView(subchild->Name()))
@@ -3385,7 +3385,7 @@ void YabInterface::WindowClear(const char* window)
 						{
 							YabView *t = (YabView*)((YabTabView*)child)->TabAt(i)->View();
 							RemoveView(t);
-							viewList->DelView(t->Name());
+							viewList->DelView(t->NameForTabView());
 						}
 					}
 					if(is_kind_of(child, YabBitmapView))
@@ -3400,7 +3400,7 @@ void YabInterface::WindowClear(const char* window)
 								{
 									YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i)->View();
 									RemoveView(t);
-									viewList->DelView(t->Name());
+									viewList->DelView(t->NameForTabView());
 								}
 							}
 							if(viewList->GetView(subchild->Name()))
@@ -3465,7 +3465,7 @@ void YabInterface::RemoveView(BView *myView)
 			{
 				YabView *t = (YabView*)((YabTabView*)child)->TabAt(i)->View();
 				RemoveView(t);
-				viewList->DelView(t->Name());
+				viewList->DelView(t->NameForTabView());
 			}
 		}
 		if(is_kind_of(child, YabBitmapView))
@@ -3480,7 +3480,7 @@ void YabInterface::RemoveView(BView *myView)
 					{
 						YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i)->View();
 						RemoveView(t);
-						viewList->DelView(t->Name());
+						viewList->DelView(t->NameForTabView());
 					}
 				}
 				if(viewList->GetView(subchild->Name()))
