@@ -27,6 +27,7 @@ class YabView : public BView
 		virtual void MouseDown(BPoint point);
 		virtual void KeyUp(const char *bytes, int32 numBytes);
 		virtual void KeyDown(const char *bytes, int32 numBytes);
+		const char* NameForTabView() { return nameWAForTabView; }
 		BList *drawList;
 		int mouseMovedInfo;
 		int mouseStateInfo;
@@ -39,6 +40,8 @@ class YabView : public BView
 		BString pressedKeys;
 	private:
 		int prevMouseStateInfo;
+		// TODO: revisit at a later time, more info in constructor
+		BString nameWAForTabView;
 };
 
 #endif

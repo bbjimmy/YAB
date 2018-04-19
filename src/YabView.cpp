@@ -48,6 +48,11 @@ YabView::YabView(BRect frame, const char *name, uint32 resizingMode, uint32 flag
 	dropZone = false;
 	pressedKeys.SetTo("");
 	SetDrawingMode(B_OP_COPY);
+
+	// BTab uses view Name() as displayed label storage, so SetLabel changes it
+	// this interferes with yab method of referencing views by name
+	// to be removed
+	nameWAForTabView = name;
 }
 
 YabView::~YabView()
