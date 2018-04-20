@@ -105,7 +105,7 @@ static bool quitting = false;
 static property_info prop_list[] = { 
 	{ "YabSendString", {B_SET_PROPERTY, 0}, {B_NAME_SPECIFIER, 0}, "Send a string to MESSAGE$"},
 	0 // terminate list 
-}; 
+};
 
 const char* _L(const char* text)
 {
@@ -386,15 +386,7 @@ int YabInterface::CloseWindow(const char* view)
 			{
 				while(child)
 				{
-					if(is_kind_of(child, YabTabView))
-					{
-						for(int i = 0; i<((YabTabView*)child)->CountTabs(); i++)
-						{
-							YabView *t = (YabView*)((YabTabView*)child)->TabAt(i)->View();
-							RemoveView(t);
-							viewList->DelView(t->NameForTabView());
-						}
-					}
+					CleanupYabTabView(child);
 					if(is_kind_of(child, YabBitmapView))
 						yabcanvas->RemoveItem(child);
 						
@@ -403,15 +395,7 @@ int YabInterface::CloseWindow(const char* view)
 					if(subchild = child->ChildAt(0))
 						while(subchild)
 						{
-							if(is_kind_of(subchild, YabTabView))
-							{
-								for(int i = 0; i<((YabTabView*)subchild)->CountTabs(); i++)
-								{
-									YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i)->View();
-									RemoveView(t);
-									viewList->DelView(t->NameForTabView());
-								}
-							}
+							CleanupYabTabView(subchild);
 							if(viewList->GetView(subchild->Name()))
 							{
 								RemoveView(subchild);
@@ -3379,30 +3363,14 @@ void YabInterface::WindowClear(const char* window)
 			{
 				while(child)
 				{
-					if(is_kind_of(child, YabTabView))
-					{
-						for(int i = 0; i<((YabTabView*)child)->CountTabs(); i++)
-						{
-							YabView *t = (YabView*)((YabTabView*)child)->TabAt(i)->View();
-							RemoveView(t);
-							viewList->DelView(t->NameForTabView());
-						}
-					}
+					CleanupYabTabView(child);
 					if(is_kind_of(child, YabBitmapView))
 						yabcanvas->RemoveItem(child);
 					BView *subchild;
 					if(subchild = child->ChildAt(0))
 						while(subchild)
 						{
-							if(is_kind_of(subchild, YabTabView))
-							{
-								for(int i = 0; i<((YabTabView*)subchild)->CountTabs(); i++)
-								{
-									YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i)->View();
-									RemoveView(t);
-									viewList->DelView(t->NameForTabView());
-								}
-							}
+							CleanupYabTabView(subchild);
 							if(viewList->GetView(subchild->Name()))
 							{
 								RemoveView(subchild);
@@ -3458,31 +3426,14 @@ void YabInterface::RemoveView(BView *myView)
 	if(child = myView->ChildAt(0))
 	while(child)
 	{
-
-		if(is_kind_of(child, YabTabView))
-		{
-			for(int i = 0; i<((YabTabView*)child)->CountTabs(); i++)
-			{
-				YabView *t = (YabView*)((YabTabView*)child)->TabAt(i)->View();
-				RemoveView(t);
-				viewList->DelView(t->NameForTabView());
-			}
-		}
+		CleanupYabTabView(child);
 		if(is_kind_of(child, YabBitmapView))
 			yabcanvas->RemoveItem(child);
 		BView *subchild;
 		if(subchild = child->ChildAt(0))
 			while(subchild)
 			{
-				if(is_kind_of(subchild, YabTabView))
-				{
-					for(int i = 0; i<((YabTabView*)subchild)->CountTabs(); i++)
-					{
-						YabView *t = (YabView*)((YabTabView*)subchild)->TabAt(i)->View();
-						RemoveView(t);
-						viewList->DelView(t->NameForTabView());
-					}
-				}
+				CleanupYabTabView(subchild);
 				if(viewList->GetView(subchild->Name()))
 				{
 					RemoveView(subchild);
@@ -3524,6 +3475,21 @@ void YabInterface::RemoveView(BView *myView)
 		}
 		oldchild->RemoveSelf();
 		delete oldchild;
+	}
+}
+
+void YabInterface::CleanupYabTabView(BView* view)
+{
+	if(view == NULL || viewList == NULL) return;
+
+	if(is_kind_of(view, YabTabView)) {
+		YabTabView* tabView = static_cast<YabTabView*>(view);
+		for(int i = 0; i < tabView->CountTabs(); i++)
+		{
+			YabView *t = static_cast<YabView*>(tabView->TabAt(i)->View());
+			RemoveView(t);
+			viewList->DelView(t->NameForTabView());
+		}
 	}
 }
 
