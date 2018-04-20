@@ -391,18 +391,7 @@ int YabInterface::CloseWindow(const char* view)
 						yabcanvas->RemoveItem(child);
 						
 					// viewList->PrintOut();
-					BView *subchild;
-					if(subchild = child->ChildAt(0))
-						while(subchild)
-						{
-							CleanupYabTabView(subchild);
-							if(viewList->GetView(subchild->Name()))
-							{
-								RemoveView(subchild);
-								viewList->DelView(subchild->Name());
-							}
-							subchild = subchild->NextSibling();
-						}
+					CleanupSubchildView(child->ChildAt(0));
 					if(viewList->GetView(child->Name()))
 					{
 						RemoveView(child);
@@ -3366,18 +3355,7 @@ void YabInterface::WindowClear(const char* window)
 					CleanupYabTabView(child);
 					if(is_kind_of(child, YabBitmapView))
 						yabcanvas->RemoveItem(child);
-					BView *subchild;
-					if(subchild = child->ChildAt(0))
-						while(subchild)
-						{
-							CleanupYabTabView(subchild);
-							if(viewList->GetView(subchild->Name()))
-							{
-								RemoveView(subchild);
-								viewList->DelView(subchild->Name());
-							}
-							subchild = subchild->NextSibling();
-						}
+					CleanupSubchildView(child->ChildAt(0));
 					if(viewList->GetView(child->Name()))
 					{
 						RemoveView(child);
@@ -3429,18 +3407,7 @@ void YabInterface::RemoveView(BView *myView)
 		CleanupYabTabView(child);
 		if(is_kind_of(child, YabBitmapView))
 			yabcanvas->RemoveItem(child);
-		BView *subchild;
-		if(subchild = child->ChildAt(0))
-			while(subchild)
-			{
-				CleanupYabTabView(subchild);
-				if(viewList->GetView(subchild->Name()))
-				{
-					RemoveView(subchild);
-					viewList->DelView(subchild->Name());
-				}
-				subchild = subchild->NextSibling();
-			}
+		CleanupSubchildView(child->ChildAt(0));
 		if(viewList->GetView(child->Name()))
 		{
 			RemoveView(child);
@@ -3490,6 +3457,22 @@ void YabInterface::CleanupYabTabView(BView* view)
 			RemoveView(t);
 			viewList->DelView(t->NameForTabView());
 		}
+	}
+}
+
+void YabInterface::CleanupSubchildView(BView* view)
+{
+	if(view == NULL || viewList == NULL) return;
+
+	while(view)
+	{
+		CleanupYabTabView(view);
+		if(viewList->GetView(view->Name()))
+		{
+			RemoveView(view);
+			viewList->DelView(view->Name());
+		}
+		view = view->NextSibling();
 	}
 }
 
