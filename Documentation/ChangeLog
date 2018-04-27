@@ -1,15 +1,19 @@
 
+yab 1.7.5.6
+- fix tabview bugs introduecd in 1.7.5.5
+	fix tabview set command 
+	allow tabview to be removed by removing the parent view
+-add Option$  "plain | bold | fixed" and point$ to texteditl set
+	TEXTEDIT SET TextEdit$, "plain", "25" sets the text to system plain font at 25 point size. 
+
 yab 1.7.5.5
 -Enable tabview with tabs on the side. This removes trhe reliance on BControlLook
 
-
-
 yab Version 1.7.5.4
-now compiles on x86_64
-yab-IDE now updates BuildFactory files on launch
-add Window Get Windiwid$, "Minimized-To-Deskbar"
-update help files for yab-ide
-
+-now compiles on x86_64
+-yab-IDE now updates BuildFactory files on launch
+-add Window Get Windiwid$, "Minimized-To-Deskbar"
+-update help files for yab-ide
 
 yab Version 1.7.5.3
 - gcc4 now compiles
@@ -18,7 +22,6 @@ yab Version 1.7.5.3
 - add https:// to texturl
 - BuildFactory use declared appsig
 - yab-IDE use declared appsig, or use filename for appsig
-
 
 yab Version 1.7.5.2
 - use public rgb_color mix_color()

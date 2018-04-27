@@ -561,7 +561,12 @@ filter_result SpinnerMsgFilter::Filter(BMessage *msg, BHandler **target)
 				}
 			}
 			return B_DISPATCH_MESSAGE;
-		}/*
+		}
+		case B_TAB:
+		{
+			return B_DISPATCH_MESSAGE;	
+		}
+		/*
 		case B_TAB:
 		{
 			// Cause Tab characters to perform keybaord navigation
