@@ -248,6 +248,8 @@
 		void GetMMsgInfo(BString &t, int mouseStateInfo, int mouseLButton, int mouseMButton, int mouseRButton, int x, int y, const char* name);
 		BBitmap* loadImage(const char* name);
 		static int compare(BListItem **firstArg, BListItem **secondArg);
+		void CleanupYabTabView(BView* view);
+		void CleanupSubchildView(BView* view);
 
 		BTranslatorRoster *Roster;
 		char ApplicationDirectory[1024];
