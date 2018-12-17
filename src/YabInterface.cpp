@@ -1622,7 +1622,9 @@ void YabInterface::DrawText(BPoint coordinates, const char* text, const char* wi
                         if(bview)
                         {
                                 b->Lock();
-                               	bview->DrawString(text, coordinates);
+                                 bview->SetDrawingMode(B_OP_ALPHA);
+                              	bview->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
+                              	bview->DrawString(text, coordinates);
                                 bview->Sync();
                                 b->Unlock();
                                 return;
@@ -1640,6 +1642,8 @@ void YabInterface::DrawText(BPoint coordinates, const char* text, const char* wi
                                         BBitmap *b = myView->GetBitmap();
                                         BView *bView = myView->GetBitmapView();
                                         b->Lock();
+                                         bView->SetDrawingMode(B_OP_ALPHA);
+                              	bView->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
                                		bView->DrawString(text, coordinates);
                                         bView->Sync();
                                         b->Unlock();
@@ -1697,9 +1701,11 @@ void YabInterface::DrawRect(BRect frame, const char* window)
                         if(bview)
                         {
                                 b->Lock();
-				if(drawStroking)
+                                bview->SetDrawingMode(B_OP_ALPHA);
+                              	bview->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
+								if(drawStroking)
                                		bview->StrokeRect(frame, yabPattern);
-				else
+								else
                                		bview->FillRect(frame, yabPattern);
                                 bview->Sync();
                                 b->Unlock();
@@ -1718,6 +1724,8 @@ void YabInterface::DrawRect(BRect frame, const char* window)
                                         BBitmap *b = myView->GetBitmap();
                                         BView *bView = myView->GetBitmapView();
                                         b->Lock();
+                                  //      bView->SetDrawingMode(B_OP_ALPHA);
+                              	//bView->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
 					if(drawStroking)
                                			bView->StrokeRect(frame, yabPattern);
 					else
@@ -1812,6 +1820,8 @@ void YabInterface::DrawDot(double x, double y, const char* window)
                         if(bview)
                         {
                                 b->Lock();
+                                   bview->SetDrawingMode(B_OP_ALPHA);
+                              	bview->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
                                 bview->StrokeLine(BPoint(x,y), BPoint(x,y), yabPattern);
                                 bview->Sync();
                                 b->Unlock();
@@ -1830,6 +1840,8 @@ void YabInterface::DrawDot(double x, double y, const char* window)
                                         BBitmap *b = myView->GetBitmap();
                                         BView *bView = myView->GetBitmapView();
                                         b->Lock();
+                                //         bView->SetDrawingMode(B_OP_ALPHA);
+                              //	bView->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
                                         bView->StrokeLine(BPoint(x,y), BPoint(x,y), yabPattern);
                                         bView->Sync();
                                         b->Unlock();
@@ -1878,6 +1890,8 @@ void YabInterface::DrawLine(double x1, double y1, double x2, double y2, const ch
 			if(bview)
 			{
 				b->Lock();
+				bview->SetDrawingMode(B_OP_ALPHA);
+                bview->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
 				bview->StrokeLine(BPoint(x1,y1), BPoint(x2,y2), yabPattern);
 				bview->Sync();
 				b->Unlock();
@@ -1896,6 +1910,8 @@ void YabInterface::DrawLine(double x1, double y1, double x2, double y2, const ch
 					BBitmap *b = myView->GetBitmap();
 					BView *bView = myView->GetBitmapView();
 					b->Lock();
+					//bView->SetDrawingMode(B_OP_ALPHA);
+                    //bView->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
 					bView->StrokeLine(BPoint(x1,y1), BPoint(x2,y2), yabPattern);
 					bView->Sync();
 					b->Unlock();
@@ -1948,6 +1964,10 @@ void YabInterface::DrawCircle(double x, double y, double r, const char* window)
                         if(bview)
                         {
                                 b->Lock();
+                              
+                              	bview->SetDrawingMode(B_OP_ALPHA);
+                              	bview->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
+                              
                                 if(drawStroking)
                                         bview->StrokeEllipse(BPoint(x,y), r, r, yabPattern);
                                 else
@@ -1968,7 +1988,11 @@ void YabInterface::DrawCircle(double x, double y, double r, const char* window)
                                         w->Lock();
                                         BBitmap *b = myView->GetBitmap();
                                         BView *bView = myView->GetBitmapView();
+                                        
                                         b->Lock();
+                                  //      bView->SetDrawingMode(B_OP_ALPHA);
+                              		//	bView->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
+                                       // bView->SetDrawingMode(B_OP_OVER);
                                         if(drawStroking)
                                         	bView->StrokeEllipse(BPoint(x,y), r, r, yabPattern);
                                         else
@@ -2021,6 +2045,8 @@ void YabInterface::DrawEllipse(double x, double y, double r1, double r2, const c
                         if(bview)
                         {
                                 b->Lock();
+                                   bview->SetDrawingMode(B_OP_ALPHA);
+                              	bview->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
                                 if(drawStroking)
                                         bview->StrokeEllipse(BPoint(x,y), r1, r2, yabPattern);
                                 else
@@ -2042,6 +2068,8 @@ void YabInterface::DrawEllipse(double x, double y, double r1, double r2, const c
                                         BBitmap *b = myView->GetBitmap();
                                         BView *bView = myView->GetBitmapView();
                                         b->Lock();
+                                //        bView->SetDrawingMode(B_OP_ALPHA);
+                              	//		bView->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
                                         if(drawStroking)
                                                 bView->StrokeEllipse(BPoint(x,y), r1, r2, yabPattern);
                                         else
@@ -2101,6 +2129,8 @@ void YabInterface::DrawCurve(double x1, double y1, double x2, double y2, double 
                         if(bview)
                         {
                                 b->Lock();
+                                   bview->SetDrawingMode(B_OP_ALPHA);
+                              	bview->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
                                 BPoint p[4];
                                 p[0].Set(x1,y1);
                                 p[1].Set(x2,y2);
@@ -2132,6 +2162,8 @@ void YabInterface::DrawCurve(double x1, double y1, double x2, double y2, double 
                                         BBitmap *b = myView->GetBitmap();
                                         BView *bView = myView->GetBitmapView();
                                         b->Lock();
+                                //         bView->SetDrawingMode(B_OP_ALPHA);
+                              //	bView->SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_COMPOSITE);
                                 	BPoint p[4];
                                 	p[0].Set(x1,y1);
                                 	p[1].Set(x2,y2);
@@ -2148,7 +2180,7 @@ void YabInterface::DrawCurve(double x1, double y1, double x2, double y2, double 
                                 		bView->FillBezier(p, yabPattern);
                                         bView->Sync();
                                         b->Unlock();
-
+										
 					myView->Draw(BRect(invx1,invy1,invx2,invy2));
                                         w->Unlock();
                                         return;
@@ -4485,7 +4517,7 @@ void YabInterface::TreeBox2(const char* id, const char* item)
 	}
 	Error(id, "TREEBOX");
 }
-
+//Correction of Subitem by Stephan Aßmus on BeGeistert 2018
 void YabInterface::TreeBox3(const char* id, const char* head, const char* item, int isExpanded)
 {
 	YabView *myView = NULL;
@@ -4507,10 +4539,17 @@ void YabInterface::TreeBox3(const char* id, const char* head, const char* item, 
 						BStringItem *stritem = (BStringItem*)myTree->FullListItemAt(i);
 						if(!strcmp(stritem->Text(), head))
 						{
-							BStringItem *tmp = new BStringItem(item);
-							myTree->AddUnder(tmp,stritem);
+							int32 level = stritem->OutlineLevel() + 1;
+							BStringItem *tmp = new BStringItem(item, level);
+							//myTree->AddUnder(tmp,stritem);
+							int32 fullSubItemCount = myTree->CountItemsUnder(stritem, false);
+							//printf("found item '%s' at %ld with level %ld, number of sub-items: %ld\n",
+							//	head, i, level - 1, fullSubItemCount);
+							myTree->AddItem(tmp, i + fullSubItemCount + 1);
+							
 							if(isExpanded<1)
 								myTree->Collapse(stritem);
+								
 							w->Unlock();
 							return;
 						}
@@ -4804,7 +4843,7 @@ const char* YabInterface::TreeboxGet(const char* treebox, int pos)
 	pos--;
 	YabView *myView = NULL;
 	BOutlineListView *myTree = NULL;
-	for(int i=0; i<viewList->CountItems(); i++)
+	for(int i=0; i<viewList->CountItems(); i++) //CountItems()
 	{
 		myView = cast_as((BView*)viewList->ItemAt(i), YabView);
 		if(myView)
@@ -4820,6 +4859,7 @@ const char* YabInterface::TreeboxGet(const char* treebox, int pos)
 					if(t)
 					{
 						const char* txt = t->Text();
+						//printf(txt);
 						w->Unlock();
 						return txt;
 					}
@@ -8149,19 +8189,24 @@ int YabInterface::ThreadGet(const char* option, const char* appname)
 
 	return ret;
 }
-
+//Correction of Subitem by Stephan Aßmus on BeGeistert 2018
 void YabInterface::Bitmap(double w, double h, const char* id)
 {
 	char *t;
 	BBitmap *b = new BBitmap(BRect(0,0,w-1,h-1), B_RGBA32, true);
 	BView *bview = new BView(BRect(0,0,w-1,h-1), id, B_FOLLOW_NONE, 0);
+
+	//bview->SetDrawingMode(B_OP_ALPHA);
+		//bview->SetViewColor(255,255,255,255);
 	b->AddChild(bview);
-	t = (char*)b->Bits();
-	for(int i=0; i<w*h*4; i = i + 4)
-	{
-		t[i] = t[i+1] = t[i+2] = 255;
-		t[i+3] = 0;
-	}
+	
+	memset(b->Bits(), 0, b->BitsLength());
+//	t = (char*)b->Bits();
+//	for(int i=0; i<w*h*4; i = i + 4)
+//	{
+//		t[i] = t[i+1] = t[i+2] = 255;
+//		t[i+3] = 0;
+//	}
 	yabbitmaps->AddItem(b);
 }
 
@@ -8420,11 +8465,15 @@ void YabInterface::BitmapGet(BRect frame, const char* id, const char* bitmap)
 	{
 		BBitmap *b = (BBitmap*)yabbitmaps->ItemAt(i);
 		BView *bview = b->FindView(bitmap);
+		
+		
 		if(bview)
 		{
 			char *oldbits, *newbits;
-			BBitmap *newbmp = new BBitmap(BRect(0,0, frame.Width(), frame.Height()), B_RGBA32, true);
+			
+			BBitmap *newbmp = new BBitmap(BRect(0,0, frame.Width(), frame.Height()), B_RGBA32, true);			
 			BView *newbview = new BView(BRect(0,0, frame.Width(), frame.Height()), id, B_FOLLOW_NONE, 0);
+			
 			newbmp->AddChild(newbview);
 			newbits = (char*)newbmp->Bits();
 			for(int i=0; i<frame.Width()*frame.Height()*4; i = i + 4)
@@ -8794,7 +8843,8 @@ int YabInterface::Sound(const char* filename)
 {
 	entry_ref ref; 
 	BEntry entry(filename, true); 
-
+	//printf("file '%s' \n", &filename);
+							
 	if (entry.InitCheck() == B_OK) 
 		if (entry.GetRef(&ref) == B_OK) 
 			return play_sound(&ref, true, false, true);

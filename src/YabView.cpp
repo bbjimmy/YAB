@@ -110,6 +110,7 @@ void YabView::Draw(BRect updateRect)
 {
 	SetFont(be_plain_font);
 	updateRect = Bounds();
+	SetDrawingMode(B_OP_OVER);
 	for(int i=0; i<drawList->CountItems(); i++)
 	{
 		YabDrawing *e = (YabDrawing*)drawList->ItemAt(i);
@@ -129,7 +130,7 @@ void YabView::Draw(BRect updateRect)
 				break;
 			case 6: {
 					if(e->alpha == 255) 	
-						SetDrawingMode(B_OP_COPY);
+						SetDrawingMode(B_OP_OVER);
 					else 
 						SetDrawingMode(B_OP_ALPHA);
 					SetHighColor(e->r,e->g,e->b,e->alpha);
@@ -137,7 +138,7 @@ void YabView::Draw(BRect updateRect)
 				break;
 			case 7: {
 					if(e->alpha == 255) 
-						SetDrawingMode(B_OP_COPY);
+						SetDrawingMode(B_OP_OVER);
 					else 
 						SetDrawingMode(B_OP_ALPHA);
 					SetLowColor(e->r,e->g,e->b,e->alpha);
@@ -168,7 +169,7 @@ void YabView::Draw(BRect updateRect)
 			case 10: {
 					drawing_mode mode = DrawingMode();
 					if(IsPrinting())
-						SetDrawingMode(B_OP_COPY);
+						SetDrawingMode(B_OP_OVER);
 					else
 						SetDrawingMode(B_OP_ALPHA);
 					DrawBitmap(e->bitmap, BPoint(e->x1, e->y1));
@@ -178,7 +179,7 @@ void YabView::Draw(BRect updateRect)
 			case 11: {
 					drawing_mode mode = DrawingMode();
 					if(IsPrinting())
-						SetDrawingMode(B_OP_COPY);
+						SetDrawingMode(B_OP_OVER);
 					else
 						SetDrawingMode(B_OP_ALPHA);
 					DrawBitmap(e->bitmap, BRect(e->x1, e->y1, e->x2, e->y2));
