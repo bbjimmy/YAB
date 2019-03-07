@@ -1,10 +1,13 @@
+yab 1.7.6
+-fix Draw Command with transparency error
+-fix Treebox error, Treebox add wasn't correct
 
 yab 1.7.5.6
 - fix tabview bugs introduecd in 1.7.5.5
-	fix tabview set command 
-	allow tabview to be removed by removing the parent view
+-fix tabview set command 
+-allow tabview to be removed by removing the parent view
 -add Option$  "plain | bold | fixed" and point$ to texteditl set
-	TEXTEDIT SET TextEdit$, "plain", "25" sets the text to system plain font at 25 point size. 
+-TEXTEDIT SET TextEdit$, "plain", "25" sets the text to system plain font at 25 point size. 
 
 yab 1.7.5.5
 -Enable tabview with tabs on the side. This removes trhe reliance on BControlLook
