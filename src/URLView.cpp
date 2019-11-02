@@ -161,9 +161,15 @@ void URLView::Draw( BRect updateRect ) {
 
 
 
-void URLView::MessageReceived( BMessage *message ) {
+void URLView::MessageReceived( BMessage *message ) 
+{
+	entry_ref ref;
+	switch (message->what)
+	{
+		case 'DDCP':
+		{
 	// Is this a message from Tracker in response to our drag-and-drop?
-	if( message->what == 'DDCP' ) {
+	//if( message->what == 'DDCP' ) {
 		// Tracker will send back the name and path of the created file.
 		// We need to read this information.
 		entry_ref ref;
@@ -183,10 +189,14 @@ void URLView::MessageReceived( BMessage *message ) {
 		
 		delete fullName;
 		delete title;
+		}
+	break;
+		default:
+			BView::MessageReceived(message);
+			break;
 	}
+
 }
-
-
 
 void URLView::MouseDown( BPoint point ) {
 	// If the link isn't enabled, don't do anything.
