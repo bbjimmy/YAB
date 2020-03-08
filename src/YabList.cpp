@@ -87,6 +87,6 @@ void YabList::PrintOut()
 {
 	printf("\n");
 	for(int i=0; i<idList->CountItems(); i++)
-		printf("\t%s\n", ((BString*)(idList->ItemAt(i)))->String() );
+		printf("\t View %s and the id %d %d \n", ((BString*)(idList->ItemAt(i)))->String() , idList->ItemAt(i), viewList->ItemAt(i));
 	printf("\n");
 }

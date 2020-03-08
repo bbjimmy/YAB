@@ -46,19 +46,27 @@ public:
 								B_FRAME_EVENTS | B_NAVIGABLE);
 						~YabTabView();
 
-virtual const char* 		GetTabName(int32 index) const;
+virtual const char* 	GetTabName(int32 index) const;
 
 virtual	void			AddTab(BView *target, const char* tabname);
-
-virtual	void				Select(int32 index);
-virtual	void				MakeFocus(bool focused = true);
-virtual	void				SetFocusTab(int32 tab, bool focused);
-
+virtual	void			Select(int32 index);
+virtual	void			MakeFocus(bool focused = true);
+virtual	void			RemovingTab(int32 index);
+virtual	void			SetFocusTab(int32 tab, bool focused);
+		void 			PrintOut();
+		void		 	FindTabName(const char* tabname);
 		int32			FocusChanged;
 		int32			OldTabView;
 
+//void					MoveTab(int32 index, int32 newIndex);
 private:
 		BList			*fTabNames;
+		
+		int32				fSelection;
+		int32				fInitialSelection;
+		int32				fFocus;
+		
+		
 };
 //------------------------------------------------------------------------------
 

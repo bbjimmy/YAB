@@ -26,7 +26,7 @@ can be found at www.yabasic.de
 /* ------------- defines ---------------- */
 
 #define DONE {current=current->next;break;}  /* reduces type-work */
-#define COPYRIGHT "  Original yabasic Copyright 1995-2006 by Marc-Oliver Ihm\n\tyab improvements Copyright 2006-2014 by Jan Bungeroth\n\tyab improvements Copyright 2013-2018 by Jim Saxton\n\tyab improvements Copyright 2018 by BeSly Software Solutions (Thanks to Stephan Aßmus for Correction of Code)\n"
+#define COPYRIGHT "  Original yabasic Copyright 1995-2006 by Marc-Oliver Ihm\n\tyab Copyright 2006-2014 by Jan Bungeroth\n\tyab improvements Copyright 2013-2020 by Jim Saxton\n\tyab improvements Copyright 2018-2020 by BeSly Software Solutions\n\t\t(Thanks to Stephan Aßmus for Correction of Code)\n"
 #define BANNER \
 "\n        yab is yabasic, a BASIC programming language for Haiku.\n        This is version " VERSION ", built on "\
 ARCHITECTURE " on " BUILD_TIME "\n\n      " COPYRIGHT "\n\n"
@@ -1499,6 +1499,8 @@ static void run_it(YabInterface* yab)
       	radioset(current, yab); DONE;
       case cTOOLTIP:
         tooltip(current, yab); DONE;
+      case cTOOLTIPNEW:
+        tooltipnew(current, yab); DONE;
       case cTOOLTIPCOLOR:
         tooltipcolor(current, yab); DONE;
       case cFILEBOX:
@@ -1563,6 +1565,8 @@ static void run_it(YabInterface* yab)
       	soundstop(current, yab); DONE;
       case cSOUNDWAIT:
       	soundwait(current, yab); DONE;
+      case cMEDIASOUNDSTOP:
+      	mediasoundstop(current, yab); DONE;
       case cSHORTCUT:
         shortcut(current, yab); DONE;
       case cTREEBOX13:

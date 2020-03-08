@@ -113,9 +113,9 @@ void report_missing(int severity,char *text) {
 %token tBUTTON tALERT tMENU tCHECKBOX tRADIOBUTTON tTEXTCONTROL
 %token tLISTBOX tDROPBOX tADD tREMOVE tLOCALIZE tFILEPANEL tSLIDER tSTATUSBAR
 %token tLAYOUT tSET tTEXTEDIT tCOUNT tVIEW tBOXVIEW tTABVIEW tTEXTURL tBITMAP tCANVAS
-%token tOPTION tDROPZONE tCOLORCONTROL tTREEBOX tCOLUMNBOX tCOLUMN tSORT tTOOLTIP tCALENDAR
+%token tOPTION tDROPZONE tCOLORCONTROL tTREEBOX tCOLUMNBOX tCOLUMN tSORT tTOOLTIP tTOOLTIPNEW tCALENDAR
 %token tCLIPBOARD tCOPY tSUBMENU tSELECT tSCROLLBAR tEXPAND tCOLLAPSE tSPLITVIEW tSTACKVIEW
-%token tPOPUPMENU tSPINCONTROL tMSEND tNUMMESSAGE tTHREAD tSOUND tPLAY tSTOP tSHORTCUT tISCOMPUTERON
+%token tPOPUPMENU tSPINCONTROL tMSEND tNUMMESSAGE tTHREAD tSOUND tPLAY tSTOP tMEDIASOUND tSHORTCUT tISCOMPUTERON
 %token tDRAW tTEXT tFLUSH tELLIPSE tSAVE
 %token tRECT tGETCHAR tPUTCHAR tNEW tCURVE tLAUNCH tATTRIBUTE
 
@@ -326,6 +326,7 @@ statement:  /* empty */
   | tCHECKBOX tSET string_expression ',' expression {add_command(cCHECKBOXSET,NULL);} 
   | tRADIOBUTTON tSET string_expression ',' expression {add_command(cRADIOSET,NULL);} 
   | tTOOLTIP string_expression ',' string_expression {add_command(cTOOLTIP,NULL);}
+  | tTOOLTIPNEW string_expression ',' string_expression ',' string_expression ',' expression ',' expression ',' expression  {add_command(cTOOLTIPNEW,NULL);}
   | tTOOLTIP tCOLOUR string_expression ',' expression ',' expression ',' expression  {add_command(cTOOLTIPCOLOR,NULL);}
   | tLISTBOX tSORT string_expression {add_command(cLISTSORT,NULL);}
   | tTREEBOX tSORT string_expression {add_command(cTREESORT,NULL);}
@@ -359,7 +360,9 @@ statement:  /* empty */
   | tSOUND tSTOP expression {add_command(cSOUNDSTOP,NULL);}
   | tSOUND tSTOP '(' expression ')' {add_command(cSOUNDSTOP,NULL);}
   | tSOUND tWAIT expression {add_command(cSOUNDWAIT,NULL);}
-  | tSOUND tWAIT '(' expression ')' {add_command(cSOUNDWAIT,NULL);}
+  | tSOUND tWAIT '(' expression ')' {add_command(cSOUNDWAIT,NULL);} 
+  | tMEDIASOUND tSTOP expression {add_command(cMEDIASOUNDSTOP,NULL);}
+  | tMEDIASOUND tSTOP '(' expression ')' {add_command(cMEDIASOUNDSTOP,NULL);}
   | tSPLITVIEW coordinates to coordinates ',' string_expression ',' expression ',' expression ',' string_expression {add_command(cSPLITVIEW1,NULL);}
   | tSPLITVIEW tSET string_expression ',' string_expression ',' expression {add_command(cSPLITVIEW2,NULL);}
   | tSPLITVIEW tSET string_expression ',' string_expression ',' expression ',' expression {add_command(cSPLITVIEW3,NULL);}
@@ -628,6 +631,7 @@ function: tSIN '(' expression ')' {create_function(fSIN);}
   | tTHREAD tGETNUM string_expression ',' string_expression {create_function(fTHREADGET);}
   | tPRINTER string_expression ',' string_expression ',' string_expression {create_function(fPRINTER);}
   | tSOUND tPLAY string_expression {create_function(fSOUND);}
+  | tMEDIASOUND tPLAY string_expression {create_function(fMEDIASOUND);}
   | tISCOMPUTERON {create_function(fISCOMPUTERON);}
   | tLISTBOX tGETNUM string_expression {create_function(fLISTBOXGETNUM);}
   | tDROPBOX tGETNUM string_expression {create_function(fDROPBOXGETNUM);}

@@ -36,6 +36,7 @@ const uint32 YABFILEBOXINVOKE           = 'YBfi';
 const uint32 YABSPINCONTROL		= 'YBsp';
 const uint32 YABSHORTCUT		= 'YBsh';
 
+
 YabWindow::YabWindow(BRect frame, const char* title, const char* id, window_look winlook, window_feel winfeel, uint32 flags)
 	: BWindow (frame, title, winlook, winfeel, flags)
 {

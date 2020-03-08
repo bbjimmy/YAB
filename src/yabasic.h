@@ -300,7 +300,7 @@ enum functions { /* functions in yabasic (sorted by number of arguments) */
   fLTRIM,fRTRIM,fTRIM,fCHR,fTRANSLATE,fMENUTRANSLATE,fMOUSE, fISMOUSEIN,fTEXTCONTROLGET,
   fKEYBOARD,fCOLUMNBOXCOUNT, fCALENDAR, fLISTBOXCOUNT, fTREEBOXCOUNT, fSTACKVIEWGET,
   fSPINCONTROLGET, fDROPBOXCOUNT, fSLIDERGET, fTEXTGET, fDRAWGET3, fTABVIEWGET,
-  fLISTBOXGETNUM, fDROPBOXGETNUM, fCOLUMNBOXGETNUM, fTREEBOXGETNUM, fSOUND,
+  fLISTBOXGETNUM, fDROPBOXGETNUM, fCOLUMNBOXGETNUM, fTREEBOXGETNUM, fSOUND, fMEDIASOUND,
   fONEARGS, 
   fDEC2,fATAN2,fLEFT,fAND,fOR,fEOR,fLOG2,
   fRIGHT,fINSTR,fRINSTR,fSTR2,fMOD,fMIN,fMAX,fPEEK3,fMID2,fWINDOWGET, fVIEWGET /* vasper */,
@@ -378,7 +378,7 @@ enum cmd_type { /* type of command */
   cVIEW, cBOXVIEW, cBOXVIEWSET, cTAB, cSLIDER1, cSLIDER2, cSLIDER3, cSLIDER4, cSLIDER5, cSLIDER6,
   cOPTION1, cOPTION2, cOPTION3, cDROPZONE, cTEXTCONTROL2, cTEXTCONTROL3, cTEXTCONTROL4, cTEXTCONTROL5, 
   cCOLORCONTROL1, cCOLORCONTROL2, cTREEBOX1, cTREEBOX2, cTREEBOX3, cTREEBOX4, cTREEBOX5,
-  cBUTTONIMAGE, cCHECKBOXIMAGE, cCHECKBOXSET, cRADIOSET, cTOOLTIP, cTOOLTIPCOLOR, cTREESORT,
+  cBUTTONIMAGE, cCHECKBOXIMAGE, cCHECKBOXSET, cRADIOSET, cTOOLTIP, cTOOLTIPNEW, cTOOLTIPCOLOR, cTREESORT,
   cLISTSORT, cFILEBOX, cFILEBOXADD2, cFILEBOXCLEAR, cCOLUMNBOXREMOVE,
   cCOLUMNBOXSELECT, cCOLUMNBOXADD, cDROPBOXSELECT, cMENU2, cSUBMENU1, cSUBMENU2, cCLIPBOARDCOPY,
   cCOLUMNBOXCOLOR, cPRINTERCONFIG, cCALENDAR, cLISTBOXSELECT, cLISTBOXADD1, cLISTBOXADD2, 
@@ -389,7 +389,7 @@ enum cmd_type { /* type of command */
   cDOT, cLINE, cCIRCLE,  cDRAWTEXT, cDRAWRECT, cTREEBOX12, cOPTION4, cOPTION5,
   cDRAWCLEAR, cDRAWSET1, cDRAWSET2, cELLIPSE, cCURVE,   /* Drawing */
   cBITMAP, cBITMAPDRAW, cBITMAPDRAW2, cBITMAPGET, cBITMAPGET2, cBITMAPGETICON, cBITMAPDRAG, cBITMAPREMOVE, cCANVAS, /* Bitmaps */
-  cSOUNDSTOP, cSOUNDWAIT, /* Sound */
+  cSOUNDSTOP, cSOUNDWAIT, cMEDIASOUNDSTOP, /* Sound */
   cTREEBOX13, cDRAWSET4, cSHORTCUT, cMOUSESET,
   cSCREENSHOT, cSTATUSBAR, cSTATUSBARSET, cSTATUSBARSET2, cSTATUSBARSET3, cLAUNCH, cRESTORE2, cRESTORE3,
   cATTRIBUTE1, cATTRIBUTE2, cATTRIBUTECLEAR,
@@ -657,6 +657,7 @@ void checkboximage(struct command *, YabInterface *yab);
 void checkboxset(struct command *, YabInterface *yab);
 void radioset(struct command *, YabInterface *yab);
 void tooltip(struct command *, YabInterface *yab);
+void tooltipnew(struct command *, YabInterface *yab);
 void tooltipcolor(struct command *, YabInterface *yab);
 void listsort(struct command *, YabInterface *yab);
 void treesort(struct command *, YabInterface *yab);
@@ -758,6 +759,8 @@ void drawset4(struct command *, YabInterface *yab);
 int sound(const char*, YabInterface *yab, int line, const char* libname);
 void soundstop(struct command *, YabInterface *yab);
 void soundwait(struct command *, YabInterface *yab);
+int mediasound(const char*, YabInterface *yab, int line, const char* libname);
+void mediasoundstop(struct command *, YabInterface *yab);
 void shortcut(struct command *, YabInterface *yab);
 int iscomputeron(YabInterface *yab, int line, const char* libname);
 void mouseset(struct command *, YabInterface *yab);

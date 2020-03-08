@@ -17,6 +17,7 @@ public:
 	const int CountItems();
 	const void* ItemAt(int i);
 	void PrintOut();
+	
 private:
 	int ViewNum(const char* id);
 	BList* idList;

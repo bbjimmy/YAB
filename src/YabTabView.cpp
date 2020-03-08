@@ -35,6 +35,7 @@
 #include <stdio.h>
 #include "YabTabView.h"
 
+
 YabTabView::YabTabView(BRect frame, const char* name, button_width width, uint32 resizingMode, uint32 flags)
 	: BTabView(frame, name, width, resizingMode, flags)
 {
@@ -68,6 +69,7 @@ void YabTabView::AddTab(BView *tabView, const char* label)
 		tabView->Hide();
 
 		fTabNames->AddItem(new BString(label));
+		
 	}
 }
 
@@ -111,6 +113,60 @@ void YabTabView::SetFocusTab(int32 tab, bool focused)
 	BTabView::SetFocusTab(tab, focused);
 }
 
+void YabTabView::RemovingTab(int32 index)
+{
+	 BTabView::RemoveTab(index);
+}
+/*
+void YabTabView::RemovingTab(int32 index, bool focused)
+{
+	int oldindex=index;
+	int index_a;
+	int tab;
+	if (index < 0 || index >= CountTabs())
+		return NULL;
+		BTab* tab = (BTab*)fTabNames->RemoveItem(index);
+		if (tab==NULL)
+		return NULL;
+		
+		tab->Deselect();
+		BTab::Private(tab).SetTabView(Null);
+		if (fContainerView->GetLayout())
+			fContainerView->GetLayout()->RemoveItem(index);
+			if (CountTabs()==0)
+				fFocus = -1;
+			else if (index <= fSelection)
+				Select (fSelection-1);
+			if (fFocus >=0) {
+				if(fFocus == CountTabs() -1 || CountTabs() == 0)
+					BTabView::Select(f.Focus, false);
+				else
+					BTabView::Select(f.Focus, true);	
+		}
+		return tab;
+		BTabView::RemoveTab(oldindex);
+		BTabView::Select(1);
+	
+	
+	BTab* tab = TabAt(index);
+	if (tab) 
+	{
+		FocusChanged = index;
+	}
+
+	int32 prevSelected = 1; //Selection();
+	RemoveChild(tab->View());
+	tab->View()->Show();
+	BTabView::Select(index);
+	if(prevSelected > -1) {
+		BTab* prevTab = TabAt(prevSelected);  //prevSelected);
+		prevTab->View()->Hide();
+		AddChild(prevTab->View());
+	}
+}	
+	*/
+
+
 const char* YabTabView::GetTabName(int32 index) const
 {
 	if(index < 0 || index >= CountTabs())
@@ -118,3 +174,46 @@ const char* YabTabView::GetTabName(int32 index) const
 
 	return ((BString*)fTabNames->ItemAt(index))->String();
 }
+void YabTabView::PrintOut()
+{
+	//printf("\n %d",fTabNames->CountItems());
+	if (fTabNames->CountItems()==0)
+		{
+		}
+	else if(fTabNames->CountItems()>0)
+	{
+		printf("\n");
+		for(int i=0; i<fTabNames->CountItems(); i++)
+			printf("\t View %s and the id %d\n", ((BString*)(fTabNames->ItemAt(i)))->String() , fTabNames->ItemAt(i));
+		printf("\n");
+	}
+}
+void YabTabView::FindTabName(const char* tabname )
+{
+	BString test = NULL;
+	//printf("\n %d",fTabNames->CountItems());
+	if (fTabNames->CountItems()<=0)
+		{
+			//return NULL; 
+		}
+	else if(fTabNames->CountItems()>0)
+	{
+		//printf("%s \n", tabname);
+		for(int i=0; i<fTabNames->CountItems(); i++)
+		{
+			printf("%s\n", ((BString*)(fTabNames->ItemAt(i)))->String());
+			test=((BString*)(fTabNames->ItemAt(i)))->String();
+			
+			if (test == tabname)			
+			{
+				//printf("stimmt"); 
+				printf("%s %d",test,i );
+				printf("\n");
+				//return tabname;
+				//return true;
+			}
+		}
+		//printf("\n");		
+	}	
+}
+

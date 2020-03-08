@@ -13,7 +13,7 @@
 	#include "YabList.h"
 	#include "global.h"
 	#include "config.h"
-
+	#include <FileGameSound.h>
 	class YabInterface : public BApplication
 	{
 	public:
@@ -122,6 +122,7 @@
 		void CheckboxSet(const char* id, int isActivated);
 		void RadioSet(const char* id, int isActivated);
 		void ToolTips(const char* view, const char* text);
+		void ToolTipsNew(const char* view, const char* text, const char* color, int r, int g, int b);
 		void ToolTipsColor(const char* color, int r, int g, int b);
 		void TreeSort(const char* view);
 		void ListSort(const char* view);
@@ -215,8 +216,10 @@
 		int BitmapSave(const char* id, const char* filename, const char* type);
 		void Canvas(BRect frame, const char* id, const char* view);
 		int Sound(const char* filename);
-		void SoundStop(int32 id);
-		void SoundWait(int32 id);
+		int SoundStop(int32 id); 
+		int SoundWait(int32 id);
+		int MediaSound(const char* filename);
+		int MediaSoundStop(int32 finished); 
 		int IsComputerOn();
 		void ShortCut(const char* view, const char* key, const char* msg);
 		void DrawSet(const char* option, const char* color,const char* view);
@@ -242,8 +245,10 @@
 		void StatusBarSet(BRect frame, const char* id, const char* view);
 		void StatusBarSet(const char* id, int r, int g, int b);
 		void RefsReceived(BMessage *message);
-
+		
 	private:
+		BFileGameSound* fPlayer;
+		int status;
 		void RemoveView(BView* myView);
 		void GetMMsgInfo(BString &t, int mouseStateInfo, int mouseLButton, int mouseMButton, int mouseRButton, int x, int y, const char* name);
 		BBitmap* loadImage(const char* name);
@@ -276,6 +281,7 @@
 		BList *yabbitmaps;
 		BList *yabcanvas;
 		BString lastMouseMsg;
+		
 	};
 #else
 	typedef
@@ -389,6 +395,7 @@ extern void yi_CheckboxSet(const char* id, int isActivated, YabInterface* yab);
 extern void yi_RadioSet(const char* id, int isActivated, YabInterface* yab);
 extern const char* yi_TextControlGet(const char* id, YabInterface* yab);
 extern void yi_ToolTip(const char* view, const char* text, YabInterface *yab);
+extern void yi_ToolTipNew(const char* view, const char* text, const char* color, int r, int g, int b, YabInterface *yab);
 extern void yi_ToolTipColor(const char* color, int r, int g, int b, YabInterface *yab);
 extern void yi_TreeSort(const char* view, YabInterface *yab);
 extern void yi_ListSort(const char* view, YabInterface *yab);
@@ -489,8 +496,10 @@ extern void yi_Screenshot(double x1, double y1, double x2, double y2, const char
 extern int yi_BitmapSave(const char* id, const char* filename, const char* type, YabInterface* yab);
 extern void yi_Canvas(double x1, double y1, double x2, double y2, const char* id, const char* view, YabInterface *yab);
 extern int yi_Sound(const char* filename, YabInterface* yab);
-extern void yi_SoundStop(int id, YabInterface* yab);
-extern void yi_SoundWait(int id, YabInterface* yab);
+extern int yi_SoundStop(int id, YabInterface* yab);
+extern int yi_SoundWait(int id, YabInterface* yab);
+extern int yi_MediaSound(const char* filename, YabInterface* yab);
+extern int yi_MediaSoundStop(int id, YabInterface* yab);
 extern int yi_IsComputerOn(YabInterface* yab);
 extern void yi_ShortCut(const char* view, const char* key, const char* msg, YabInterface* yab);
 extern void yi_DrawSet4(const char* option, const char* color,const char* view, YabInterface* yab);

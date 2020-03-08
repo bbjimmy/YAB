@@ -52,7 +52,7 @@ const uint8 url_cursor[] = { 16, 1, 1, 2,
 // The default link color, blue.
 const rgb_color blue =		{ 0, 0, 255 };
 // The default clicked-link color, red.
-const rgb_color red  =		{ 255, 0, 0 };
+const rgb_color dark_green  = { 107, 142, 035 };
 // The default link hover color, dark blue.
 const rgb_color dark_blue =	{ 0, 0, 120 };
 // The default disabled color, gray.
@@ -92,7 +92,16 @@ class URLView : public BStringView {
 		virtual void			SetIconSize( icon_size iconSize );
 		virtual void			SetUnderlineThickness( int thickness );
 		virtual void			SetURL( const char *url );
-		
+		//virtual void MouseMoved(BPoint point, uint32 transit, const BMessage *message);
+          //      virtual void MouseUp(BPoint point);
+             //   virtual void MouseDown(BPoint point);
+                int mouseStateInfo;
+                int mouseMovedInfo;
+                int mouseX;
+                int mouseY;
+                uint mouseLButton;
+                uint mouseMButton;
+                uint mouseRButton;
 		
 	private:
 		void					CopyToClipboard();
@@ -130,6 +139,8 @@ class URLView : public BStringView {
 		BPoint					dragOffset;
 		BList					*attributes;
 		
+		
+		int prevMouseStateInfo;
 		typedef struct kp {
 			BString *key;
 			BString *value;

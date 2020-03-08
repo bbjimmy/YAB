@@ -46,7 +46,7 @@ URLView::URLView( BRect frame, const char *name, const char *label,
 	
 	// Set the default values for the other definable instance variables.
 	this->color = blue;
-	this->clickColor = red;
+	this->clickColor = dark_green;
 	this->hoverColor = dark_blue;
 	this->disabledColor = gray;
 	this->hoverEnabled = true;
@@ -120,6 +120,7 @@ void URLView::AttachedToWindow() {
 
 
 void URLView::Draw( BRect updateRect ) {
+	
 	BRect rect = Frame();
 	rect.OffsetTo( B_ORIGIN );
 
@@ -157,6 +158,7 @@ void URLView::Draw( BRect updateRect ) {
 	// Note:  DrawString() draws the text at one pixel above the pen's
 	//		  current y coordinate.
 	DrawString( Text() );
+	
 }
 
 
@@ -166,14 +168,17 @@ void URLView::MessageReceived( BMessage *message )
 	entry_ref ref;
 	switch (message->what)
 	{
+		
 		case 'DDCP':
 		{
+		
 	// Is this a message from Tracker in response to our drag-and-drop?
 	//if( message->what == 'DDCP' ) {
 		// Tracker will send back the name and path of the created file.
 		// We need to read this information.
 		entry_ref ref;
 		message->FindRef( "directory", &ref );
+		
 		BEntry entry( &ref );
 		BPath path( &entry );
 		BString *fullName = new BString( path.Path() );
@@ -189,9 +194,11 @@ void URLView::MessageReceived( BMessage *message )
 		
 		delete fullName;
 		delete title;
+		
 		}
 	break;
 		default:
+			
 			BView::MessageReceived(message);
 			break;
 	}
@@ -211,8 +218,7 @@ void URLView::MouseDown( BPoint point ) {
 	// if the user clicks on the link text itself and not just
 	// anywhere in the view.
 	if( GetTextRect().Contains( point ) ) {
-		SetHighColor( clickColor );
-		Redraw();
+		SetHighColor( clickColor );		
 		
 		// Set the link as selected and track the mouse.
 		selected = true;
@@ -233,13 +239,14 @@ void URLView::MouseDown( BPoint point ) {
 		// Pop up the context menu?
 		if( buttons == B_SECONDARY_MOUSE_BUTTON ) inPopup = true;
 	}
+	//Redraw();
 }
 
 
 
 void URLView::MouseMoved( BPoint point, uint32 transit,
 						  const BMessage *message ) {
-						  
+					  
 	// If the link isn't enabled, don't do anything.				  
 	if( !IsEnabled() )
 		return;
@@ -252,9 +259,10 @@ void URLView::MouseMoved( BPoint point, uint32 transit,
 	// Is the user currently dragging the link?  (i.e. is a mouse button
 	// currently down?)
 	bool alreadyDragging = (buttons != 0);
-
+	
 	switch( transit ) {
 		case( B_ENTERED_VIEW ):
+			
 			// Should we set the cursor to the link cursor?
 			if( GetTextRect().Contains( point )  &&  !draggedOut ) {
 				if( !alreadyDragging ) be_app->SetCursor( linkCursor );
@@ -264,13 +272,13 @@ void URLView::MouseMoved( BPoint point, uint32 transit,
 				// the link.
 				if( selected ) {
 					SetHighColor( clickColor );
-					Redraw();
+					//Redraw();
 				}
 				// Should we hover-highlight the link?
 				else if( hoverEnabled  &&  !alreadyDragging ) {
 					if( buttons == 0 ) {
 						SetHighColor( hoverColor );
-						Redraw();
+						//Redraw();
 						hovering = true;
 					}
 				}	
@@ -284,11 +292,11 @@ void URLView::MouseMoved( BPoint point, uint32 transit,
 			if( selected  &&  !draggedOut ) {
 				be_app->SetCursor( B_HAND_CURSOR );
 				SetHighColor( color );
-				Redraw();
+				//Redraw();
 				
 				// Is the user drag-and-dropping a bookmark or person?
 				if( draggable ) {
-					draggedOut = true;
+					// = true;
 					if( IsEmailLink() )	DoPersonDrag();
 					else DoBookmarkDrag();
 				}
@@ -298,20 +306,23 @@ void URLView::MouseMoved( BPoint point, uint32 transit,
 			else if( hovering  &&  !alreadyDragging ) {
 				be_app->SetCursor( B_HAND_CURSOR );
 				SetHighColor( color );
-				Redraw();
+				//Redraw();
 				hovering = false;
 			}
 			// Change the cursor back to the hand.
 			else {
 				be_app->SetCursor( B_HAND_CURSOR );
 			}
+			
 			break;
 
 		case( B_INSIDE_VIEW ):
 			// The user could either be moving out of the view or
 			// back into it here, so we must handle both cases.
 			// In the first case, the cursor is now over the link.
+			
 			if( GetTextRect().Contains( point )  &&  !draggedOut ) {
+			
 				// We only want to change the cursor if not dragging.						
 				if( !alreadyDragging ) be_app->SetCursor( linkCursor );
 				if( selected ) {
@@ -327,7 +338,7 @@ void URLView::MouseMoved( BPoint point, uint32 transit,
 							if( IsEmailLink() ) DoPersonDrag();
 							else DoBookmarkDrag();
 							SetHighColor( color );
-							Redraw();
+							//Redraw();
 						}
 					}
 					else {
@@ -336,14 +347,14 @@ void URLView::MouseMoved( BPoint point, uint32 transit,
 						// has the mouse cursor over it (like a standard
 						// button).
 						SetHighColor( clickColor );
-						Redraw();
+						//Redraw();
 					}
 				}
 				// The link isn't currently selected?  If hover-highlighting
 				// is enabled, highlight the link.
 				else if( hoverEnabled  && !alreadyDragging ) {
 					SetHighColor( hoverColor );
-					Redraw();
+					//Redraw();
 					hovering = true;
 				}
 			}
@@ -353,7 +364,7 @@ void URLView::MouseMoved( BPoint point, uint32 transit,
 				be_app->SetCursor( B_HAND_CURSOR );
 				if( selected ) {
 					SetHighColor( color );
-					Redraw();
+					
 					
 					// Is the user dragging the link?
 					if( draggable ) {
@@ -365,9 +376,10 @@ void URLView::MouseMoved( BPoint point, uint32 transit,
 				// Is the mouse cursor hovering over the link?
 				else if( hovering ) {
 					SetHighColor( color );
-					Redraw();
+					//Redraw();
 					hovering = false;
 				}
+				
 			}
 			break;
 	}
@@ -406,7 +418,7 @@ void URLView::MouseUp( BPoint point ) {
 			// If not, restore the normal link color.
 			else {
 				SetHighColor( color );
-				Redraw();
+				
 			}
 		}
 
@@ -426,8 +438,11 @@ void URLView::MouseUp( BPoint point ) {
 		!inPopup  &&  hoverEnabled ) {
 		SetHighColor( hoverColor );
 	}
-	else if( !hovering ) SetHighColor( color );
-	Redraw();
+	else if( !hovering ) 
+	{
+		SetHighColor( color );
+	}
+	
 }
 
 
@@ -439,7 +454,7 @@ void URLView::WindowActivated( bool active ) {
 	if( !active ) {
 		if( IsEnabled() ) {
 			SetHighColor( color );
-			Redraw();
+			//Redraw();
 		}
 	}
 }
@@ -691,7 +706,7 @@ BPopUpMenu * URLView::CreatePopupMenu() {
 	returnMe->SetAsyncAutoDestruct( true );
 	
 	entry_ref app;
-
+	
 	// Set the text of the first item according to the link type.	
 	if( IsEmailLink() ) {
 		// Find the name of the default e-mail client.
@@ -960,9 +975,8 @@ BString URLView::GetImportantURL() {
 	return returnMe;
 }
 
-
-
 BRect URLView::GetTextRect() {
+	
 	// This function will return a BRect that contains only the text
 	// and the underline, so the mouse can change and the link will
 	// be activated only when the mouse is over the text itself, not
@@ -1017,6 +1031,7 @@ BRect URLView::GetTextRect() {
 
 
 BRect URLView::GetURLRect() {
+	//Redraw();
 	// This function will return a BRect that contains only the URL
 	// and the underline, so we can draw it when the user drags.
 	// We'll use GetFontHeight() instead of bounding boxes here
@@ -1064,8 +1079,6 @@ bool URLView::IsHTMLLink() {
 			(url->FindFirst( "file://" ) == 0 )  ||
 			(url->FindFirst( "https://" ) == 0 ) );
 }
-
-
 
 void URLView::LaunchURL() {
 	// Is the URL a mail link or HTTP?
@@ -1118,15 +1131,12 @@ void URLView::LaunchURL() {
 	// We don't know how to handle anything else.
 }
 
-
-
 void URLView::Redraw() {
 	// Redraw the link without flicker.
 	BRect frame = Frame();
-	frame.OffsetTo( B_ORIGIN );
+	frame.OffsetTo(0,0 );
 	Draw( frame );
 }
-
 
 void URLView::WriteAttributes( int fd ) {
 	// Write the developer-defined attributes to the newly-created file.

@@ -1005,6 +1005,11 @@ void function(struct command *current,YabInterface* yab) /* performs a function 
     value = sound(str, yab, linenum, current->lib->s);
     result = stNUMBER;
     break;
+  case fMEDIASOUND:
+    str=a1->pointer;
+    value = mediasound(str, yab, linenum, current->lib->s);
+    result = stNUMBER;
+    break;
   case fTREEBOXGETOPT:
     str=a1->pointer;
     str2=a2->pointer;

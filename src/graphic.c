@@ -1341,7 +1341,24 @@ void tooltip(struct command *cmd, YabInterface *yab)
 	yi_SetCurrentLineNumber(cmd->line, (const char*)cmd->lib->s, yab);
 	yi_ToolTip(view,text,yab);
 }
-
+void tooltipnew(struct command *cmd, YabInterface *yab)
+{
+	char *view, *text, *color;
+	int r,g,b;
+	
+	b = pop(stNUMBER)->value;
+	g = pop(stNUMBER)->value;
+	r = pop(stNUMBER)->value;
+	
+	color = pop(stSTRING)->pointer;
+	text = pop(stSTRING)->pointer;
+	view = pop(stSTRING)->pointer;
+	
+	
+		
+	yi_SetCurrentLineNumber(cmd->line, (const char*)cmd->lib->s, yab);
+	yi_ToolTipNew(view,text,color,r,g,b,yab);	
+}
 void tooltipcolor(struct command *cmd, YabInterface *yab)
 {
 	char *color;
@@ -2431,6 +2448,21 @@ void soundwait(struct command *cmd, YabInterface *yab)
 	yi_SoundWait(id, yab);
 }
 
+int mediasound(const char* filename, YabInterface *yab, int line, const char* libname)
+{
+	yi_SetCurrentLineNumber(line, libname, yab);
+	return yi_MediaSound(filename, yab);
+}
+
+void mediasoundstop(struct command *cmd, YabInterface *yab)
+{
+	int id;
+
+	id = pop(stNUMBER)->value;
+
+	yi_SetCurrentLineNumber(cmd->line, (const char*)cmd->lib->s, yab);
+	yi_MediaSoundStop(id, yab);
+}
 int iscomputeron(YabInterface *yab, int line, const char* libname)
 {
 	yi_SetCurrentLineNumber(line, libname, yab);

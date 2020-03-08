@@ -53,7 +53,7 @@ OPT = -O
 ##
 ## set libtrary name
 ##
-YABLIBRARY := libyab.so
+YABLIBRARY := libyab.so.1.7.8
 ##
 #
 
@@ -87,7 +87,7 @@ LD_OPT = -shared
 LIBPATHS = $(shell findpaths -a `getarch` B_FIND_PATH_LIB_DIRECTORY;findpaths -a `getarch` B_FIND_PATH_DEVELOP_LIB_DIRECTORY) .
 LIBPATH=$(addprefix -L,$(LIBPATHS))
 ##LIBPATH = -L`finddir B_SYSTEM_LIB_DIRECTORY` ##/boot/system/lib    
-LIB = -lbe -lroot -ltranslation -ltracker -lmedia -llocalestub
+LIB = -lbe -lroot -ltranslation -ltracker -lmedia -llocalestub -lgame
 
 ## flags for flex (-d for debugging)
 FLEXFLAGS = -i -I -L -s

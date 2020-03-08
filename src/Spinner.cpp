@@ -15,7 +15,7 @@
 #include <MessageFilter.h>
 #include <ControlLook.h>
 #include "global.h"
-
+#include <TextView.h>
 enum
 {
 	M_UP='mmup',
@@ -130,24 +130,37 @@ Spinner::Spinner(BRect frame, const char *name, const char *label, int32 min, in
 	BFont f(be_plain_font);
 	float width1 = f.StringWidth(t.String())+2;
 	float width2 = f.StringWidth(label);
-	ResizeTo(width1+width2+18+14, 14*2-2);
-	r = Bounds();
-	r.right-=14+3;
+	ResizeTo(width1+width2+30, textheight+6); //14*2-2); //+18+14 length of textcontrol
 	
-	r.bottom=r.top+textheight+8;
+	
+	r = Bounds();
+	r.right -= 14+3; //Distance between textcontrol and spinnerbutton
+
+	r.bottom=r.top+textheight+8; //+10; //Changed from 8 to 10, because the spinnerbutton look nicer
 	r.OffsetTo(0, ( (Bounds().Height()-r.Height())/2) );
 	
 	fTextControl=new BTextControl(r,"textcontrol",label,"0",new BMessage(M_TEXT_CHANGED),
 			B_FOLLOW_ALL,B_WILL_DRAW|B_NAVIGABLE);
-	AddChild(fTextControl);
-	BTextView *tview=fTextControl->TextView();
-	tview->SetAlignment(B_ALIGN_LEFT);
-	tview->SetWordWrap(false);
 	
-	fTextControl->SetDivider(width2+5);
-
+	AddChild(fTextControl);
+	
+	BTextView *tview=fTextControl->TextView();	
+	
+	tview->SetAlignment(B_ALIGN_RIGHT); //change from left to right not completed
+	tview->SetWordWrap(false); 
+	
+	if (strcmp(label, "") == 0) //check if Label was set
+			{
+				fTextControl->SetDivider(width2); 
+			}
+			else if (strcmp(label,"") != 0)
+			{
+				fTextControl->SetDivider(width2+4);
+			}
+		//fTextControl->SetDivider(width2+5);
+	//fTextControl->SetAlignment(B_ALIGN_RIGHT,B_ALIGN_RIGHT);
 	BString string("QWERTYUIOP[]\\ASDFGHJKL;'ZXCVBNM,/qwertyuiop{}| "
-		"asdfghjkl:\"zxcvbnm<>?!@#$%^&*()-_=+`~\r");
+		"asdfghjkl:\"zxcvbnm<>?!@#$%^&*()-_=+`~\r");	
 	
 	for(int32 i=0; i<string.CountChars(); i++)
 	{
@@ -156,16 +169,17 @@ Spinner::Spinner(BRect frame, const char *name, const char *label, int32 min, in
 	}
 	r=Bounds();
 	r.left=r.right-15;
-	r.bottom/=2;
+	//r.bottom/=2+4;
+	//r.top
 	
-	fUpButton=new SpinnerArrowButton(BPoint(r.left, r.top),"up",ARROW_UP);
+	fUpButton=new SpinnerArrowButton(BPoint(r.left, r.top-1),"up",ARROW_UP); //to make one line with the textcontrol
 	AddChild(fUpButton);
 
 	r=Bounds();
 	r.left=r.right-15;
-	r.top=r.bottom/2+1;
+	r.top=r.bottom/2; //remove +1 to make one line with the textcontrol
 	
-	fDownButton=new SpinnerArrowButton(BPoint(r.left, r.top-1),"down",ARROW_DOWN);
+	fDownButton=new SpinnerArrowButton(BPoint(r.left, r.top),"down",ARROW_DOWN);
 	AddChild(fDownButton);
 	
 	fStep=step;
@@ -206,6 +220,7 @@ void Spinner::SetValue(int32 value)
 	char string[50];
 	sprintf(string,"%ld",value);
 	fTextControl->SetText(string);
+	
 }
 
 void Spinner::SetViewColor(rgb_color color)
@@ -224,10 +239,12 @@ void Spinner::SetLabel(const char *text)
 
 void Spinner::ValueChanged(int32 value)
 {
+	
 }
 
 void Spinner::MessageReceived(BMessage *msg)
 {
+	
 	if(msg->what==M_TEXT_CHANGED)
 	{
 		BString string(fTextControl->Text());
@@ -241,6 +258,7 @@ void Spinner::MessageReceived(BMessage *msg)
 			Invoke();
 			Draw(Bounds());
 			ValueChanged(Value());
+			
 		}
 		else
 		{
@@ -252,6 +270,7 @@ void Spinner::MessageReceived(BMessage *msg)
 				Invoke();
 				Draw(Bounds());
 				ValueChanged(Value());
+				
 			}
 			else
 			if(newvalue>GetMax() && Value()!=GetMax())
@@ -260,17 +279,23 @@ void Spinner::MessageReceived(BMessage *msg)
 				Invoke();
 				Draw(Bounds());
 				ValueChanged(Value());
+				
+				
 			}
 			else
 			{
 				char string[100];
 				sprintf(string,"%ld",Value());
 				fTextControl->SetText(string);
+				
 			}
 		}
+	
 	}
+	
 	else
 		BControl::MessageReceived(msg);
+	
 }
 
 void Spinner::SetSteps(int32 stepsize)
