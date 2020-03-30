@@ -53,7 +53,7 @@ OPT = -O
 ##
 ## set libtrary name
 ##
-YABLIBRARY := libyab.so.1.7.8
+YABLIBRARY := libyab.so.1
 ##
 #
 
