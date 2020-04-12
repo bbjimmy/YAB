@@ -36,5 +36,5 @@ OPT = -O
 LIBPATHS = $(shell findpaths B_FIND_PATH_DEVELOP_LIB_DIRECTORY)
 LIBPATH=$(addprefix -L,$(LIBPATHS))
  
-LIB = -lyab -lbe -lroot -ltranslation -ltracker -lmedia -lz
+LIB = -lyab1 -lbe -lroot -ltranslation -ltracker -lmedia -lz
 
